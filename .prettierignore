@@ -1,0 +1,10 @@
+node_modules
+dist
+package-lock.json
+tsconfig.tsbuildinfo
+test-results
+playwright-report
+reference
+spec
+notes/balance-results.json
+test-results-production/
