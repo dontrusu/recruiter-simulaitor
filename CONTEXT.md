@@ -89,3 +89,36 @@ _Avoid_: Milestone, iteration, sprint
 The game's ending, in which the vacancy freezes and an unending candidate arrives. Deferred until a
 working game exists.
 _Avoid_: Ending, win state, game over
+
+### Physical surfaces
+
+**Room**:
+The physical office around the monitor: wall, desk, and objects that sit on or hang from them.
+1600×900 logical pixels, scaled to fit the browser viewport.
+_Avoid_: Scene, stage, background
+
+**Monitor**:
+The physical CRT sitting on the desk. Its bezel frames the Screen, and its body overlaps the desk
+surface. Beige 4:3 CRT with a 40 px bezel on every side. Its geometry is x 360–1240, y 110–790.
+_Avoid_: Display, device, terminal
+
+**Screen**:
+The 800×600 rectangle inside the Monitor bezel where all game windows and the Talent Pool live.
+It is a separate coordinate space nested inside the Room. Its geometry is x 400–1200, y 150–750.
+_Avoid_: Display, viewport, canvas
+
+**Slot**:
+A named, fixed rectangle on the Screen that holds one game window. Eight slots surround the main
+Talent.OS window (L1–L3, R1–R3, T1, B1). Slots are closed by default and open when an Upgrade
+lands in them.
+_Avoid_: Zone, position, cell
+
+**Shop**:
+The 300 px-wide panel to the right of the Room. It shows up to four Upgrade cards and does not
+scale with the Room. It is outside the Monitor entirely.
+_Avoid_: Store, market, vendor panel
+
+**Taskbar**:
+The 32 px-high bar at the bottom of the Screen (y 568–600). It holds the Start button, window
+buttons, tray icons, and the clock.
+_Avoid_: Dock, status bar, footer
