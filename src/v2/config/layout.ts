@@ -23,7 +23,7 @@ export type Placement = {
 };
 
 export const slots: Slot[] = [
-  // Screen slots around the main window (spec 6.2)
+  // Screen slots around the main window
   { id: 'L1', space: 'screen', rect: { x: 8, y: 8, w: 164, h: 160 }, reassignable: true },
   { id: 'L2', space: 'screen', rect: { x: 8, y: 176, w: 164, h: 160 }, reassignable: true },
   { id: 'L3', space: 'screen', rect: { x: 8, y: 344, w: 164, h: 160 }, reassignable: true },
@@ -33,25 +33,25 @@ export const slots: Slot[] = [
   { id: 'T1', space: 'screen', rect: { x: 180, y: 8, w: 440, h: 74 }, reassignable: false },
   { id: 'B1', space: 'screen', rect: { x: 180, y: 438, w: 440, h: 74 }, reassignable: false },
 
-  // Wall slots (spec 5.1)
+  // Wall slots
   { id: 'W1', space: 'room', rect: { x: 40, y: 80, w: 220, h: 280 }, reassignable: false },
   { id: 'W2', space: 'room', rect: { x: 1300, y: 80, w: 260, h: 220 }, reassignable: false },
   { id: 'W3', space: 'room', rect: { x: 1330, y: 330, w: 180, h: 140 }, reassignable: false },
 
-  // Desk slots (spec 5.2). D3 is deliberately absent.
+  // Desk slots. D3 is deliberately absent.
   { id: 'D1', space: 'room', rect: { x: 40, y: 540, w: 140, h: 190 }, reassignable: true },
   { id: 'D2', space: 'room', rect: { x: 200, y: 520, w: 130, h: 210 }, reassignable: true },
   { id: 'D4', space: 'room', rect: { x: 1270, y: 610, w: 100, h: 120 }, reassignable: true },
   { id: 'D5', space: 'room', rect: { x: 1390, y: 620, w: 90, h: 110 }, reassignable: true },
   { id: 'D6', space: 'room', rect: { x: 1500, y: 630, w: 80, h: 100 }, reassignable: true },
 
-  // Front-of-desk slots (spec 5.2)
+  // Front-of-desk slots
   { id: 'F1', space: 'room', rect: { x: 60, y: 770, w: 160, h: 120 }, reassignable: false },
   { id: 'F2', space: 'room', rect: { x: 1300, y: 770, w: 140, h: 110 }, reassignable: false },
   { id: 'F3', space: 'room', rect: { x: 240, y: 760, w: 100, h: 130 }, reassignable: false },
   { id: 'F4', space: 'room', rect: { x: 1460, y: 760, w: 120, h: 130 }, reassignable: false },
 
-  // Sticky-note anchors on the monitor bezel (spec 5.3), anchored by top-left corner
+  // Sticky-note anchors on the monitor bezel, anchored by top-left corner
   { id: 'N1', space: 'room', rect: { x: 430, y: 110, w: 40, h: 40 }, reassignable: false },
   { id: 'N2', space: 'room', rect: { x: 590, y: 110, w: 40, h: 40 }, reassignable: false },
   { id: 'N3', space: 'room', rect: { x: 750, y: 110, w: 40, h: 40 }, reassignable: false },
