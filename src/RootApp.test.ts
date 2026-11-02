@@ -13,6 +13,7 @@ it('renders the v2 room scene when the v2 preview query is enabled', async () =>
   const markup = renderToStaticMarkup(createElement(RootApp));
 
   expect(markup).toContain('data-camera="A"');
+  expect(markup).toContain('h-dvh w-screen');
   expect(markup).toContain('width:1600px');
 });
 
