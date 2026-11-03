@@ -29,6 +29,16 @@ it('renders the fixed chrome shell in the v2 preview', async () => {
   expect(markup).toContain('taskbar');
 });
 
+it('renders the dev camera toggle when the dev query flag is enabled', async () => {
+  vi.stubGlobal('location', { search: '?v2=1&dev=1' });
+  const { RootApp } = await import('./RootApp');
+
+  const markup = renderToStaticMarkup(createElement(RootApp));
+
+  expect(markup).toContain('Camera: A');
+  expect(markup).toContain('dev-panel');
+});
+
 it('keeps the existing app as the default without the v2 preview query', async () => {
   vi.stubGlobal('location', { search: '' });
   const { RootApp } = await import('./RootApp');
