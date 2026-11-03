@@ -14,3 +14,9 @@ The substitute is one code path with no fallback to the prototype: content, test
 only served the removed systems are deleted with them rather than kept for reference. Finding
 something valuable in the old behaviour is not a reason to keep it running — it is a reason to port
 it deliberately.
+
+The v2 workspace shell is the active application. The superseded runtime, its UI, and tests for
+removed mechanics have been deleted. Candidate names, profile fragments, skill and role data, and
+decision-copy source material remain under `spec/`; they are not active game rules and must be
+adapted to the current domain before use. `src/content/reactions.ts` keeps only reusable rejection
+and praise copy; copy for removed mechanics was removed.
