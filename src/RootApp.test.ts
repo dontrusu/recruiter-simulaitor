@@ -17,6 +17,18 @@ it('renders the v2 room scene when the v2 preview query is enabled', async () =>
   expect(markup).toContain('width:1600px');
 });
 
+it('renders the fixed chrome shell in the v2 preview', async () => {
+  vi.stubGlobal('location', { search: '?v2=1' });
+  const { RootApp } = await import('./RootApp');
+
+  const markup = renderToStaticMarkup(createElement(RootApp));
+
+  expect(markup).toContain('Talent.OS');
+  expect(markup).toContain('vacancy_panel');
+  expect(markup).toContain('shop-column');
+  expect(markup).toContain('taskbar');
+});
+
 it('keeps the existing app as the default without the v2 preview query', async () => {
   vi.stubGlobal('location', { search: '' });
   const { RootApp } = await import('./RootApp');
