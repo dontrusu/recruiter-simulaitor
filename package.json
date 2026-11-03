@@ -12,8 +12,6 @@
     "preview": "vite preview",
     "format": "prettier --write src scripts e2e *.ts *.json",
     "format:check": "prettier --check src scripts e2e *.ts *.json",
-    "simulate": "SIMULATION_SEEDS=1000 vitest run src/game/simulation.test.ts",
-    "validate:content": "vitest run src/game/content.test.ts",
     "test:production": "npm run build && playwright test --config playwright.production.config.ts",
     "check": "npm run typecheck && npm test && npm run format:check"
   },
