@@ -21,6 +21,7 @@ React 18 · TypeScript · Vite · Zustand
 ## Run
 
 ```bash
-npm install
-npm run dev
+corepack enable pnpm
+pnpm install
+pnpm run dev
 ```
