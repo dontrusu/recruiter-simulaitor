@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    lint:
+      glob: '*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}'
+      run: pnpm exec oxlint {staged_files}
+    typecheck:
+      glob: '*.{ts,tsx}'
+      run: pnpm run typecheck
+    prettier:
+      glob: '*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json,jsonc,css,scss,html,md,yml,yaml}'
+      exclude: pnpm-lock.yaml
+      run: pnpm exec prettier --check {staged_files}
+    tests:
+      run: pnpm test

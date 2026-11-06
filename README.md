@@ -16,7 +16,7 @@ See [design documents](.scratch/game-vision/) for the current specification.
 
 ## Stack
 
-React 18 · TypeScript · Vite · Zustand
+React 19 · TypeScript · Vite · Zustand
 
 ## Run
 
@@ -25,3 +25,18 @@ corepack enable pnpm
 pnpm install
 pnpm run dev
 ```
+
+## Quality checks
+
+```bash
+pnpm check
+pnpm run build
+```
+
+`pnpm check` runs TypeScript, Oxlint, Vitest, and Prettier. GitHub Actions runs
+those checks, browser tests in Chromium/Firefox/WebKit, and production browser
+tests on pushes and pull requests. The pre-commit hook runs Oxlint and Prettier
+on staged files, runs the project TypeScript check when a TypeScript file is
+staged, and runs the full Vitest suite on every commit. TypeScript checks the
+configured project as a whole, since its checks depend on the project
+configuration and related files.

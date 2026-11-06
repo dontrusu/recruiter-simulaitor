@@ -4,7 +4,7 @@ test('production renders the workspace shell without development controls by def
 }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  const response = await page.goto('http://127.0.0.1:4173/');
+  const response = await page.goto('http://127.0.0.1:4174/');
   expect(response?.ok()).toBe(true);
   await expect(page.locator('[data-camera="A"]')).toBeVisible();
   await expect(page.getByText('Talent.OS').first()).toBeVisible();
@@ -15,7 +15,7 @@ test('production renders the workspace shell without development controls by def
 });
 
 test('production build exposes the opt-in camera control', async ({ page }) => {
-  await page.goto('http://127.0.0.1:4173/?dev=1');
+  await page.goto('http://127.0.0.1:4174/?dev=1');
   const stage = page.locator('[data-camera]');
   const cameraToggle = page.getByRole('button', { name: 'Camera: A' });
   await expect(stage).toHaveAttribute('data-camera', 'A');
