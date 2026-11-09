@@ -12,4 +12,8 @@ The five canonical triage roles map 1:1 to `needs-triage`, `needs-info`, `ready-
 
 ### Domain docs
 
-Single-context: one `CONTEXT.md` plus `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+Single-context: one `GLOSSARY.md` plus `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+### Project architecture
+
+Before changing application structure, state management, or code organization, read [the architecture guide](docs/architecture.md) and relevant ADRs. Treat the guide as a living direction; discuss significant conflicts and update it when practice warrants.
