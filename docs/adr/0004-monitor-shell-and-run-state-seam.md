@@ -54,6 +54,9 @@ specification's room and screen geometry, which is newer still and more specific
 "slot-grid screen framework" phrasing is superseded for the screen, while the refactor-in-place
 half of that decision stands.
 
+ADR-0006 supersedes this decision's screen geometry, fixed outer HUD, and first-slice scope. The
+shared-store seam and the decision against a global event bus remain in force.
+
 ## Consequences
 
 The workspace stays shallow on purpose: it takes the run state and dispatches its own actions, and
