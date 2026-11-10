@@ -10,17 +10,21 @@ and code. It is a glossary and nothing else: no technical decisions, no numbers,
 ### People and the opening
 
 **Candidate**:
-A person who has applied to the vacancy. The same person can appear again and again as a fresh
-applicant — Oleg is the canonical example, returning each time with slightly more experience.
+A person who has submitted one or more Applications to the Vacancy. The same Candidate can return
+with a new Application and additional experience — Oleg is the canonical example.
 _Avoid_: Applicant, user, subject
+
+**Application**:
+A single submission by a Candidate to the Vacancy. A repeat appearance by the same Candidate is a
+new Application, not a return from the Talent Pool.
 
 **Vacancy**:
 The single role the player is recruiting for. It begins plausible and bloats as requirements are
 added to it; one candidate is reviewed against it at a time.
 
 **Mismatch**:
-The one specific gap between a candidate's experience and the vacancy's requirements. Each
-appearance has exactly one, and it is what makes a reason precise or generic.
+The one specific gap between a Candidate's experience and the Vacancy's requirements. Each
+Application has exactly one, and it is what makes a Reason precise or generic.
 
 ### Review and rejection
 
@@ -33,8 +37,8 @@ _Avoid_: Closing, declining, refusing
 The stated cause of a rejection. Reasons are the game's core choice, and there are only two kinds.
 
 **Precise reason**:
-A reason that names the candidate's mismatch, using the same skill or requirement the mismatch is
-about. Pays the most Credits.
+A Reason that names the current Application's Mismatch, using the same skill or requirement. Pays
+the most Credits.
 
 **Generic reason**:
 A corporate-sounding, unfalsifiable reason ("Not a culture fit"). Pays fewer Credits than a precise
