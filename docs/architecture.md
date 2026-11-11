@@ -14,7 +14,8 @@ Talent.OS is a single browser SPA in one package, with no monorepo or server-sid
 - Oxlint and Prettier check the code; Vitest tests modules, and Playwright tests browser scenarios.
 - Zod, Testing Library, persistence, and a seeded RNG are not added in advance; revisit them when a concrete need arises.
 
-`strict` and the core stack are already configured in the repository. `noUncheckedIndexedAccess` and `@/` are agreed target settings that are not yet present in the current configuration.
+`strict`, the core stack, and the `@/` alias are configured in the repository.
+`noUncheckedIndexedAccess` is an agreed target setting that is not yet present in the current configuration.
 
 The application has one source of truth in Zustand. Store independent facts and compute values that can be derived unambiguously. Apply each coherent game action as one state transition; view modules render the slices they need.
 
