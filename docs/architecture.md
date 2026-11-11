@@ -107,6 +107,24 @@ Upgrades do not subscribe to game actions or mutate the store through their own 
 
 Tailwind classes are the primary way to style a local view or UI primitive. One global CSS file contains the Tailwind entry point, base styles, and genuinely shared rules. Add other CSS files only for a distinct shared theme or styles that are awkward to manage locally.
 
+### shadcn/ui, design tokens, and fonts
+
+Use shadcn/ui as a source of accessible, adaptable primitives, not as a requirement to build every
+domain surface from a generic component. Domain compositions own their structure and visual
+identity; use a shadcn primitive when its semantics and behavior fit, and adapt its styles to the
+product.
+
+Keep concrete palette values in CSS custom properties, map them to semantic shadcn roles, and expose
+those roles as Tailwind utilities through Tailwind v4's `@theme inline`. Components should use role
+utilities such as background, card, foreground, border, and muted text instead of repeating hex
+values. Keep a branded accent separate when its meaning differs from shadcn's semantic `accent`
+surface/state color.
+
+Bundle application fonts locally with Fontsource packages and import their CSS once from the Vite
+entry point. Map type roles to Tailwind font-family tokens in `@theme inline`; do not add runtime
+font-CDN dependencies. Use Fontsource's default unicode-range CSS unless measurements or a concrete
+localization requirement justify custom subsets or preload hints.
+
 - `pnpm check` is the baseline local check for TypeScript, Oxlint, Vitest, and formatting.
 - `pnpm run build` checks the production build.
 - Unit tests live beside the code they test; Playwright tests live in `e2e/`.
