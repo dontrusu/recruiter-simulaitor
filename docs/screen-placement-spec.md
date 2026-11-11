@@ -2,6 +2,11 @@
 
 Version 1, October 23, 2026. This document describes where each game element sits on screen, its size and layer, and how the scene scales. It is written for a human reader and for an AI assistant that will implement the interface.
 
+For the current first visual slice, [talent-os-first-slice-spec.md](./talent-os-first-slice-spec.md)
+and [ADR-0006](./adr/0006-visual-first-screen-and-room.md) are authoritative. This broader layout
+spec describes the evolved game; where it conflicts with the first-slice spec on scope, geometry,
+HUD placement, or active Talent Pool behavior, follow the first-slice spec.
+
 ## 1. How to read this document
 
 - All sizes are in logical pixels unless stated otherwise. Coordinates are measured from the top left corner of the parent block.

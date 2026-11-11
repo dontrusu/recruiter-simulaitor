@@ -10,17 +10,21 @@ and code. It is a glossary and nothing else: no technical decisions, no numbers,
 ### People and the opening
 
 **Candidate**:
-A person who has applied to the vacancy. The same person can appear again and again as a fresh
-applicant — Oleg is the canonical example, returning each time with slightly more experience.
+A person who has submitted one or more Applications to the Vacancy. The same Candidate can return
+with a new Application and additional experience — Oleg is the canonical example.
 _Avoid_: Applicant, user, subject
+
+**Application**:
+A single submission by a Candidate to the Vacancy. A repeat appearance by the same Candidate is a
+new Application, not a return from the Talent Pool.
 
 **Vacancy**:
 The single role the player is recruiting for. It begins plausible and bloats as requirements are
 added to it; one candidate is reviewed against it at a time.
 
 **Mismatch**:
-The one specific gap between a candidate's experience and the vacancy's requirements. Each
-appearance has exactly one, and it is what makes a reason precise or generic.
+The one specific gap between a Candidate's experience and the Vacancy's requirements. Each
+Application has exactly one, and it is what makes a Reason precise or generic.
 
 ### Review and rejection
 
@@ -33,8 +37,8 @@ _Avoid_: Closing, declining, refusing
 The stated cause of a rejection. Reasons are the game's core choice, and there are only two kinds.
 
 **Precise reason**:
-A reason that names the candidate's mismatch, using the same skill or requirement the mismatch is
-about. Pays the most Credits.
+A Reason that names the current Application's Mismatch, using the same skill or requirement. Pays
+the most Credits.
 
 **Generic reason**:
 A corporate-sounding, unfalsifiable reason ("Not a culture fit"). Pays fewer Credits than a precise
@@ -82,7 +86,6 @@ _Avoid_: Stages, levels, phases
 
 **Slice**:
 An implementation milestone defined by what it proves with a player, not by feature completeness.
-Slice 1 is the manual rejection loop with Credits, Smart Reject, and Talent Pool.
 _Avoid_: Milestone, iteration, sprint
 
 **Finale**:
@@ -94,31 +97,27 @@ _Avoid_: Ending, win state, game over
 
 **Room**:
 The physical office around the monitor: wall, desk, and objects that sit on or hang from them.
-1600×900 logical pixels, scaled to fit the browser viewport.
 _Avoid_: Scene, stage, background
 
 **Monitor**:
 The physical CRT sitting on the desk. Its bezel frames the Screen, and its body overlaps the desk
-surface. Beige 4:3 CRT with a 40 px bezel on every side. Its geometry is x 360–1240, y 110–790.
+surface.
 _Avoid_: Display, device, terminal
 
 **Screen**:
-The 800×600 rectangle inside the Monitor bezel where all game windows and the Talent Pool live.
-It is a separate coordinate space nested inside the Room. Its geometry is x 400–1200, y 150–750.
+The game interface shown inside the Monitor bezel. It is a separate visual surface nested inside
+the Room.
 _Avoid_: Display, viewport, canvas
 
 **Slot**:
-A named, fixed rectangle on the Screen that holds one game window. Eight slots surround the main
-Talent.OS window (L1–L3, R1–R3, T1, B1). Slots are closed by default and open when an Upgrade
-lands in them.
+A named place on a game surface where an Upgrade can appear.
 _Avoid_: Zone, position, cell
 
 **Shop**:
-The 300 px-wide panel to the right of the Room. It shows up to four Upgrade cards and does not
-scale with the Room. It is outside the Monitor entirely.
+A purchase panel for Upgrade cards, separate from the Room and Monitor.
 _Avoid_: Store, market, vendor panel
 
 **Taskbar**:
-The 32 px-high bar at the bottom of the Screen (y 568–600). It holds the Start button, window
-buttons, tray icons, and the clock.
+The bar at the bottom of the Screen that holds the Start button, window buttons, tray icons, and
+the clock.
 _Avoid_: Dock, status bar, footer

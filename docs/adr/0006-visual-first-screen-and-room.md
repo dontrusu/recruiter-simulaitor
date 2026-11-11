@@ -1,0 +1,3 @@
+# Keep the first delivery visual-first and screen-led
+
+The first delivery proves the handoff's visual direction with a working manual rejection loop, but defers Talent Pool behavior, Praise, and upgrade effects; the Shop remains visible as a fixed 300px preview column with inactive Smart Reject and Talent Pool cards. The canonical Screen is 1440×900, scaled to 800×500 inside the 1600×900 Room, while the development camera control can inspect either composition and Culture Fit Oracle will reveal the Room in normal gameplay. This supersedes ADR-0004's screen geometry, fixed outer HUD, and first-slice scope; its shared-store seam and decision against a global event bus remain in force.

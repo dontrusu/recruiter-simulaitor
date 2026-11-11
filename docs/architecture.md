@@ -72,7 +72,7 @@ One Zustand store contains logically separated parts for run state and workspace
 
 View modules may subscribe to the store slices they need. Do not duplicate values that can be derived unambiguously from a source of truth. For example, compute camera scale, available Shop cards, and derived counts rather than storing them separately.
 
-A Rejection may change Credits, the count, the current Candidate, and the Talent Pool. It is one game action and one coherent update; the HUD, MainWindow, and Pool each render their part of the new state. Components do not call one another to synchronize these changes.
+A Rejection updates Credits, the count, and the current Application in one coherent transition; views render their part of the new state. A later slice that introduces the Talent Pool can add membership to that same transition, but the first visual slice does not retain rejected Applications. Components do not call one another to synchronize these changes.
 
 Express persistent game consequences through state. Do not add a global event bus or an `onReject`-style callback for every Upgrade in advance. If a one-off visual effect appears, choose the simplest explicit mechanism in the view layer; game rules do not call React components.
 

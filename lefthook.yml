@@ -7,7 +7,7 @@ pre-commit:
       glob: '*.{ts,tsx}'
       run: pnpm run typecheck
     prettier:
-      glob: '*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json,jsonc,css,scss,html,md,yml,yaml}'
+      glob: '*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json,jsonc,css,scss,html,yml,yaml}'
       exclude: pnpm-lock.yaml
       run: pnpm exec prettier --check {staged_files}
     tests:
