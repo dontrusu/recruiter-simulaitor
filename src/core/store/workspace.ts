@@ -17,7 +17,7 @@ const initialViewport = () =>
 
 /**
  * The shell's minimal state. Scale, transform and clip are derived from it by
- * `src/v2/engine/camera.ts` and are never stored here.
+ * `src/core/engine/camera.ts` and are never stored here.
  */
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
   viewportW: initialViewport().width,

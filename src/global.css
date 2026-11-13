@@ -3,49 +3,69 @@
 @import 'shadcn/tailwind.css';
 
 :root {
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  color: #203744;
-  background: #7a9298;
+  font-family: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
   font-synthesis: none;
-  --background: #f3efe6;
-  --foreground: #15140f;
-  --card: #fffdf8;
-  --card-foreground: #15140f;
-  --popover: #fffdf8;
-  --popover-foreground: #15140f;
-  --primary: #15140f;
-  --primary-foreground: #f3efe6;
-  --secondary: #e6e0d2;
-  --secondary-foreground: #15140f;
-  --muted: #e6e0d2;
-  --muted-foreground: #6b6657;
-  --accent: #ff5b1f;
-  --accent-foreground: #15140f;
-  --destructive: #b42318;
-  --border: #e6e0d2;
-  --input: #e6e0d2;
-  --ring: #ff5b1f;
-  --chart-1: #ff5b1f;
-  --chart-2: #6d4bd1;
-  --chart-3: #0a66c2;
-  --chart-4: #c05fd0;
-  --chart-5: #0b3f3a;
+
+  --palette-bone: #f3efe6;
+  --palette-paper: #fffdf8;
+  --palette-ink: #15140f;
+  --palette-muted-ink: #6b6657;
+  --palette-clay: #e6e0d2;
+  --palette-line: #d8d1c2;
+  --palette-orange: #ff5b1f;
+  --palette-destructive: #b42318;
+
+  --background: var(--palette-bone);
+  --foreground: var(--palette-ink);
+  --card: var(--palette-paper);
+  --card-foreground: var(--palette-ink);
+  --popover: var(--palette-paper);
+  --popover-foreground: var(--palette-ink);
+  --primary: var(--palette-ink);
+  --primary-foreground: var(--palette-bone);
+  --secondary: var(--palette-clay);
+  --secondary-foreground: var(--palette-ink);
+  --muted: var(--palette-clay);
+  --muted-foreground: var(--palette-muted-ink);
+  --accent: var(--palette-clay);
+  --accent-foreground: var(--palette-ink);
+  --destructive: var(--palette-destructive);
+  --border: var(--palette-line);
+  --input: var(--palette-line);
+  --ring: var(--palette-orange);
+  --brand: var(--palette-orange);
   --radius: 0.625rem;
-  --sidebar: #f3efe6;
-  --sidebar-foreground: #15140f;
-  --sidebar-primary: #15140f;
-  --sidebar-primary-foreground: #f3efe6;
-  --sidebar-accent: #e6e0d2;
-  --sidebar-accent-foreground: #15140f;
-  --sidebar-border: #e6e0d2;
-  --sidebar-ring: #ff5b1f;
+
+  --room-wall-light: #f1ecdf;
+  --room-wall: #e4dccb;
+  --room-wall-shadow: #d1c6b1;
+  --desk-light: #927052;
+  --desk: #73563d;
+  --desk-shadow: #543c2b;
+  --desk-highlight: #d1ad80;
+  --monitor-light: #fbf8ef;
+  --monitor: #e7dfce;
+  --monitor-shadow: #b9ad91;
+  --monitor-bezel: #b5a98b;
+  --monitor-label: #8b7f64;
+  --portrait-background: #f0a78e;
+  --portrait-skin: #d99a72;
+  --portrait-neck: #bd805e;
+  --portrait-hair: #25231e;
+  --portrait-shirt: #4a5146;
+  --portrait-ink: #28251f;
+  --paper-shadow: rgb(21 20 15 / 12%);
+
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
 }
 
 * {
@@ -63,7 +83,7 @@ button:disabled {
 
 button:focus-visible,
 summary:focus-visible {
-  outline: 3px solid #ffbd54;
+  outline: 3px solid var(--brand);
   outline-offset: 3px;
 }
 
@@ -72,9 +92,11 @@ button[data-slot='button']:focus-visible {
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --text-label: 0.6875rem;
+  --font-heading: var(--font-serif);
+  --font-sans: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -83,15 +105,11 @@ button[data-slot='button']:focus-visible {
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
+  --color-brand: var(--brand);
   --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);

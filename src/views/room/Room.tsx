@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
-import { ROOM_HEIGHT, ROOM_WIDTH } from '../../engine/camera';
-import { DESK_LINE } from '../../config/room';
-import { MonitorBody } from './MonitorBody';
+import { ROOM_HEIGHT, ROOM_WIDTH } from '@/core/engine/camera';
+import { DESK_LINE } from '@/core/config/room';
+import { Monitor } from '@/views/monitor/Monitor';
 
-const WALL = 'linear-gradient(180deg, #8c9a90 0%, #7d8c84 62%, #6b7a72 100%)';
-const DESK = 'linear-gradient(180deg, #8a6a48 0%, #6f5136 18%, #4a3524 100%)';
+const WALL =
+  'linear-gradient(180deg, var(--room-wall-light) 0%, var(--room-wall) 62%, var(--room-wall-shadow) 100%)';
+const DESK =
+  'linear-gradient(180deg, var(--desk-light) 0%, var(--desk) 18%, var(--desk-shadow) 100%)';
 
 type RoomProps = {
   /** Screen content. The App assembly passes windows and slots here. */
@@ -30,10 +32,10 @@ export function Room({ children }: RoomProps) {
       >
         <div
           className="absolute inset-x-0 top-0 h-px"
-          style={{ background: '#d8bb8c', opacity: 0.55 }}
+          style={{ background: 'var(--desk-highlight)', opacity: 0.55 }}
         />
       </div>
-      <MonitorBody>{children}</MonitorBody>
+      <Monitor>{children}</Monitor>
     </div>
   );
 }
