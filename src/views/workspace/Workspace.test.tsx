@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useWorkspaceStore } from '@/core/store/workspace';
-import { App } from './App';
+import { Workspace } from './Workspace';
 
 beforeEach(() => {
   window.history.replaceState(null, '', '/');
@@ -22,9 +22,9 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('App', () => {
+describe('Workspace', () => {
   it('shows the Screen and Shop without developer controls by default', () => {
-    render(<App />);
+    render(<Workspace />);
 
     expect(screen.getByRole('main', { name: 'Talent.OS Screen' })).toBeTruthy();
     expect(screen.getByRole('complementary', { name: 'Shop' })).toBeTruthy();
@@ -33,7 +33,7 @@ describe('App', () => {
 
   it('shows an operable camera control when developer mode is enabled', () => {
     window.history.replaceState(null, '', '/?dev=1');
-    render(<App />);
+    render(<Workspace />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Camera: A' }));
 
@@ -43,7 +43,7 @@ describe('App', () => {
 
   it('does not enable developer controls for dev=0', () => {
     window.history.replaceState(null, '', '/?dev=0');
-    render(<App />);
+    render(<Workspace />);
 
     expect(screen.queryByRole('button', { name: /camera/i })).toBeNull();
   });

@@ -91,6 +91,10 @@ button[data-slot='button']:focus-visible {
   outline: none;
 }
 
+@utility ui-label {
+  @apply font-mono text-label uppercase tracking-[0.12em] text-muted-foreground;
+}
+
 @theme inline {
   --text-label: 0.6875rem;
   --font-heading: var(--font-serif);

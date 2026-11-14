@@ -6,7 +6,7 @@ import {
   SCREEN_RECT,
 } from '@/core/engine/camera';
 
-const BODY =
+const MONITOR_BODY_BACKGROUND =
   'linear-gradient(160deg, var(--monitor-light) 0%, var(--monitor) 46%, var(--monitor-shadow) 100%)';
 
 type MonitorProps = {
@@ -17,9 +17,8 @@ type MonitorProps = {
 export function Monitor({ children }: MonitorProps) {
   return (
     <div
-      className="absolute"
+      className="absolute z-5"
       style={{
-        zIndex: 5,
         left: MONITOR_RECT.x,
         top: MONITOR_RECT.y,
         width: MONITOR_RECT.w,
@@ -28,11 +27,10 @@ export function Monitor({ children }: MonitorProps) {
     >
       {/* Stand: only the foot below the body is visible, the neck hides behind it. */}
       <div
-        className="absolute"
+        className="absolute z-0"
         style={{
-          zIndex: 0,
           left: '50%',
-          top: 580,
+          top: MONITOR_RECT.h,
           width: 420,
           height: 160,
           transform: 'translateX(-50%)',
@@ -41,10 +39,9 @@ export function Monitor({ children }: MonitorProps) {
         }}
       />
       <div
-        className="absolute inset-0 rounded-[26px]"
+        className="absolute inset-0 z-1 rounded-[26px]"
         style={{
-          zIndex: 1,
-          background: BODY,
+          background: MONITOR_BODY_BACKGROUND,
           boxShadow:
             'inset 0 2px 0 var(--monitor-light), inset 0 -3px 10px var(--monitor-shadow), 0 26px 44px rgb(21 20 15 / 24%)',
         }}
@@ -61,14 +58,12 @@ export function Monitor({ children }: MonitorProps) {
           }}
         />
         <div
-          className="absolute overflow-hidden bg-background"
+          className="absolute isolate z-1 overflow-hidden bg-background"
           style={{
-            zIndex: 1,
             left: MONITOR_BEZEL,
             top: MONITOR_BEZEL,
             width: SCREEN_RECT.w,
             height: SCREEN_RECT.h,
-            isolation: 'isolate',
             boxShadow: 'inset 0 0 24px rgb(21 20 15 / 12%)',
           }}
         >

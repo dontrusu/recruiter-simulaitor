@@ -1,4 +1,5 @@
 import { useWorkspaceStore } from '@/core/store/workspace';
+import { Button } from '@/ui/button';
 
 export function DevPanel() {
   const cameraState = useWorkspaceStore((state) => state.devCameraState);
@@ -6,13 +7,15 @@ export function DevPanel() {
 
   return (
     <div className="dev-panel pointer-events-none absolute right-4 bottom-4 z-50">
-      <button
+      <Button
         type="button"
+        variant="outline"
+        size="xs"
         onClick={toggleDevCameraState}
-        className="pointer-events-auto rounded border border-border bg-card/90 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-foreground shadow-[0_4px_12px_var(--paper-shadow)] transition hover:bg-background"
+        className="pointer-events-auto"
       >
         Camera: {cameraState}
-      </button>
+      </Button>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export function Shop() {
       style={{ width: SHOP_WIDTH }}
       aria-label="Shop"
     >
-      <h2 className="font-mono text-xs leading-[inherit] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+      <h2 className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
         Shop
       </h2>
       <div className="mt-7 space-y-5">
@@ -31,13 +31,11 @@ export function Shop() {
             key={upgrade.name}
             className="relative min-h-[250px] overflow-hidden border border-border bg-card p-6 shadow-[0_8px_24px_var(--paper-shadow)]"
           >
-            <p className="font-mono text-label uppercase tracking-[0.12em] text-muted-foreground">
-              Upgrade preview
-            </p>
+            <p className="ui-label">Upgrade preview</p>
             <h3 className="mt-6 font-serif text-[32px] leading-none tracking-[-0.05em]">
               {upgrade.name}
             </h3>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               {upgrade.description}
             </p>
             <span

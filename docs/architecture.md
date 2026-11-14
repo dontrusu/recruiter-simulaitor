@@ -27,8 +27,7 @@ This is an example of how code may be grouped, not a requirement to create every
 
 ```text
 src/
-  main.tsx                 # application entry point
-  App.tsx                  # root React component
+  App.tsx                  # application entry point and root React component
   content/                 # authored game content and catalogs
   core/
     config/                # shared technical configuration

@@ -13,14 +13,10 @@ function Counter({
 }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span className="font-mono text-xs leading-[inherit] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <dt className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
         {label}
-      </span>
-      <strong
-        className={`font-mono text-2xl leading-[inherit] font-bold ${branded ? 'text-brand' : ''}`}
-      >
-        {value}
-      </strong>
+      </dt>
+      <dd className={`font-mono text-2xl font-bold ${branded ? 'text-brand' : ''}`}>{value}</dd>
     </div>
   );
 }
@@ -43,10 +39,10 @@ export function MonitorScreen() {
             Hiring desk · Build 1.0
           </p>
         </div>
-        <div aria-label="Run counters" className="flex items-center gap-8">
+        <dl className="flex items-center gap-8">
           <Counter label="Rejected" value="14" />
           <Counter label="Credits" value="0085" branded />
-        </div>
+        </dl>
       </header>
 
       <ApplicationReview />
