@@ -11,8 +11,8 @@ Talent.OS is a single browser SPA in one package, with no monorepo or server-sid
 - React, TypeScript, Vite, Zustand, Tailwind CSS 4, and pnpm.
 - TypeScript uses `strict` and `noUncheckedIndexedAccess`.
 - Imports from `src/` use the `@/` alias, configured consistently for TypeScript and Vite.
-- Oxlint and Prettier check the code; Vitest tests modules, and Playwright tests browser scenarios.
-- Zod, Testing Library, persistence, and a seeded RNG are not added in advance; revisit them when a concrete need arises.
+- Oxlint and Prettier check the code; Vitest tests modules and components with Testing Library, and Playwright tests browser scenarios.
+- Zod, persistence, and a seeded RNG are not added in advance; revisit them when a concrete need arises.
 
 `strict`, the core stack, and the `@/` alias are configured in the repository.
 `noUncheckedIndexedAccess` is an agreed target setting that is not yet present in the current configuration.
@@ -27,20 +27,23 @@ This is an example of how code may be grouped, not a requirement to create every
 
 ```text
 src/
-  main.tsx
-  content/                # runtime content and catalog
+  App.tsx                  # application entry point and root React component
+  content/                 # authored game content and catalogs
   core/
-    config/               # shared geometry and other technical constants
-    engine/               # pure game and presentation calculations
-    store.ts              # one Zustand store with logically separated state
-  ui/                     # reusable primitives, independent of the store
+    config/                # shared technical configuration
+    engine/                # pure game and presentation calculations
+    store/                 # shared Zustand store
+  ui/                      # reusable visual primitives
   views/
-    shell/                # browser-page shell, HUD, Shop, Stage
-    scene/                # Room, Monitor, and physical room layers
-    screen/               # windows and elements inside the monitor screen
-  styles.css              # global styles, Tailwind, fonts, and base rules
-e2e/                      # Playwright scenarios
-spec/                     # material not yet adapted for runtime use
+    workspace/             # workspace composition and camera presentation
+    room/                  # physical Room and its contents
+    monitor/               # Monitor body and Screen composition
+    application-review/    # Vacancy, Application and Reasons
+    shop/                  # Shop presentation
+  upgrades/                # Upgrade modules, introduced as needed
+  global.css               # global styles, Tailwind and design tokens
+e2e/                       # Playwright scenarios
+spec/                      # material not yet adapted for runtime use
 docs/
   adr/
 ```
@@ -67,7 +70,7 @@ This contains pure calculations without React, the DOM, or direct writes to Zust
 
 Calculations accept the data they need and return a result. If randomness becomes part of the rules, make it controllable in tests; add a separate seeded RNG only for a concrete need.
 
-### `core/store.ts`
+### `core/store/`
 
 One Zustand store contains logically separated parts for run state and workspace state. The store calls rules from `core/engine/` and records a coherent next state. This is one store, not one undifferentiated collection of fields.
 
@@ -79,21 +82,23 @@ Express persistent game consequences through state. Do not add a global event bu
 
 ### `views/` and `ui/`
 
-`views/` contains React components for this application:
+`views/` contains the application’s React views, grouped by responsibility:
 
-- `shell/` composes the page and its fixed browser-window areas;
-- `scene/` contains the Room, Monitor, and physical scene elements;
-- `screen/` contains windows and elements inside the monitor screen.
+- `workspace/` composes the Room, Shop, and development controls, and handles camera presentation;
+- `room/` renders the physical Room and its contents;
+- `monitor/` renders the Monitor body and the composition of its Screen;
+- `application-review/` renders the Vacancy, current Application, and Reasons as part of the Screen;
+- `shop/` renders the Shop.
 
-These subfolders reflect different interface areas and coordinate systems, but do not impose a strict global import order. Higher-level views may compose lower-level views; avoid reverse and cyclic dependencies.
+These folders group related code; they do not have to mirror the rendered component tree. Views may compose one another, but should avoid cyclic dependencies. The Room and Screen compositions show the same game state.
 
 `ui/` is for reusable visual primitives. They receive data and handlers through props and do not read the game store. A view may be a composition-level module with enough scope to represent a coherent part of the interface. Split it when a part has independent meaning, changes independently, is reused, or is difficult to verify in place—not just because of its line count.
 
 ### Upgrades
 
-Start with a shared declarative Upgrade catalog in runtime content. Purchases go through a shared game action; rules and the interface derive their consequences from the existing state. A separate view module is needed only for an Upgrade with a unique presentation.
+Place Upgrade-specific modules in `upgrades/` when they are implemented. An Upgrade may have presentation on the Screen, in the Room, or on the Monitor. Keep the shared Upgrade catalog in runtime content; purchases go through a shared game action, and rules and views derive their consequences from the existing state.
 
-Upgrades do not subscribe to game actions or mutate the store through their own callbacks. Upgrade modules do not import one another. An entry point such as `index.ts` is useful when an Upgrade has a genuine public interface for the catalog; it is not required for every folder. Add a template and generator after a stable, repeated structure emerges.
+Upgrade modules do not subscribe to game actions, mutate the store through their own callbacks, or import one another. Add separate modules, entry points, or generators only when a concrete need emerges.
 
 ## 4. Modules, Types, and Dependencies
 
@@ -130,7 +135,7 @@ localization requirement justify custom subsets or preload hints.
 - Unit tests live beside the code they test; Playwright tests live in `e2e/`.
 - For accessibility, add axe-core scans integrated with Playwright for key screens and keyboard scenarios. Manually check screen-reader behavior for significant changes. An automated scan does not prove full conformance to a standard.
 - Review UI changes in a browser. Consider screenshot regression tests after key scenes stabilize, rather than for every UI change.
-- Add Testing Library or other testing tools only for a concrete need.
+- Add further testing tools only for a concrete need.
 
 Game persistence and Zod are outside the current scope. If persistence, import, or another runtime boundary for untrusted data appears, decide on the format and validation separately.
 
