@@ -1,6 +1,24 @@
-import { reasons } from '@/content/screen-content';
+import { useState } from 'react';
+import { applications, type Reason } from '@/content/screen-content';
+import { reasonReward } from '@/core/engine/rejection';
+import { useWorkspaceStore } from '@/core/store/workspace';
+import { ReasonButton } from './ReasonButton';
 
 export function ReasonChoices() {
+  const index = useWorkspaceStore((state) => state.run.applicationIndex);
+  const reject = useWorkspaceStore((state) => state.reject);
+  const application = applications[index] ?? applications[0];
+  const [status, setStatus] = useState('');
+
+  function chooseReason(reason: Reason) {
+    reject(reason.kind);
+    const nextIndex = useWorkspaceStore.getState().run.applicationIndex;
+    const next = applications[nextIndex] ?? applications[0];
+    setStatus(
+      `Rejection recorded. +${reasonReward(reason.kind)} EC. Next Candidate: ${next.name}.`,
+    );
+  }
+
   return (
     <section aria-labelledby="reason-heading" className="pt-6">
       <h2
@@ -10,17 +28,9 @@ export function ReasonChoices() {
         Choose a reason
       </h2>
       <ol aria-label="Reason choices" className="mt-5 space-y-3">
-        {reasons.map((reason) => (
-          <li
-            key={reason.text}
-            className={`flex min-h-[58px] items-center justify-between gap-4 rounded-full border px-5 ${
-              reason.kind === 'precise'
-                ? 'border-foreground bg-foreground text-background'
-                : 'border-border bg-card text-foreground'
-            }`}
-          >
-            <span className="text-base leading-tight">{reason.text}</span>
-            <strong className="shrink-0 font-mono text-sm text-brand">+{reason.credits}</strong>
+        {application.reasons.map((reason, slot) => (
+          <li key={slot}>
+            <ReasonButton reason={reason} onClick={() => chooseReason(reason)} />
           </li>
         ))}
       </ol>
@@ -28,6 +38,14 @@ export function ReasonChoices() {
         Precise pays more. Generic is faster.
         <br />
         Nobody’s checking.
+      </p>
+      <p
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="mt-5 min-h-12 font-mono text-xs leading-relaxed text-muted-foreground"
+      >
+        {status}
       </p>
     </section>
   );

@@ -1,5 +1,7 @@
 import { SCREEN_COMPOSITION_HEIGHT, SCREEN_COMPOSITION_WIDTH } from '@/core/engine/camera';
 
+import { useWorkspaceStore } from '@/core/store/workspace';
+
 import { ApplicationReview } from '@/views/application-review/ApplicationReview';
 
 function Counter({
@@ -22,6 +24,8 @@ function Counter({
 }
 
 export function MonitorScreen() {
+  const credits = useWorkspaceStore((state) => state.run.credits);
+  const rejected = useWorkspaceStore((state) => state.run.rejected);
   return (
     <main
       aria-label="Talent.OS Screen"
@@ -40,8 +44,8 @@ export function MonitorScreen() {
           </p>
         </div>
         <dl className="flex items-center gap-8">
-          <Counter label="Rejected" value="14" />
-          <Counter label="Credits" value="0085" branded />
+          <Counter label="Rejected" value={String(rejected)} />
+          <Counter label="Credits" value={String(credits).padStart(4, '0')} branded />
         </dl>
       </header>
 
