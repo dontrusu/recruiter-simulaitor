@@ -1,7 +1,11 @@
 import { create } from 'zustand';
+import { applications } from '@/content/screen-content';
+import { rejectApplication, type ReasonKind, type RunState } from '@/core/engine/rejection';
 import type { CameraState } from '../engine/camera';
 
 type WorkspaceStore = {
+  run: RunState;
+  reject: (kind: ReasonKind) => void;
   viewportW: number;
   viewportH: number;
   /** Dev-only camera override. Replaced later by a value derived from owning Culture Fit Oracle. */
@@ -16,10 +20,13 @@ const initialViewport = () =>
     : { width: window.innerWidth, height: window.innerHeight };
 
 /**
- * The shell's minimal state. Scale, transform and clip are derived from it by
+ * Shared run and workspace state. Scale, transform and clip are derived by
  * `src/core/engine/camera.ts` and are never stored here.
  */
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
+  run: { credits: 0, rejected: 0, applicationIndex: 0 },
+  reject: (kind) =>
+    set((state) => ({ run: rejectApplication(state.run, kind, applications.length) })),
   viewportW: initialViewport().width,
   viewportH: initialViewport().height,
   devCameraState: 'A',

@@ -1,10 +1,18 @@
-import { application, vacancy } from '@/content/screen-content';
+import { applications, vacancy } from '@/content/screen-content';
 
-function CandidatePortrait() {
+import { useWorkspaceStore } from '@/core/store/workspace';
+
+function formatExperience(months: number) {
+  const years = Math.floor(months / 12);
+  const remainder = months % 12;
+  return remainder ? `${years} yrs ${remainder} mo` : `${years} yrs`;
+}
+
+function CandidatePortrait({ name }: { name: string }) {
   return (
     <svg
       role="img"
-      aria-label={`Illustrated portrait of ${application.name}`}
+      aria-label={`Illustrated portrait of ${name}`}
       viewBox="0 0 160 180"
       className="h-[166px] w-[148px] shrink-0"
     >
@@ -37,6 +45,8 @@ function CandidatePortrait() {
 }
 
 export function CandidateCard() {
+  const index = useWorkspaceStore((state) => state.run.applicationIndex);
+  const application = applications[index] ?? applications[0];
   return (
     <article
       aria-label="Current application"
@@ -52,7 +62,7 @@ export function CandidateCard() {
       </div>
 
       <div className="flex items-center gap-6 py-6">
-        <CandidatePortrait />
+        <CandidatePortrait name={application.name} />
         <div>
           <h2 className="font-serif text-[42px] leading-[0.98] tracking-[-0.05em]">
             {application.name}
@@ -66,11 +76,11 @@ export function CandidateCard() {
       <dl className="grid grid-cols-2 gap-x-8 gap-y-5 border-y border-border py-6">
         <div>
           <dt className="ui-label">React</dt>
-          <dd className="mt-1 text-xl">{application.reactExperience}</dd>
+          <dd className="mt-1 text-xl">{formatExperience(application.reactMonths)}</dd>
         </div>
         <div>
           <dt className="ui-label">TypeScript</dt>
-          <dd className="mt-1 text-xl">{application.typescriptExperience}</dd>
+          <dd className="mt-1 text-xl">{formatExperience(application.typescriptMonths)}</dd>
         </div>
         <div>
           <dt className="ui-label">Teams led</dt>
