@@ -45,10 +45,10 @@ test('production build exposes the opt-in Room camera control', async ({ page })
   await page.goto('http://127.0.0.1:4174/?dev=1');
 
   const stage = page.locator('[data-camera]');
-  const cameraToggle = page.getByRole('button', { name: 'Camera: A' });
-  await expect(stage).toHaveAttribute('data-camera', 'A');
+  const cameraToggle = page.getByRole('button', { name: 'Camera: Screen' });
+  await expect(stage).toHaveAttribute('data-camera', 'Screen');
   await cameraToggle.click();
-  await expect(stage).toHaveAttribute('data-camera', 'B');
+  await expect(stage).toHaveAttribute('data-camera', 'Room');
   await expect
     .poll(async () => (await page.locator('[data-screen-composition]').boundingBox())?.width ?? 0)
     .toBeLessThan(800);

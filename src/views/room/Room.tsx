@@ -9,15 +9,16 @@ const DESK =
   'linear-gradient(180deg, var(--desk-light) 0%, var(--desk) 18%, var(--desk-shadow) 100%)';
 
 type RoomProps = {
-  /** Screen content. The App assembly passes windows and slots here. */
+  /** The live Screen shared by both camera compositions. */
   children?: ReactNode;
 };
 
 /** The 1600×900 office: wall, desk surface and the monitor standing on it. */
 export function Room({ children }: RoomProps) {
   return (
-    <div
-      className="absolute top-0 left-0 overflow-hidden"
+    <section
+      aria-label="Room"
+      className="absolute top-0 left-0 overflow-hidden font-sans"
       style={{ width: ROOM_WIDTH, height: ROOM_HEIGHT }}
     >
       <div className="absolute inset-0" style={{ zIndex: 0, background: WALL }} />
@@ -36,6 +37,6 @@ export function Room({ children }: RoomProps) {
         />
       </div>
       <Monitor>{children}</Monitor>
-    </div>
+    </section>
   );
 }

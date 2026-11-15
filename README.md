@@ -22,9 +22,13 @@ React 19 · TypeScript · Vite · Zustand
 
 ```bash
 corepack enable pnpm
+pnpm --version
 pnpm install
 pnpm run dev
 ```
+
+Check that `pnpm --version` matches the version in `package.json`. If it does not, put the
+directory containing the Corepack pnpm shim before any standalone pnpm in `PATH`.
 
 ## Quality checks
 

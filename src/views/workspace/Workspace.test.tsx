@@ -6,7 +6,7 @@ import { Workspace } from './Workspace';
 
 beforeEach(() => {
   window.history.replaceState(null, '', '/');
-  useWorkspaceStore.setState({ devCameraState: 'A' });
+  useWorkspaceStore.setState({ devCameraState: 'Screen' });
   vi.stubGlobal(
     'ResizeObserver',
     class {
@@ -35,9 +35,9 @@ describe('Workspace', () => {
     window.history.replaceState(null, '', '/?dev=1');
     render(<Workspace />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Camera: A' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Camera: Screen' }));
 
-    expect(screen.getByRole('button', { name: 'Camera: B' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Camera: Room' })).toBeTruthy();
     expect(screen.getByRole('main', { name: 'Talent.OS Screen' })).toBeTruthy();
   });
 

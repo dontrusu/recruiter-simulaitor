@@ -1,79 +1,95 @@
 import { expect, test } from '@playwright/test';
 
-test('renders the first-slice Screen and fixed Shop preview', async ({ page }) => {
+test('shows the review and Shop on a fresh load', async ({ page }) => {
   await page.goto('/');
 
-  const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+  await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
+  await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
+  await expect(page.getByRole('list', { name: 'Reason choices' }).getByRole('button')).toHaveCount(
+    3,
+  );
   const shop = page.getByRole('complementary', { name: 'Shop' });
-
-  await expect(screen).toBeVisible();
-  await expect(screen.getByRole('region', { name: 'Vacancy' })).toBeVisible();
-  await expect(screen.getByRole('article', { name: 'Current application' })).toBeVisible();
-  await expect(
-    screen.getByRole('list', { name: 'Reason choices' }).getByRole('listitem'),
-  ).toHaveCount(3);
-  await expect(shop.getByRole('article')).toHaveCount(2);
   await expect(shop.getByRole('heading', { name: 'Smart Reject' })).toBeVisible();
   await expect(shop.getByRole('heading', { name: 'Talent Pool' })).toBeVisible();
-  await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await expect(shop.getByRole('article')).toHaveCount(2);
+});
+
+test('Shop previews cannot be activated', async ({ page }) => {
+  await page.goto('/');
+  const shop = page.getByRole('complementary', { name: 'Shop' });
+  const credits = page.getByTestId('counter-credits');
+  const rejected = page.getByTestId('counter-rejected');
   await expect(
     shop.locator('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'),
   ).toHaveCount(0);
+  const initialCredits = await credits.innerText();
+  const initialRejected = await rejected.innerText();
+  await shop.getByRole('article').first().click();
+  await expect(credits).toHaveText(initialCredits);
+  await expect(rejected).toHaveText(initialRejected);
+});
+
+test('fresh Screen has no outer banner or taskbar', async ({ page }) => {
+  await page.goto('/');
   await expect(page.getByRole('banner')).toHaveCount(0);
   await expect(page.locator('.taskbar')).toHaveCount(0);
 });
 
-test('development controls remain hidden when the dev flag is not enabled', async ({ page }) => {
-  for (const query of ['?dev=0', '?dev=true', '?other=1']) {
+for (const query of ['', '?dev=0', '?dev=true', '?other=1']) {
+  test(`camera control is hidden for ${query || 'a fresh load'}`, async ({ page }) => {
     await page.goto(`/${query}`);
-    await expect(page.getByRole('main', { name: 'Talent.OS Screen' })).toBeVisible();
     await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
-  }
-});
+  });
+}
 
-test('scales the Screen uniformly and keeps the Shop 300px wide', async ({ page }) => {
-  const viewports = [
-    { width: 1600, height: 900 },
-    { width: 1280, height: 800 },
-  ];
-
-  await page.setViewportSize(viewports[0]!);
-  await page.goto('/');
-
-  for (const viewport of viewports) {
+for (const viewport of [
+  { width: 1600, height: 900 },
+  { width: 1280, height: 800 },
+]) {
+  test(`fits Screen beside the fixed Shop at ${viewport.width}×${viewport.height}`, async ({
+    page,
+  }) => {
     await page.setViewportSize(viewport);
+    await page.goto('/');
+    const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+    const shop = page.getByRole('complementary', { name: 'Shop' });
+
     await expect
-      .poll(async () => (await page.locator('[data-screen-composition]').boundingBox())?.width)
+      .poll(async () => (await screen.boundingBox())?.width)
       .toBeCloseTo(Math.min(viewport.width - 300, (viewport.height * 1440) / 900), 0);
+    const screenBox = (await screen.boundingBox())!;
+    const shopBox = (await shop.boundingBox())!;
+    expect(screenBox.width / screenBox.height).toBeCloseTo(1440 / 900, 2);
+    expect(screenBox.x).toBeGreaterThanOrEqual(0);
+    expect(screenBox.y).toBeGreaterThanOrEqual(0);
+    expect(screenBox.x + screenBox.width).toBeLessThanOrEqual(shopBox.x + 0.1);
+    expect(screenBox.y + screenBox.height).toBeLessThanOrEqual(viewport.height + 0.1);
+    expect(shopBox.width).toBe(300);
+  });
 
-    const composition = await page.locator('[data-screen-composition]').boundingBox();
-    const shop = await page.getByRole('complementary', { name: 'Shop' }).boundingBox();
-    const viewportSize = page.viewportSize();
-    const visibleContent = await Promise.all([
-      page.getByRole('region', { name: 'Vacancy' }).boundingBox(),
-      page.getByRole('article', { name: 'Current application' }).boundingBox(),
-      page.getByRole('list', { name: 'Reason choices' }).boundingBox(),
-    ]);
-
-    expect(composition).not.toBeNull();
-    expect(viewportSize).not.toBeNull();
-    expect(composition!.width / composition!.height).toBeCloseTo(1440 / 900, 2);
-    expect(composition!.x).toBeGreaterThanOrEqual(0);
-    expect(composition!.y).toBeGreaterThanOrEqual(0);
-    expect(composition!.x + composition!.width).toBeLessThanOrEqual(
-      viewportSize!.width - 300 + 0.1,
-    );
-    expect(composition!.y + composition!.height).toBeLessThanOrEqual(viewportSize!.height + 0.1);
-    expect(shop?.width).toBe(300);
-    for (const box of visibleContent) {
-      expect(box).not.toBeNull();
-      expect(box!.x).toBeGreaterThanOrEqual(composition!.x);
-      expect(box!.y).toBeGreaterThanOrEqual(composition!.y);
-      expect(box!.x + box!.width).toBeLessThanOrEqual(composition!.x + composition!.width + 0.1);
-      expect(box!.y + box!.height).toBeLessThanOrEqual(composition!.y + composition!.height + 0.1);
+  test(`review content fits inside Screen at ${viewport.width}×${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+    await expect
+      .poll(async () => (await screen.boundingBox())?.width)
+      .toBeCloseTo(Math.min(viewport.width - 300, (viewport.height * 1440) / 900), 0);
+    const screenBox = (await screen.boundingBox())!;
+    for (const content of [
+      page.getByRole('region', { name: 'Vacancy' }),
+      page.getByRole('article', { name: 'Current application' }),
+      page.getByRole('list', { name: 'Reason choices' }),
+    ]) {
+      const box = (await content.boundingBox())!;
+      expect(box.x).toBeGreaterThanOrEqual(screenBox.x);
+      expect(box.y).toBeGreaterThanOrEqual(screenBox.y);
+      expect(box.x + box.width).toBeLessThanOrEqual(screenBox.x + screenBox.width + 0.1);
+      expect(box.y + box.height).toBeLessThanOrEqual(screenBox.y + screenBox.height + 0.1);
     }
-  }
-});
+  });
+}
 
 test('loads the Sans, Serif, and Mono font roles locally', async ({ page }) => {
   const externalFontRequests: string[] = [];
@@ -108,22 +124,90 @@ test('loads the Sans, Serif, and Mono font roles locally', async ({ page }) => {
   expect(externalFontRequests).toEqual([]);
 });
 
-test('development query enables the camera toggle', async ({ page }) => {
+test('switching to Room preserves the run', async ({ page }) => {
   await page.goto('/?dev=1');
-  const stage = page.locator('[data-camera]');
+  const application = page.getByRole('article', { name: 'Current application' });
+  const vacancy = page.getByRole('region', { name: 'Vacancy' });
+  const credits = page.getByTestId('counter-credits');
+  const rejected = page.getByTestId('counter-rejected');
 
-  await expect(stage).toHaveAttribute('data-camera', 'A');
-  await page.getByRole('button', { name: 'Camera: A' }).click();
-  await expect(stage).toHaveAttribute('data-camera', 'B');
-  await expect
-    .poll(async () => (await page.locator('[data-screen-composition]').boundingBox())?.width ?? 0)
-    .toBeLessThan(800);
+  await page.getByTestId('reason-precise').click();
+  await expect(credits).toHaveText('0012');
+  await expect(rejected).toHaveText('1');
+  const applicationText = await application.innerText();
+  const vacancyText = await vacancy.innerText();
 
-  const composition = await page.locator('[data-screen-composition]').boundingBox();
-  const shop = await page.getByRole('complementary', { name: 'Shop' }).boundingBox();
+  await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Camera: Room', exact: true })).toBeVisible();
+  await expect(application).toHaveText(applicationText, { useInnerText: true });
+  await expect(vacancy).toHaveText(vacancyText, { useInnerText: true });
+  await expect(credits).toHaveText('0012');
+  await expect(rejected).toHaveText('1');
+});
 
-  expect(composition).not.toBeNull();
-  expect(composition!.width).toBeLessThan(800);
-  expect(composition!.width / composition!.height).toBeCloseTo(1440 / 900, 2);
-  expect(shop?.width).toBe(300);
+test('a Rejection in Room updates the same run shown in Screen', async ({ page }) => {
+  await page.goto('/?dev=1');
+  const application = page.getByRole('article', { name: 'Current application' });
+  const initialApplication = await application.innerText();
+  await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
+  await page.getByTestId('reason-generic').first().click();
+  await expect(application).not.toHaveText(initialApplication, { useInnerText: true });
+  const nextApplication = await application.innerText();
+
+  await page.getByRole('button', { name: 'Camera: Room', exact: true }).click();
+  await expect(application).toHaveText(nextApplication, { useInnerText: true });
+  await expect(page.getByTestId('counter-credits')).toHaveText('0003');
+  await expect(page.getByTestId('counter-rejected')).toHaveText('1');
+  await expect(page.getByRole('status')).toContainText('+3 EC');
+});
+
+for (const size of [
+  { width: 1900, height: 900, roomWidth: 1600, screenWidth: 800 },
+  { width: 1280, height: 800, roomWidth: 980, screenWidth: 490 },
+  { width: 1100, height: 700, roomWidth: 800, screenWidth: 400 },
+  { width: 3500, height: 2000, roomWidth: 3200, screenWidth: 1600 },
+]) {
+  test(`fits Room beside the Shop at ${size.width}×${size.height}`, async ({ page }) => {
+    await page.setViewportSize({ width: size.width, height: size.height });
+    await page.goto('/?dev=1');
+    await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
+    const room = page.getByRole('region', { name: 'Room', exact: true });
+    const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+    const shop = page.getByRole('complementary', { name: 'Shop' });
+
+    await expect.poll(async () => (await room.boundingBox())?.width).toBeCloseTo(size.roomWidth, 0);
+    await expect
+      .poll(async () => (await screen.boundingBox())?.width)
+      .toBeCloseTo(size.screenWidth, 0);
+    const roomBox = (await room.boundingBox())!;
+    const screenBox = (await screen.boundingBox())!;
+    const shopBox = (await shop.boundingBox())!;
+    expect(roomBox.width / roomBox.height).toBeCloseTo(1600 / 900, 4);
+    expect(screenBox.width / screenBox.height).toBeCloseTo(800 / 500, 4);
+    expect(roomBox.x).toBeGreaterThanOrEqual(-0.1);
+    expect(roomBox.y).toBeGreaterThanOrEqual(-0.1);
+    expect(roomBox.x + roomBox.width).toBeLessThanOrEqual(shopBox.x + 0.1);
+    expect(roomBox.y + roomBox.height).toBeLessThanOrEqual(size.height + 0.1);
+    expect(shopBox).toMatchObject({ x: size.width - 300, y: 0, width: 300, height: size.height });
+  });
+}
+
+test('resizing keeps the Screen inside Room and the Shop fixed', async ({ page }) => {
+  await page.setViewportSize({ width: 1900, height: 900 });
+  await page.goto('/?dev=1');
+  await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
+  const room = page.getByRole('region', { name: 'Room', exact: true });
+  const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+  const shop = page.getByRole('complementary', { name: 'Shop' });
+  await expect.poll(async () => (await room.boundingBox())?.width).toBeCloseTo(1600, 0);
+
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await expect.poll(async () => (await room.boundingBox())?.width).toBeCloseTo(980, 0);
+  const roomBox = (await room.boundingBox())!;
+  const screenBox = (await screen.boundingBox())!;
+  expect(screenBox.x).toBeGreaterThanOrEqual(roomBox.x);
+  expect(screenBox.y).toBeGreaterThanOrEqual(roomBox.y);
+  expect(screenBox.x + screenBox.width).toBeLessThanOrEqual(roomBox.x + roomBox.width + 0.1);
+  expect(screenBox.y + screenBox.height).toBeLessThanOrEqual(roomBox.y + roomBox.height + 0.1);
+  expect((await shop.boundingBox())?.width).toBe(300);
 });

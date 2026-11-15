@@ -1,4 +1,4 @@
-export type CameraState = 'A' | 'B';
+export type CameraState = 'Screen' | 'Room';
 
 /** Logical size of the room canvas. */
 export const ROOM_WIDTH = 1600;
@@ -20,8 +20,6 @@ export const MONITOR_CENTER = {
 /** The Shop is fixed-width and remains outside the scaled Room. */
 export const SHOP_WIDTH = 300;
 
-const ROOM_SCALE_MAX = 1.5;
-
 export type StageSize = { width: number; height: number };
 
 /**
@@ -36,8 +34,8 @@ export function stageSize(viewportW: number, viewportH: number, shopVisible: boo
 }
 
 /**
- * State A fits the monitor screen into the stage, so the room is cropped around it.
- * State B fits the whole room, capped at the maximum scale.
+ * Screen composition fits the monitor screen into the stage, so the room is cropped around it.
+ * Room composition fits the whole room.
  */
 export function scaleForCamera(
   cameraState: CameraState,
@@ -46,11 +44,10 @@ export function scaleForCamera(
   shopVisible: boolean,
 ): number {
   const { width, height } = stageSize(viewportW, viewportH, shopVisible);
-  if (cameraState === 'A') {
+  if (cameraState === 'Screen') {
     return Math.min(width / SCREEN_RECT.w, height / SCREEN_RECT.h);
   }
-  const fit = Math.min(width / ROOM_WIDTH, height / ROOM_HEIGHT);
-  return Math.min(ROOM_SCALE_MAX, fit);
+  return Math.min(width / ROOM_WIDTH, height / ROOM_HEIGHT);
 }
 
 /**
@@ -63,9 +60,9 @@ export function transformCSS(stageW: number, stageH: number, scale: number): str
   return `translate(${x}px, ${y}px) scale(${scale})`;
 }
 
-/** State A hides everything outside the screen rectangle; state B shows the whole room. */
+/** Screen composition hides everything outside the screen rectangle; Room composition shows the whole room. */
 export function clipForCamera(cameraState: CameraState): string | null {
-  if (cameraState === 'B') return null;
+  if (cameraState === 'Room') return null;
   const top = SCREEN_RECT.y;
   const right = ROOM_WIDTH - (SCREEN_RECT.x + SCREEN_RECT.w);
   const bottom = ROOM_HEIGHT - (SCREEN_RECT.y + SCREEN_RECT.h);

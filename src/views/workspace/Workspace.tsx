@@ -58,7 +58,7 @@ export function Workspace() {
               height: ROOM_HEIGHT,
               transform: transformCSS(width, height, scale),
               transformOrigin: 'top left',
-              // State B asks for no clip; `inset(0px)` keeps the reveal animatable.
+              // Room composition asks for no clip; `inset(0px)` keeps the reveal animatable.
               clipPath: clipForCamera(cameraState) ?? 'inset(0px)',
               transition: motion ? CAMERA_TRANSITION : 'none',
             }}
