@@ -29,8 +29,8 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     set((state) => ({ run: rejectApplication(state.run, kind, applications.length) })),
   viewportW: initialViewport().width,
   viewportH: initialViewport().height,
-  devCameraState: 'A',
+  devCameraState: 'Screen',
   setViewport: (width, height) => set({ viewportW: width, viewportH: height }),
   toggleDevCameraState: () =>
-    set((state) => ({ devCameraState: state.devCameraState === 'A' ? 'B' : 'A' })),
+    set((state) => ({ devCameraState: state.devCameraState === 'Screen' ? 'Room' : 'Screen' })),
 }));

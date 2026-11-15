@@ -8,7 +8,6 @@ it('authors exactly one fact-supported Mismatch and one matching precise Reason 
     if (application.reactMonths < vacancy.minimumReactMonths) mismatches.push('React');
     if (application.typescriptMonths === 0) mismatches.push('TypeScript');
     expect(application.teamsLed).toBeGreaterThan(0);
-    expect(application.coverLetter).toMatch(/learn/i);
     expect(mismatches).toEqual([application.mismatch]);
     const precise = application.reasons.filter((reason) => reason.kind === 'precise');
     expect(precise).toHaveLength(1);

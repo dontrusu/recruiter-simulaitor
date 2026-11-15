@@ -3,27 +3,27 @@ import { clipForCamera, scaleForCamera, stageSize, transformCSS } from './camera
 
 describe('scaleForCamera', () => {
   it('fits the Screen at 1920×1080 with no Shop', () => {
-    expect(scaleForCamera('A', 1920, 1080, false)).toBe(2.16);
+    expect(scaleForCamera('Screen', 1920, 1080, false)).toBe(2.16);
   });
 
   it('fits the Screen at 1366×768 with no Shop', () => {
-    expect(scaleForCamera('A', 1366, 768, false)).toBe(1.536);
+    expect(scaleForCamera('Screen', 1366, 768, false)).toBe(1.536);
   });
 
   it('fits the whole Room at 1920×1080 with no Shop', () => {
-    expect(scaleForCamera('B', 1920, 1080, false)).toBe(1.2);
+    expect(scaleForCamera('Room', 1920, 1080, false)).toBe(1.2);
   });
 
   it('fits the room at 1920×1080 with the shop visible', () => {
-    expect(scaleForCamera('B', 1920, 1080, true)).toBe(1.0125);
+    expect(scaleForCamera('Room', 1920, 1080, true)).toBe(1.0125);
   });
 
   it('fits the room at 1366×768 with the shop visible', () => {
-    expect(scaleForCamera('B', 1366, 768, true)).toBeCloseTo(0.66625, 5);
+    expect(scaleForCamera('Room', 1366, 768, true)).toBeCloseTo(0.66625, 5);
   });
 
   it('fits the room at 1100×700 with the shop visible', () => {
-    expect(scaleForCamera('B', 1100, 700, true)).toBe(0.5);
+    expect(scaleForCamera('Room', 1100, 700, true)).toBe(0.5);
   });
 });
 
@@ -45,11 +45,11 @@ describe('transformCSS', () => {
 });
 
 describe('clipForCamera', () => {
-  it('returns the screen inset for State A', () => {
-    expect(clipForCamera('A')).toBe('inset(200px 400px 200px 400px)');
+  it('returns the screen inset for Screen composition', () => {
+    expect(clipForCamera('Screen')).toBe('inset(200px 400px 200px 400px)');
   });
 
-  it('does not clip the room for State B', () => {
-    expect(clipForCamera('B')).toBeNull();
+  it('does not clip the room for Room composition', () => {
+    expect(clipForCamera('Room')).toBeNull();
   });
 });

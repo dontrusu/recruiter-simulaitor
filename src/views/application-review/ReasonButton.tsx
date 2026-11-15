@@ -8,6 +8,7 @@ export function ReasonButton({ reason, onClick }: ReasonButtonProps) {
   return (
     <Button
       type="button"
+      data-testid={`reason-${reason.kind}`}
       variant={reason.kind === 'precise' ? 'default' : 'outline'}
       onClick={onClick}
       className={`h-auto min-h-[58px] w-full justify-between gap-4 whitespace-normal rounded-full border px-5 py-3 text-left font-sans text-base font-normal ${

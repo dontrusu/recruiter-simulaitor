@@ -31,11 +31,22 @@ export function Monitor({ children }: MonitorProps) {
         style={{
           left: '50%',
           top: MONITOR_RECT.h,
-          width: 420,
-          height: 160,
+          width: 120,
+          height: 60,
           transform: 'translateX(-50%)',
-          clipPath: 'polygon(26% 0, 74% 0, 100% 100%, 0 100%)',
           background: 'linear-gradient(180deg, var(--monitor), var(--monitor-shadow))',
+        }}
+      />
+      <div
+        className="absolute z-0 rounded-full"
+        style={{
+          left: '50%',
+          top: MONITOR_RECT.h + 56,
+          width: 300,
+          height: 22,
+          transform: 'translateX(-50%)',
+          background: 'linear-gradient(180deg, var(--monitor-light), var(--monitor-shadow))',
+          boxShadow: '0 12px 18px var(--paper-shadow)',
         }}
       />
       <div
@@ -87,7 +98,7 @@ export function Monitor({ children }: MonitorProps) {
             height: MONITOR_BEZEL,
           }}
         >
-          <span className="text-[10px] tracking-[0.3em] text-[var(--monitor-label)]">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--monitor-label)]">
             TALENT.OS
           </span>
           <span className="h-2 w-2 rounded-full bg-brand shadow-[0_0_6px_var(--brand)]" />

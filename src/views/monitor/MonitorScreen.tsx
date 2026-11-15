@@ -18,7 +18,12 @@ function Counter({
       <dt className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
         {label}
       </dt>
-      <dd className={`font-mono text-2xl font-bold ${branded ? 'text-brand' : ''}`}>{value}</dd>
+      <dd
+        data-testid={`counter-${label.toLowerCase()}`}
+        className={`font-mono text-2xl font-bold ${branded ? 'text-brand' : ''}`}
+      >
+        {value}
+      </dd>
     </div>
   );
 }
