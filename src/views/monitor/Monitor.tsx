@@ -6,14 +6,13 @@ import {
   SCREEN_RECT,
 } from '@/core/engine/camera';
 
-const MONITOR_BODY_BACKGROUND =
-  'linear-gradient(160deg, var(--monitor-light) 0%, var(--monitor) 46%, var(--monitor-shadow) 100%)';
+const MONITOR_BODY_BACKGROUND = 'linear-gradient(var(--monitor-light), var(--monitor-shadow))';
 
 type MonitorProps = {
   children?: ReactNode;
 };
 
-/** The beige CRT housing. Its screen child sits inside the bezel. */
+/** The dark monitor housing. Its screen child sits inside the bezel. */
 export function Monitor({ children }: MonitorProps) {
   return (
     <div
@@ -30,44 +29,33 @@ export function Monitor({ children }: MonitorProps) {
         className="absolute z-0"
         style={{
           left: '50%',
-          top: MONITOR_RECT.h,
+          top: MONITOR_RECT.h - 4,
           width: 120,
-          height: 60,
+          height: 70,
           transform: 'translateX(-50%)',
-          background: 'linear-gradient(180deg, var(--monitor), var(--monitor-shadow))',
+          background:
+            'linear-gradient(90deg, var(--monitor-stand-left), var(--monitor-stand-light) 45%, var(--monitor-stand-right))',
         }}
       />
       <div
-        className="absolute z-0 rounded-full"
+        className="absolute z-0 rounded-[50%]"
         style={{
           left: '50%',
-          top: MONITOR_RECT.h + 56,
+          top: MONITOR_RECT.h + 52,
           width: 300,
           height: 22,
           transform: 'translateX(-50%)',
-          background: 'linear-gradient(180deg, var(--monitor-light), var(--monitor-shadow))',
-          boxShadow: '0 12px 18px var(--paper-shadow)',
+          background: 'linear-gradient(var(--monitor-base-light), var(--monitor-base-shadow))',
+          boxShadow: '0 18px 20px var(--room-contact-shadow)',
         }}
       />
       <div
-        className="absolute inset-0 z-1 rounded-[26px]"
+        className="absolute inset-0 z-1 rounded-[22px]"
         style={{
           background: MONITOR_BODY_BACKGROUND,
-          boxShadow:
-            'inset 0 2px 0 var(--monitor-light), inset 0 -3px 10px var(--monitor-shadow), 0 26px 44px rgb(21 20 15 / 24%)',
+          boxShadow: '0 50px 90px var(--monitor-cast-shadow), inset 0 0 0 1px var(--monitor-edge)',
         }}
       >
-        {/* Recessed inner bezel around the glass. */}
-        <div
-          className="absolute rounded-[14px]"
-          style={{
-            left: MONITOR_BEZEL - 10,
-            top: MONITOR_BEZEL - 10,
-            width: SCREEN_RECT.w + 20,
-            height: SCREEN_RECT.h + 20,
-            boxShadow: 'inset 0 0 0 2px var(--monitor-bezel), inset 0 0 18px rgb(21 20 15 / 25%)',
-          }}
-        />
         <div
           className="absolute isolate z-1 overflow-hidden bg-background"
           style={{
@@ -75,7 +63,6 @@ export function Monitor({ children }: MonitorProps) {
             top: MONITOR_BEZEL,
             width: SCREEN_RECT.w,
             height: SCREEN_RECT.h,
-            boxShadow: 'inset 0 0 24px rgb(21 20 15 / 12%)',
           }}
         >
           <div
@@ -88,20 +75,6 @@ export function Monitor({ children }: MonitorProps) {
           >
             {children}
           </div>
-        </div>
-        <div
-          className="absolute flex items-center justify-end gap-2"
-          style={{
-            left: MONITOR_BEZEL,
-            right: MONITOR_BEZEL,
-            top: SCREEN_RECT.h + MONITOR_BEZEL,
-            height: MONITOR_BEZEL,
-          }}
-        >
-          <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--monitor-label)]">
-            TALENT.OS
-          </span>
-          <span className="h-2 w-2 rounded-full bg-brand shadow-[0_0_6px_var(--brand)]" />
         </div>
       </div>
     </div>

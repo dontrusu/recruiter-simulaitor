@@ -1,7 +1,7 @@
 import { SCREEN_RECT } from '../engine/camera';
 
-/** Width of the beige bezel around the screen, in room pixels. */
-export const MONITOR_BEZEL = 40;
+/** Width of the monitor bezel around the screen, in room pixels. */
+export const MONITOR_BEZEL = 20;
 
 /** The y where the wall meets the desk surface. */
 export const DESK_LINE = 700;

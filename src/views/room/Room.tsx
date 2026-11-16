@@ -3,10 +3,9 @@ import { ROOM_HEIGHT, ROOM_WIDTH } from '@/core/engine/camera';
 import { DESK_LINE } from '@/core/config/room';
 import { Monitor } from '@/views/monitor/Monitor';
 
-const WALL =
-  'linear-gradient(180deg, var(--room-wall-light) 0%, var(--room-wall) 62%, var(--room-wall-shadow) 100%)';
+const WALL = 'radial-gradient(ellipse at 50% 35%, var(--room-wall-light), var(--room-wall-shadow))';
 const DESK =
-  'linear-gradient(180deg, var(--desk-light) 0%, var(--desk) 18%, var(--desk-shadow) 100%)';
+  'repeating-linear-gradient(90deg, var(--desk-stripe) 0 3px, transparent 3px 9px), linear-gradient(var(--desk-light), var(--desk-shadow))';
 
 type RoomProps = {
   /** The live Screen shared by both camera compositions. */
@@ -29,14 +28,33 @@ export function Room({ children }: RoomProps) {
           top: DESK_LINE,
           height: ROOM_HEIGHT - DESK_LINE,
           background: DESK,
+          borderTop: '2px solid var(--desk-highlight)',
         }}
+      />
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute z-2"
+        style={{ left: 0, top: DESK_LINE }}
+        width={ROOM_WIDTH}
+        height={ROOM_HEIGHT - DESK_LINE}
+        viewBox="0 0 1600 200"
+        fill="none"
+        stroke="var(--desk-grain)"
+        strokeOpacity={0.25}
+        strokeWidth={1.5}
       >
-        <div
-          className="absolute inset-x-0 top-0 h-px"
-          style={{ background: 'var(--desk-highlight)', opacity: 0.55 }}
-        />
-      </div>
+        <path d="M0 60C200 20 320 110 540 70S900 20 1100 80 1450 50 1600 90" />
+        <path d="M0 130C260 100 380 170 640 140S1000 100 1250 150 1500 130 1600 160" />
+        <path d="M0 180C300 160 500 200 800 185S1300 160 1600 190" />
+      </svg>
       <Monitor>{children}</Monitor>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 45%, transparent 55%, var(--room-vignette))',
+        }}
+      />
     </section>
   );
 }
