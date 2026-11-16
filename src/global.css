@@ -15,6 +15,7 @@
   --palette-clay: #e6e0d2;
   --palette-line: #d8d1c2;
   --palette-orange: #ff5b1f;
+  --palette-orange-ink: #b83b0b;
   --palette-destructive: #b42318;
 
   --background: var(--palette-bone);
@@ -36,6 +37,7 @@
   --input: var(--palette-line);
   --ring: var(--palette-orange);
   --brand: var(--palette-orange);
+  --brand-text: var(--palette-orange-ink);
   --radius: 0.625rem;
 
   --room-wall-light: #f1ecdf;
@@ -110,6 +112,7 @@ button[data-slot='button']:focus-visible {
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
   --color-brand: var(--brand);
+  --color-brand-text: var(--brand-text);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);

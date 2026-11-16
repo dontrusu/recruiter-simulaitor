@@ -44,3 +44,12 @@ on staged files, runs the project TypeScript check when a TypeScript file is
 staged, and runs the full Vitest suite on every commit. TypeScript checks the
 configured project as a whole, since its checks depend on the project
 configuration and related files.
+
+## Accessibility checks
+
+```bash
+pnpm run test:a11y
+```
+
+Axe-core checks Screen and Room for accessibility issues. See the
+[testing guide](docs/testing.md) for coverage, CI policy, and reports.

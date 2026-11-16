@@ -18,7 +18,9 @@ export function ReasonButton({ reason, onClick }: ReasonButtonProps) {
       }`}
     >
       <span className="leading-tight">{reason.text}</span>
-      <strong className="shrink-0 font-mono text-sm text-brand">
+      <strong
+        className={`shrink-0 font-mono text-sm ${reason.kind === 'precise' ? 'text-brand' : 'text-brand-text'}`}
+      >
         +{reasonReward(reason.kind)}
       </strong>
     </Button>

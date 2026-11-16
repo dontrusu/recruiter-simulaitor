@@ -20,7 +20,7 @@ function Counter({
       </dt>
       <dd
         data-testid={`counter-${label.toLowerCase()}`}
-        className={`font-mono text-2xl font-bold ${branded ? 'text-brand' : ''}`}
+        className={`font-mono text-2xl font-bold ${branded ? 'text-brand-text' : ''}`}
       >
         {value}
       </dd>

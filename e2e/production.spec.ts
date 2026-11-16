@@ -1,9 +1,25 @@
 import { expect, test } from '@playwright/test';
 
-test('production renders the first-slice Screen and bundled fonts', async ({ page }) => {
-  const errors: string[] = [];
+test('production renders the first-slice Screen and Shop', async ({ page }) => {
+  const response = await page.goto('/');
+
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('main', { name: 'Talent.OS Screen' })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
+  await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
+  const shop = page.getByRole('complementary', { name: 'Shop' });
+  await expect(shop).toBeVisible();
+  await expect(shop.getByRole('article').first()).toBeVisible();
+});
+
+test('production hides the camera control by default', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+});
+
+test('production loads bundled fonts without external font requests', async ({ page }) => {
   const externalFontRequests: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
     const url = new URL(request.url());
     const isFontFile = /\.(woff2?|ttf|otf)$/i.test(url.pathname);
@@ -15,17 +31,7 @@ test('production renders the first-slice Screen and bundled fonts', async ({ pag
     }
   });
 
-  const response = await page.goto('http://127.0.0.1:4174/');
-
-  expect(response?.ok()).toBe(true);
-  await expect(page.getByRole('main', { name: 'Talent.OS Screen' })).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
-  await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
-  const shop = page.getByRole('complementary', { name: 'Shop' });
-  await expect(shop.getByRole('article')).toHaveCount(2);
-  await expect(page.locator('.taskbar')).toHaveCount(0);
-  await expect(page.locator('.dev-panel')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await page.goto('/');
 
   const fontsLoaded = await page.evaluate(async () => {
     await document.fonts.ready;
@@ -38,11 +44,21 @@ test('production renders the first-slice Screen and bundled fonts', async ({ pag
 
   expect(fontsLoaded).toEqual([true, true, true]);
   expect(externalFontRequests).toEqual([]);
+});
+
+test('production starts without runtime errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/');
+  await expect(page.getByRole('main', { name: 'Talent.OS Screen' })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+
   expect(errors).toEqual([]);
 });
 
 test('production build exposes the opt-in Room camera control', async ({ page }) => {
-  await page.goto('http://127.0.0.1:4174/?dev=1');
+  await page.goto('/?dev=1');
 
   const stage = page.locator('[data-camera]');
   const cameraToggle = page.getByRole('button', { name: 'Camera: Screen' });

@@ -133,7 +133,7 @@ localization requirement justify custom subsets or preload hints.
 - `pnpm check` is the baseline local check for TypeScript, Oxlint, Vitest, and formatting.
 - `pnpm run build` checks the production build.
 - Unit tests live beside the code they test; Playwright tests live in `e2e/`.
-- For accessibility, add axe-core scans integrated with Playwright for key screens and keyboard scenarios. Manually check screen-reader behavior for significant changes. An automated scan does not prove full conformance to a standard.
+- Use Playwright with axe-core to scan key interface states. Automatically detected WCAG A/AA violations in those states block CI. Complement scans with keyboard behavior tests and manual screen-reader checks for significant changes; automated scans do not establish full WCAG conformance. See [the testing guide](./testing.md#accessibility-checks) for coverage, rule selection, reporting policy, and current assessment limitations.
 - Review UI changes in a browser. Consider screenshot regression tests after key scenes stabilize, rather than for every UI change.
 - Add further testing tools only for a concrete need.
 
