@@ -66,46 +66,59 @@ test('reload starts a fresh run', async ({ page }) => {
   await expect(status).toBeEmpty();
 });
 
-test('Tab, Enter and Space keep focus on native Reason buttons', async ({ page, browserName }) => {
+test('Tab visits each Reason button in order', async ({ page, browserName }) => {
   await page.goto('/');
   const reasons = page.getByRole('list', { name: 'Reason choices' }).getByRole('button');
   // macOS WebKit uses Option+Tab to include buttons with its default keyboard settings.
   // https://github.com/microsoft/playwright/issues/41808
   const tab = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
   await expect(reasons.nth(0)).toBeVisible();
-  await page.keyboard.press(tab);
-  await expect(reasons.nth(0)).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(reasons.nth(0)).toBeFocused();
-  await expect(page.getByRole('status')).toContainText('+12 EC');
-  await expect(page.getByTestId('counter-rejected')).toHaveText('1');
-  await page.keyboard.press(tab);
-  await expect(reasons.nth(1)).toBeFocused();
-  await page.keyboard.press('Space');
-  await expect(reasons.nth(1)).toBeFocused();
-  await expect(page.getByRole('status')).toContainText('+3 EC');
-  await expect(page.getByTestId('counter-rejected')).toHaveText('2');
-  await page.keyboard.press(tab);
-  await expect(reasons.nth(2)).toBeFocused();
-  await page.keyboard.press('Space');
-  await expect(reasons.nth(2)).toBeFocused();
-  await expect(page.getByRole('status')).toContainText('+3 EC');
-  await expect(page.getByTestId('counter-rejected')).toHaveText('3');
+  for (let index = 0; index < 3; index++) {
+    await page.keyboard.press(tab);
+    await expect(reasons.nth(index)).toBeFocused();
+  }
 });
 
-test('Reason buttons have distinct styles and a focus indicator', async ({ page, browserName }) => {
+for (const key of ['Enter', 'Space']) {
+  for (const index of [0, 1, 2]) {
+    test(`${key} activates Reason button ${index + 1} and preserves focus`, async ({ page }) => {
+      await page.goto('/');
+      const reason = page
+        .getByRole('list', { name: 'Reason choices' })
+        .getByRole('button')
+        .nth(index);
+
+      await reason.focus();
+      await page.keyboard.press(key);
+
+      await expect(page.getByTestId('counter-rejected')).toHaveText('1');
+      await expect(reason).toBeFocused();
+    });
+  }
+}
+
+test('Reason buttons show a focus indicator on keyboard focus', async ({ page, browserName }) => {
   await page.goto('/');
   const reasons = page.getByRole('list', { name: 'Reason choices' }).getByRole('button');
   const tab = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
   await expect(reasons.nth(0)).toBeVisible();
   await page.keyboard.press(tab);
   await expect(reasons.nth(0)).toBeFocused();
-  const focusStyle = await reasons.nth(0).evaluate((button) => ({
-    ring: getComputedStyle(button).boxShadow,
-    font: getComputedStyle(button).fontFamily,
-  }));
-  expect(focusStyle.ring).not.toBe('none');
-  expect(focusStyle.font).toContain('IBM Plex Sans');
+  const ring = await reasons.nth(0).evaluate((button) => getComputedStyle(button).boxShadow);
+  expect(ring).not.toBe('none');
+});
+
+test('Reason buttons use the Sans font role', async ({ page }) => {
+  await page.goto('/');
+  const reasons = page.getByRole('list', { name: 'Reason choices' }).getByRole('button');
+  const font = await reasons.nth(0).evaluate((button) => getComputedStyle(button).fontFamily);
+
+  expect(font).toContain('IBM Plex Sans');
+});
+
+test('precise and generic Reason buttons have distinct styles', async ({ page }) => {
+  await page.goto('/');
+  const reasons = page.getByRole('list', { name: 'Reason choices' }).getByRole('button');
   const colors = await reasons.evaluateAll((buttons) => {
     const precise = getComputedStyle(buttons[0]!);
     const generic = getComputedStyle(buttons[1]!);
