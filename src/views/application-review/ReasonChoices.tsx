@@ -27,7 +27,7 @@ export function ReasonChoices() {
       >
         Choose a reason
       </h2>
-      <ol aria-label="Reason choices" className="mt-5 space-y-3">
+      <ol aria-label="Reason choices" className="mt-5 space-y-4">
         {application.reasons.map((reason, slot) => (
           <li key={slot}>
             <ReasonButton reason={reason} onClick={() => chooseReason(reason)} />

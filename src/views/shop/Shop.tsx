@@ -38,12 +38,17 @@ export function Shop() {
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               {upgrade.description}
             </p>
-            <span
+            {/* Decorative lettering is an illustration, not Shop content. */}
+            <svg
               aria-hidden="true"
-              className={`absolute -right-2 -bottom-5 font-serif text-[100px] leading-none ${upgrade.decoration}`}
+              width="200"
+              height="100"
+              className={`absolute -right-2 -bottom-5 font-serif text-[100px] ${upgrade.decoration}`}
             >
-              {upgrade.abbreviation}
-            </span>
+              <text x="200" y="80" textAnchor="end" fill="currentColor">
+                {upgrade.abbreviation}
+              </text>
+            </svg>
           </article>
         ))}
       </div>
