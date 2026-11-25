@@ -21,3 +21,20 @@ The old fixed side Shop, Screen geometry, footer, portrait and absent Taskbar re
 temporary differences for later slices; the review content and controls consequently
 occupy different dimensions. The narrow-screen scaling, Room, window and motion states
 are covered by their respective later slices rather than established by this comparison.
+
+## Room and camera slice comparison
+
+Chromium comparisons at 1440×900 and 390×844 used the start Room in the
+v0.33.0 export and the game in Room view. The wall, lights, desk, Monitor,
+keyboard, mouse and papers use the same 1600×900 Room coordinates; the live
+Screen occupies the 800×500 aperture. The reference places its demonstration
+toolbar above the Room; the game fits the Room in the full viewport with a small
+development camera button. The game uses its authored content and the separately approved Shop and empty
+Taskbar. The same narrow view scales the entire Room;
+its text is correspondingly small, as agreed in the migration scope.
+
+At the same sizes, the Screen view was compared with the approved start preview.
+Both fit the complete composition and keep the review controls above the Taskbar.
+The game retains its authored content, different header and portrait artwork. At
+390×844 the text is small and the longer game header wraps; the separate mobile
+adaptation remains outside the migration scope.

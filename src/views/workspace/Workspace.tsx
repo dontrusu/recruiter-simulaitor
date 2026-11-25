@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useWorkspaceStore } from '@/core/store/workspace';
-import {
-  ROOM_HEIGHT,
-  ROOM_WIDTH,
-  clipForCamera,
-  scaleForCamera,
-  stageSize,
-  transformCSS,
-} from '@/core/engine/camera';
+import { cameraLayout, ROOM_HEIGHT, ROOM_WIDTH } from '@/core/engine/camera';
 import { Room } from '@/views/room/Room';
 import { MonitorScreen } from '@/views/monitor/MonitorScreen';
 import { DevPanel } from './DevPanel';
@@ -16,7 +9,9 @@ const CAMERA_TRANSITION = 'transform 1500ms ease-in-out, clip-path 1500ms ease-i
 
 /** Composes the workspace and controls how the Room is framed. */
 export function Workspace() {
-  const isDev = new URLSearchParams(globalThis.location?.search ?? '').get('dev') === '1';
+  const isDev =
+    import.meta.env.DEV &&
+    new URLSearchParams(globalThis.location?.search ?? '').get('dev') === '1';
   const viewportW = useWorkspaceStore((state) => state.viewportW);
   const viewportH = useWorkspaceStore((state) => state.viewportH);
   const cameraState = useWorkspaceStore((state) => state.devCameraState);
@@ -43,22 +38,29 @@ export function Workspace() {
     return () => observer.disconnect();
   }, [setViewport]);
 
-  const { width, height } = stageSize(viewportW, viewportH, false);
-  const scale = scaleForCamera(cameraState, viewportW, viewportH, false);
+  const { screenWidth, screenHeight, transform, clip } = cameraLayout(
+    cameraState,
+    viewportW,
+    viewportH,
+  );
 
   return (
     <div className="flex h-dvh w-screen overflow-hidden bg-background">
       <div className="relative min-w-0 flex-1">
-        <div className="relative h-full w-full overflow-hidden" data-camera={cameraState}>
+        <div
+          className="relative h-full w-full overflow-hidden"
+          data-camera={cameraState}
+          style={{ background: cameraState === 'Room' ? '#c6bdd1' : undefined }}
+        >
           <div
-            className="absolute top-0 left-0"
+            className="camera-scene absolute top-0 left-0"
             style={{
               width: ROOM_WIDTH,
               height: ROOM_HEIGHT,
-              transform: transformCSS(width, height, scale),
+              transform,
               transformOrigin: 'top left',
               // Room composition asks for no clip; `inset(0px)` keeps the reveal animatable.
-              clipPath: clipForCamera(cameraState) ?? 'inset(0px)',
+              clipPath: clip,
               transition: motion ? CAMERA_TRANSITION : 'none',
             }}
             onTransitionEnd={(event) => {
@@ -66,8 +68,8 @@ export function Workspace() {
               if (event.target === event.currentTarget) setMotion(false);
             }}
           >
-            <Room>
-              <MonitorScreen />
+            <Room screenWidth={screenWidth} screenHeight={screenHeight}>
+              <MonitorScreen width={screenWidth} height={screenHeight} />
             </Room>
           </div>
         </div>

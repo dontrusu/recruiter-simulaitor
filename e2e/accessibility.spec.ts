@@ -8,6 +8,10 @@ for (const camera of ['Screen', 'Room']) {
     test(`${camera} ${rejected ? 'after Rejection' : 'on a fresh run'} passes WCAG scans`, async ({
       page,
     }, testInfo) => {
+      test.skip(
+        camera === 'Room' && testInfo.project.metadata.production === true,
+        'Room camera is development-only',
+      );
       await page.goto(camera === 'Room' ? '/?dev=1' : '/');
       await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Shop' })).toBeVisible();
@@ -24,6 +28,9 @@ for (const camera of ['Screen', 'Room']) {
       if (rejected) {
         await page.getByRole('button', { name: 'Reject', exact: true }).click();
         await expect(page.getByTestId('counter-rejected')).toHaveText('1');
+        await page.evaluate(async () => {
+          await Promise.all(document.getAnimations().map((animation) => animation.finished));
+        });
       }
 
       await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();

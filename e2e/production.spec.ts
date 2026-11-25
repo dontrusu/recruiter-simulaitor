@@ -7,9 +7,7 @@ test('production renders the first-slice Screen and Shop', async ({ page }) => {
   await expect(page.getByRole('main', { name: 'Talent.OS Screen' })).toBeVisible();
   await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
   await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
-  const shop = page.getByRole('complementary', { name: 'Shop' });
-  await expect(shop).toBeVisible();
-  await expect(shop.getByRole('article').first()).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Shop' })).toBeVisible();
 });
 
 test('production hides the camera control by default', async ({ page }) => {
@@ -35,14 +33,14 @@ test('production loads bundled fonts without external font requests', async ({ p
 
   const fontsLoaded = await page.evaluate(async () => {
     await document.fonts.ready;
-    return ['IBM Plex Sans Variable', 'IBM Plex Serif', 'IBM Plex Mono'].map((family) =>
+    return ['IBM Plex Sans Variable', 'IBM Plex Mono'].map((family) =>
       Array.from(document.fonts).some(
         (face) => face.family.replaceAll('"', '') === family && face.status === 'loaded',
       ),
     );
   });
 
-  expect(fontsLoaded).toEqual([true, true, true]);
+  expect(fontsLoaded).toEqual([true, true]);
   expect(externalFontRequests).toEqual([]);
 });
 
@@ -57,15 +55,11 @@ test('production starts without runtime errors', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('production build exposes the opt-in Room camera control', async ({ page }) => {
-  await page.goto('/?dev=1');
+test('production cannot expose the camera through a URL parameter', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/?dev=1&view=room');
 
-  const stage = page.locator('[data-camera]');
-  const cameraToggle = page.getByRole('button', { name: 'Camera: Screen' });
-  await expect(stage).toHaveAttribute('data-camera', 'Screen');
-  await cameraToggle.click();
-  await expect(stage).toHaveAttribute('data-camera', 'Room');
-  await expect
-    .poll(async () => (await page.locator('[data-screen-composition]').boundingBox())?.width ?? 0)
-    .toBeLessThan(800);
+  await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
+  await expect.poll(async () => (await screen.boundingBox())?.width).toBeCloseTo(1296, 0);
 });

@@ -216,4 +216,7 @@ button[data-slot='button']:focus-visible {
   .rejection-credit {
     animation: none;
   }
+  .camera-scene {
+    transition: none !important;
+  }
 }

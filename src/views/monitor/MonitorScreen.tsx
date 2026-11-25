@@ -1,5 +1,3 @@
-import { SCREEN_COMPOSITION_HEIGHT, SCREEN_COMPOSITION_WIDTH } from '@/core/engine/camera';
-
 import { useWorkspaceStore } from '@/core/store/workspace';
 
 import { ApplicationReview } from '@/views/application-review/ApplicationReview';
@@ -32,7 +30,7 @@ function Counter({
   );
 }
 
-export function MonitorScreen() {
+export function MonitorScreen({ width, height }: { width: number; height: number }) {
   const credits = useWorkspaceStore((state) => state.run.credits);
   const rejected = useWorkspaceStore((state) => state.run.rejected);
   return (
@@ -41,8 +39,8 @@ export function MonitorScreen() {
       data-screen-composition
       className="absolute left-0 top-0 flex flex-col overflow-hidden bg-background font-sans text-foreground"
       style={{
-        width: SCREEN_COMPOSITION_WIDTH,
-        height: SCREEN_COMPOSITION_HEIGHT,
+        width,
+        height,
       }}
     >
       <header className="mx-4 grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,660px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
