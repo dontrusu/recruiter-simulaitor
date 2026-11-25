@@ -5,9 +5,7 @@ test('shows the review and Shop on a fresh load', async ({ page }) => {
 
   await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
   await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
-  await expect(page.getByRole('list', { name: 'Reason choices' }).getByRole('button')).toHaveCount(
-    3,
-  );
+  await expect(page.getByRole('button', { name: 'Reject', exact: true })).toBeVisible();
   const shop = page.getByRole('complementary', { name: 'Shop' });
   await expect(shop).toBeVisible();
   await expect(shop.getByRole('article').first()).toBeVisible();
@@ -78,7 +76,7 @@ for (const viewport of [
     for (const content of [
       page.getByRole('region', { name: 'Vacancy' }),
       page.getByRole('article', { name: 'Current application' }),
-      page.getByRole('list', { name: 'Reason choices' }),
+      page.getByRole('region', { name: 'Decision' }),
     ]) {
       const box = (await content.boundingBox())!;
       expect(box.x).toBeGreaterThanOrEqual(screenBox.x);
@@ -129,8 +127,8 @@ test('switching to Room preserves the run', async ({ page }) => {
   const credits = page.getByTestId('counter-credits');
   const rejected = page.getByTestId('counter-rejected');
 
-  await page.getByTestId('reason-precise').click();
-  await expect(credits).toHaveText('0012');
+  await page.getByRole('button', { name: 'Reject', exact: true }).click();
+  await expect(credits).toHaveText('0001');
   await expect(rejected).toHaveText('1');
   const applicationText = await application.innerText();
   const vacancyText = await vacancy.innerText();
@@ -139,7 +137,7 @@ test('switching to Room preserves the run', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Camera: Room', exact: true })).toBeVisible();
   await expect(application).toHaveText(applicationText, { useInnerText: true });
   await expect(vacancy).toHaveText(vacancyText, { useInnerText: true });
-  await expect(credits).toHaveText('0012');
+  await expect(credits).toHaveText('0001');
   await expect(rejected).toHaveText('1');
 });
 
@@ -148,15 +146,14 @@ test('a Rejection in Room updates the same run shown in Screen', async ({ page }
   const application = page.getByRole('article', { name: 'Current application' });
   const initialApplication = await application.innerText();
   await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
-  await page.getByTestId('reason-generic').first().click();
+  await page.getByRole('button', { name: 'Reject', exact: true }).click();
   await expect(application).not.toHaveText(initialApplication, { useInnerText: true });
   const nextApplication = await application.innerText();
 
   await page.getByRole('button', { name: 'Camera: Room', exact: true }).click();
   await expect(application).toHaveText(nextApplication, { useInnerText: true });
-  await expect(page.getByTestId('counter-credits')).toHaveText('0003');
+  await expect(page.getByTestId('counter-credits')).toHaveText('0001');
   await expect(page.getByTestId('counter-rejected')).toHaveText('1');
-  await expect(page.getByRole('status')).toContainText('+3 EC');
 });
 
 for (const size of [

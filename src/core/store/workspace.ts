@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 import { applications } from '@/content/screen-content';
-import { rejectApplication, type ReasonKind, type RunState } from '@/core/engine/rejection';
+import { rejectApplication, type RunState } from '@/core/engine/rejection';
 import type { CameraState } from '../engine/camera';
 
 type WorkspaceStore = {
   run: RunState;
-  reject: (kind: ReasonKind) => void;
+  reject: () => void;
   viewportW: number;
   viewportH: number;
   /** Dev-only camera override. Replaced later by a value derived from owning Culture Fit Oracle. */
@@ -25,8 +25,7 @@ const initialViewport = () =>
  */
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
   run: { credits: 0, rejected: 0, applicationIndex: 0 },
-  reject: (kind) =>
-    set((state) => ({ run: rejectApplication(state.run, kind, applications.length) })),
+  reject: () => set((state) => ({ run: rejectApplication(state.run, applications.length) })),
   viewportW: initialViewport().width,
   viewportH: initialViewport().height,
   devCameraState: 'Screen',
