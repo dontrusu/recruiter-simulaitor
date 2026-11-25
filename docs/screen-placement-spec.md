@@ -1,5 +1,7 @@
 # Talent.OS. Layout specification
 
+> Historical specification: the Soft System migration in [issue #26](https://github.com/dontrusu/recruiter-simulaitor/issues/26) supersedes its geometry, Reason controls, Shop, and window stacking rules. See [the current handoff](soft-system-handoff/README.md) and [migration specification](soft-system-migration.md).
+
 Version 1, October 23, 2026. This document describes where each game element sits on screen, its size and layer, and how the scene scales. It is written for a human reader and for an AI assistant that will implement the interface.
 
 For the current first visual slice, [issue #17](https://github.com/dontrusu/recruiter-simulaitor/issues/17)

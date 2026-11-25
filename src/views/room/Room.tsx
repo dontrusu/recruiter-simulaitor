@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Monitor } from '@/views/monitor/Monitor';
+import { PresetRoom } from './PresetRoom';
 import './room.css';
 
 /** The Room and its Monitor share one live Screen in both camera views. */
@@ -52,6 +53,7 @@ export function Room({
         <i />
       </div>
       <div className="room-mouse" aria-hidden="true" />
+      <PresetRoom />
       <div className="room-papers" aria-hidden="true">
         <svg className="sprite" viewBox="0 0 17 14" shapeRendering="crispEdges">
           {[

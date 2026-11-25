@@ -38,7 +38,7 @@ src/
     workspace/             # workspace composition and camera presentation
     room/                  # physical Room and its contents
     monitor/               # Monitor body and Screen composition
-    application-review/    # Vacancy, Application and Reasons
+    application-review/    # Vacancy, Application and Rejection
     shop/                  # Shop presentation
   upgrades/                # Upgrade modules, introduced as needed
   global.css               # global styles, Tailwind and design tokens
@@ -76,7 +76,7 @@ One Zustand store contains logically separated parts for run state and workspace
 
 View modules may subscribe to the store slices they need. Do not duplicate values that can be derived unambiguously from a source of truth. For example, compute camera scale, available Shop cards, and derived counts rather than storing them separately.
 
-A Rejection updates Credits, the count, and the current Application in one coherent transition; views render their part of the new state. A later slice that introduces the Talent Pool can add membership to that same transition, but the first visual slice does not retain rejected Applications. Components do not call one another to synchronize these changes.
+A Rejection adds one Credit, increments the count, and cycles to the next Application in one coherent transition; views render their part of the new state. A later slice that introduces the Talent Pool can add membership to that same transition, but the first visual slice does not retain rejected Applications. Components do not call one another to synchronize these changes.
 
 Express persistent game consequences through state. Do not add a global event bus or an `onReject`-style callback for every Upgrade in advance. If a one-off visual effect appears, choose the simplest explicit mechanism in the view layer; game rules do not call React components.
 
@@ -87,7 +87,7 @@ Express persistent game consequences through state. Do not add a global event bu
 - `workspace/` composes the Room, Shop, and development controls, and handles camera presentation;
 - `room/` renders the physical Room and its contents;
 - `monitor/` renders the Monitor body and the composition of its Screen;
-- `application-review/` renders the Vacancy, current Application, and Reasons as part of the Screen;
+- `application-review/` renders the Vacancy, current Application, and Rejection as part of the Screen;
 - `shop/` renders the Shop.
 
 These folders group related code; they do not have to mirror the rendered component tree. Views may compose one another, but should avoid cyclic dependencies. The Room and Screen compositions show the same game state.
@@ -144,3 +144,7 @@ Game persistence and Zod are outside the current scope. If persistence, import, 
 Use the terms in [GLOSSARY.md](../GLOSSARY.md) in code and tests. Record architectural decisions that are hard to reverse and would surprise a future reader in `docs/adr/`; keep small, reversible decisions in this living guide or in the code.
 
 This document describes the current direction, not every future Slice, Finale, or Upgrade. Add folders, infrastructure, and mechanisms when implemented behavior needs them.
+
+## Development compositions
+
+With `?dev=1` in a development build, the composition selector opens temporary demonstration states for early upgrades and full chaos. Entering preserves the player run; Reject advances only the demonstration run, and returning to Player restores the saved run. Camera changes preserve whichever run is active. Preset windows and Room objects are demonstrations, not purchased Upgrades or rules for future progression. Taskbar buttons raise open demonstration windows. Neither selector nor camera control is available in production.

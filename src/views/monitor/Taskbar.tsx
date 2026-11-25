@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useWorkspaceStore } from '@/core/store/workspace';
+import { windows } from './PresetWindows';
+import { UpgradeIcon } from '@/views/shop/UpgradeIcon';
 
 export function Taskbar() {
   const [clock, setClock] = useState(() => new Date());
+  const preset = useWorkspaceStore((state) => state.preset);
+  const front = useWorkspaceStore((state) => state.frontWindow);
+  const activate = useWorkspaceStore((state) => state.activateWindow);
   useEffect(() => {
     const timer = setInterval(() => setClock(new Date()), 1000);
     return () => clearInterval(timer);
@@ -12,7 +18,28 @@ export function Taskbar() {
       className="absolute right-4 bottom-12 left-4 flex h-[52px] items-center gap-4 border-2 border-foreground bg-background px-3 text-foreground"
     >
       <span className="text-xs font-semibold">Talent.OS</span>
-      <div role="group" aria-label="Open windows" className="flex-1" />
+      <div
+        role="group"
+        aria-label="Open windows"
+        className="flex min-w-0 flex-1 gap-2 overflow-x-auto"
+      >
+        {(preset === 'start' ? [] : preset === 'mid' ? windows.slice(0, 2) : windows).map(
+          (window) => (
+            <button
+              key={window.name}
+              type="button"
+              aria-pressed={front === window.name}
+              onClick={() => activate(window.name)}
+              className="shrink-0 border border-foreground px-2 text-xs"
+            >
+              <span className="inline-flex items-center gap-1">
+                <UpgradeIcon name={window.upgrade} />
+                {window.name} <small>{window.slot}</small>
+              </span>
+            </button>
+          ),
+        )}
+      </div>
       <time
         aria-label="Local time"
         dateTime={clock.toISOString()}

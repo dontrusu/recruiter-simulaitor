@@ -24,25 +24,23 @@ added to it; one candidate is reviewed against it at a time.
 
 **Mismatch**:
 The one specific gap between a Candidate's experience and the Vacancy's requirements. Each
-Application has exactly one, and it is what makes a Reason precise or generic.
+starting Application has exactly one, identifiable from the facts and requirements shown.
 
 ### Review and rejection
 
 **Rejection**:
-Ending a candidate's review with a stated corporate reason. It is the only decision the player can
-reach — nobody is ever hired.
+Ending a candidate's review without an invitation. It is the only decision the player can reach —
+nobody is ever hired. In the starting loop, no Reason is chosen or stated.
 _Avoid_: Closing, declining, refusing
 
 **Reason**:
-The stated cause of a rejection. Reasons are the game's core choice, and there are only two kinds.
+The stated cause of a Rejection.
 
 **Precise reason**:
-A Reason that names the current Application's Mismatch, using the same skill or requirement. Pays
-the most Credits.
+A Reason that names the current Application's Mismatch, using the same skill or requirement.
 
 **Generic reason**:
-A corporate-sounding, unfalsifiable reason ("Not a culture fit"). Pays fewer Credits than a precise
-reason. Choosing one is never punished — it only earns less.
+A corporate-sounding, unfalsifiable reason ("Not a culture fit").
 _Avoid_: Vague reason, canned reason
 
 **Rejection count**:
@@ -64,15 +62,14 @@ _Avoid_: Pool, backlog, archive, graveyard
 ### Economy
 
 **Credits**:
-The game's only currency, earned by rejecting candidates and spent on upgrades. Shown on screen as
-"EC".
+The game's only currency, earned by rejecting candidates. Spending on Upgrades is a future
+possibility; the current Shop has no purchases.
 _Avoid_: Points, gold, money, currency
 
 ### Progression
 
 **Upgrade**:
-A purchased tool that changes how the player works. Upgrades arrive in a fixed order, and each one
-answers a problem the previous one created.
+A proposed tool that changes how the player works. Purchase rules, order, and effects remain open.
 _Avoid_: Item, perk, unlock, power-up
 
 **Chain of band-aids**:
@@ -114,10 +111,10 @@ A named place on a game surface where an Upgrade can appear.
 _Avoid_: Zone, position, cell
 
 **Shop**:
-A purchase panel for Upgrade cards, separate from the Room and Monitor.
+The Screen panel showing the Upgrade catalog. Its current cards are noninteractive and have no prices.
 _Avoid_: Store, market, vendor panel
 
 **Taskbar**:
-The bar at the bottom of the Screen that holds the Start button, window buttons, tray icons, and
-the clock.
+The bar at the bottom of the Screen. Its starting state has no window buttons and shows the local
+clock; demonstration presets add buttons for their open windows.
 _Avoid_: Dock, status bar, footer

@@ -14,6 +14,7 @@ test('production hides the camera control by default', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await expect(page.getByLabel('Composition preset')).toHaveCount(0);
 });
 
 test('production loads bundled fonts without external font requests', async ({ page }) => {
@@ -55,11 +56,13 @@ test('production starts without runtime errors', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('production cannot expose the camera through a URL parameter', async ({ page }) => {
+test('production cannot expose development controls through URL parameters', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/?dev=1&view=room');
+  await page.goto('/?dev=1&view=room&stage=chaos&preset=chaos');
 
   await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await expect(page.getByLabel('Composition preset')).toHaveCount(0);
+  await expect(page.getByRole('complementary', { name: 'Calm Corner' })).toHaveCount(0);
   const screen = page.getByRole('main', { name: 'Talent.OS Screen' });
   await expect.poll(async () => (await screen.boundingBox())?.width).toBeCloseTo(1296, 0);
 });

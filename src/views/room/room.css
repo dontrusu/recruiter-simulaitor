@@ -1,4 +1,15 @@
 .room-set {
+  --soft-ink: #272b44;
+  --soft-fog: #f1f2ff;
+  --soft-pink: #f3d5e7;
+  --soft-green: #d0e8ba;
+  --font-quote: Georgia, serif;
+  --font-utility: 'IBM Plex Mono', monospace;
+  --font-body: 'IBM Plex Sans Variable', sans-serif;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --border-thin: 1px;
   --room-wall: #e3d9e9;
   --room-shadow: #30233e63;
   --room-screen-light: #b1d9ff;

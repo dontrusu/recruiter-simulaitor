@@ -3,6 +3,7 @@ import { useWorkspaceStore } from '@/core/store/workspace';
 import { ApplicationReview } from '@/views/application-review/ApplicationReview';
 import { Shop } from '@/views/shop/Shop';
 import { Taskbar } from './Taskbar';
+import { PresetWindows } from './PresetWindows';
 
 function Counter({
   label,
@@ -58,6 +59,7 @@ export function MonitorScreen({ width, height }: { width: number; height: number
       </header>
 
       <ApplicationReview />
+      <PresetWindows />
 
       <p className="mb-9 text-center font-mono text-[10px] tracking-[0.05em] text-muted-foreground">
         We’ll keep your CV on file for future opportunities.

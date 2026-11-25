@@ -3,6 +3,15 @@ import { expect, test } from '@playwright/test';
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
+test('full chaos preset passes WCAG scans', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.metadata.production === true, 'Presets are development-only');
+  await page.goto('/?dev=1');
+  await page.getByLabel('Composition preset').selectOption('chaos');
+  await page.evaluate(() => document.fonts.ready);
+  const results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+  expect(results.violations).toEqual([]);
+});
+
 for (const camera of ['Screen', 'Room']) {
   for (const rejected of [false, true]) {
     test(`${camera} ${rejected ? 'after Rejection' : 'on a fresh run'} passes WCAG scans`, async ({

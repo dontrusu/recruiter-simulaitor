@@ -1,0 +1,215 @@
+.preset-windows {
+  position: absolute;
+  inset: 96px 16px 100px;
+  z-index: 10;
+  pointer-events: none;
+}
+.preset-review {
+  transform: translateY(-80px) scale(0.82, 0.9);
+}
+.preset-window {
+  position: absolute;
+  width: 360px;
+  border: 2px solid #222;
+  background: #fff;
+  box-shadow: 3px 3px #222;
+  pointer-events: auto;
+  font-size: 14px;
+}
+.preset-window header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #222;
+  background: #ededea;
+  font-weight: 600;
+}
+.preset-L1 header,
+.preset-B1 header {
+  background: #fff4c9;
+}
+.preset-L2 .preset-body {
+  background: #ddf4f3;
+}
+.preset-body {
+  padding: 12px;
+}
+.preset-body p {
+  margin: 6px 0;
+}
+.preset-body small {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+}
+.preset-L1 {
+  left: 70px;
+  top: 24px;
+}
+.preset-L2 {
+  left: 76px;
+  top: 290px;
+}
+.preset-L3 {
+  left: 82px;
+  top: 518px;
+}
+.preset-R1 {
+  right: 70px;
+  top: 24px;
+}
+.preset-R2 {
+  right: 76px;
+  top: 180px;
+}
+.preset-R3 {
+  right: 82px;
+  top: 400px;
+}
+.preset-R4 {
+  right: 88px;
+  top: 564px;
+}
+.preset-B1 {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 340px;
+  display: flex;
+}
+.preset-B1 header {
+  width: 50%;
+}
+.preset-B1 .preset-body {
+  flex: 1;
+  padding: 6px;
+}
+.track,
+.calm-content,
+.funnel-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.album-art {
+  width: 80px;
+  height: 88px;
+  padding: 8px;
+  background: #f1e8f5;
+  color: #48235a;
+  font:
+    22px/1 Georgia,
+    serif;
+}
+.album-art em {
+  font-size: 10px;
+}
+.track-progress,
+.warmth-bar {
+  height: 4px;
+  background: #dadad7;
+  margin-top: 8px;
+}
+.track-progress span {
+  display: block;
+  width: 51%;
+  height: 100%;
+  background: #777;
+}
+.track-time {
+  display: flex;
+  justify-content: space-between;
+  font: 10px monospace;
+}
+.breathing-ring {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 10px;
+}
+.interview-faces {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.interview-faces span {
+  padding: 8px;
+  background: #e8eef9;
+}
+.interview-faces b {
+  display: block;
+  font-size: 24px;
+}
+.channel-message {
+  background: #f1efed;
+  padding: 10px;
+  color: #48235a;
+}
+.warmth-label {
+  display: flex;
+  justify-content: space-between;
+}
+.warmth-bar {
+  margin: 16px 0;
+  background: linear-gradient(to right, #48235a 68%, #ddd 68%);
+}
+.rejection-letter {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.funnel-content svg {
+  width: 35px;
+  fill: #f5df49;
+  stroke: #222;
+}
+.preset-B1 {
+  bottom: 75px;
+  height: 70px;
+  overflow: hidden;
+}
+.preset-pool {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 42px;
+  border: 2px solid #222;
+  background: #deded9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px;
+}
+.preset-pool strong,
+.preset-pool small {
+  display: block;
+  line-height: 1;
+}
+.preset-pool small {
+  font-size: 9px;
+}
+.preset-pool em {
+  font:
+    italic 12px Georgia,
+    serif;
+}
+.preset-pool-people {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+.preset-pool-people svg {
+  width: 35px;
+  height: 31px;
+  fill: #f5df49;
+  stroke: #48235a;
+  stroke-width: 3;
+}
+.preset-pool-people svg path:last-child {
+  fill: #48235a;
+}
