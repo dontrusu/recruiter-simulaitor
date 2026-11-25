@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { applications, vacancy } from './screen-content';
 
-it('authors exactly one fact-supported Mismatch and one matching precise Reason per Application', () => {
+it('authors exactly one fact-supported Mismatch per Application', () => {
   expect(applications.length).toBeGreaterThan(1);
   for (const application of applications) {
     const mismatches = [];
@@ -9,9 +9,8 @@ it('authors exactly one fact-supported Mismatch and one matching precise Reason 
     if (application.typescriptMonths === 0) mismatches.push('TypeScript');
     expect(application.teamsLed).toBeGreaterThan(0);
     expect(mismatches).toEqual([application.mismatch]);
-    const precise = application.reasons.filter((reason) => reason.kind === 'precise');
-    expect(precise).toHaveLength(1);
-    expect(precise[0]?.text).toContain(application.mismatch);
-    expect(application.reasons.filter((reason) => reason.kind === 'generic')).toHaveLength(2);
+    expect(application.testing).toBeTruthy();
+    expect(application.accessibility).toBeTruthy();
+    expect(application.learning).toBeTruthy();
   }
 });

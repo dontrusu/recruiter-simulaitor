@@ -22,13 +22,8 @@ for (const camera of ['Screen', 'Room']) {
         await Promise.all(document.getAnimations().map((animation) => animation.finished));
       });
       if (rejected) {
-        await page
-          .getByRole('list', { name: 'Reason choices' })
-          .getByRole('button')
-          .first()
-          .click();
+        await page.getByRole('button', { name: 'Reject', exact: true }).click();
         await expect(page.getByTestId('counter-rejected')).toHaveText('1');
-        await expect(page.getByRole('status')).not.toBeEmpty();
       }
 
       await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();
