@@ -10,9 +10,9 @@
 .preset-window {
   position: absolute;
   width: 360px;
-  border: 2px solid #222;
-  background: #fff;
-  box-shadow: 3px 3px #222;
+  border: 2px solid var(--preset-window-ink);
+  background: var(--preset-window-paper);
+  box-shadow: 3px 3px var(--preset-window-ink);
   pointer-events: auto;
   font-size: 14px;
 }
@@ -22,16 +22,16 @@
   gap: 8px;
   min-height: 44px;
   padding: 8px 12px;
-  border-bottom: 1px solid #222;
-  background: #ededea;
+  border-bottom: 1px solid var(--preset-window-ink);
+  background: var(--preset-window-header);
   font-weight: 600;
 }
 .preset-L1 header,
 .preset-B1 header {
-  background: #fff4c9;
+  background: var(--preset-window-header-yellow);
 }
 .preset-L2 .preset-body {
-  background: #ddf4f3;
+  background: var(--preset-window-header-mint);
 }
 .preset-body {
   padding: 12px;
@@ -97,8 +97,8 @@
   width: 80px;
   height: 88px;
   padding: 8px;
-  background: #f1e8f5;
-  color: #48235a;
+  background: var(--preset-album-background);
+  color: var(--preset-window-purple);
   font:
     22px/1 Georgia,
     serif;
@@ -109,14 +109,14 @@
 .track-progress,
 .warmth-bar {
   height: 4px;
-  background: #dadad7;
+  background: var(--preset-track-background);
   margin-top: 8px;
 }
 .track-progress span {
   display: block;
   width: 51%;
   height: 100%;
-  background: #777;
+  background: var(--preset-track-progress);
 }
 .track-time {
   display: flex;
@@ -139,16 +139,16 @@
 }
 .interview-faces span {
   padding: 8px;
-  background: #e8eef9;
+  background: var(--preset-interview-background);
 }
 .interview-faces b {
   display: block;
   font-size: 24px;
 }
 .channel-message {
-  background: #f1efed;
+  background: var(--preset-warmth-background);
   padding: 10px;
-  color: #48235a;
+  color: var(--preset-window-purple);
 }
 .warmth-label {
   display: flex;
@@ -156,16 +156,20 @@
 }
 .warmth-bar {
   margin: 16px 0;
-  background: linear-gradient(to right, #48235a 68%, #ddd 68%);
+  background: linear-gradient(
+    to right,
+    var(--preset-window-purple) 68%,
+    var(--preset-window-line) 68%
+  );
 }
 .rejection-letter {
-  border: 1px solid #ddd;
+  border: 1px solid var(--preset-window-line);
   padding: 8px;
 }
 .funnel-content svg {
   width: 35px;
-  fill: #f5df49;
-  stroke: #222;
+  fill: var(--preset-pool-yellow);
+  stroke: var(--preset-window-ink);
 }
 .preset-B1 {
   bottom: 75px;
@@ -178,8 +182,8 @@
   right: 0;
   bottom: 5px;
   height: 42px;
-  border: 2px solid #222;
-  background: #deded9;
+  border: 2px solid var(--preset-window-ink);
+  background: var(--preset-pool-background);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -206,10 +210,10 @@
 .preset-pool-people svg {
   width: 35px;
   height: 31px;
-  fill: #f5df49;
-  stroke: #48235a;
+  fill: var(--preset-pool-yellow);
+  stroke: var(--preset-window-purple);
   stroke-width: 3;
 }
 .preset-pool-people svg path:last-child {
-  fill: #48235a;
+  fill: var(--preset-window-purple);
 }

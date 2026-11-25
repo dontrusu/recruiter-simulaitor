@@ -52,4 +52,6 @@ test('reduced motion omits rejection stamp and movement', async ({ page }) => {
   await page.getByRole('button', { name: 'Reject', exact: true }).click();
   await expect(page.getByText('Rejection sent')).toBeHidden();
   await expect(page.getByTestId('counter-rejected')).toHaveText('1');
+  await expect(page.getByTestId('counter-credits')).toHaveText('0001');
+  await expect(page.getByText('+1', { exact: true })).toBeHidden();
 });

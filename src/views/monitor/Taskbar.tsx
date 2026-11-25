@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useWorkspaceStore } from '@/core/store/workspace';
-import { windows } from './PresetWindows';
+import { windowsForPreset } from './PresetWindows';
 import { UpgradeIcon } from '@/views/shop/UpgradeIcon';
 
 export function Taskbar() {
@@ -23,22 +23,20 @@ export function Taskbar() {
         aria-label="Open windows"
         className="flex min-w-0 flex-1 gap-2 overflow-x-auto"
       >
-        {(preset === 'start' ? [] : preset === 'mid' ? windows.slice(0, 2) : windows).map(
-          (window) => (
-            <button
-              key={window.name}
-              type="button"
-              aria-pressed={front === window.name}
-              onClick={() => activate(window.name)}
-              className="shrink-0 border border-foreground px-2 text-xs"
-            >
-              <span className="inline-flex items-center gap-1">
-                <UpgradeIcon name={window.upgrade} />
-                {window.name} <small>{window.slot}</small>
-              </span>
-            </button>
-          ),
-        )}
+        {windowsForPreset(preset).map((window) => (
+          <button
+            key={window.name}
+            type="button"
+            aria-pressed={front === window.name}
+            onClick={() => activate(window.name)}
+            className="shrink-0 border border-foreground px-2 text-xs"
+          >
+            <span className="inline-flex items-center gap-1">
+              <UpgradeIcon name={window.upgrade} />
+              {window.name} <small>{window.slot}</small>
+            </span>
+          </button>
+        ))}
       </div>
       <time
         aria-label="Local time"

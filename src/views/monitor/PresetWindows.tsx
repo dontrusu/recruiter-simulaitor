@@ -2,7 +2,7 @@ import { useWorkspaceStore } from '@/core/store/workspace';
 import { UpgradeIcon } from '@/views/shop/UpgradeIcon';
 import './preset-windows.css';
 
-export const windows = [
+const windows = [
   { name: 'Lo-Fi', slot: 'L1', upgrade: 'Lo-Fi Beats to Reject To' },
   { name: 'Calm Corner', slot: 'L2', upgrade: 'Calm Corner' },
   { name: 'AI Interviewer', slot: 'L3', upgrade: 'Your AI Interviewer' },
@@ -12,6 +12,10 @@ export const windows = [
   { name: 'Inbox', slot: 'R4', upgrade: 'Re: Your Application' },
   { name: 'Funnel', slot: 'B1', upgrade: 'The Funnel' },
 ] as const;
+
+export function windowsForPreset(preset: ReturnType<typeof useWorkspaceStore.getState>['preset']) {
+  return preset === 'start' ? [] : preset === 'mid' ? windows.slice(0, 2) : windows;
+}
 
 type WindowName = (typeof windows)[number]['name'];
 function Content({ name }: { name: WindowName }) {
@@ -146,7 +150,7 @@ export function PresetWindows() {
   const front = useWorkspaceStore((state) => state.frontWindow);
   const activate = useWorkspaceStore((state) => state.activateWindow);
   if (preset === 'start') return null;
-  const visible = preset === 'mid' ? windows.slice(0, 2) : windows;
+  const visible = windowsForPreset(preset);
   return (
     <div className="preset-windows" aria-label="Demonstration windows">
       {visible.map((window, index) => (

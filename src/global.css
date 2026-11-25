@@ -66,6 +66,73 @@
   --portrait-ink: #28251f;
   --paper-shadow: rgb(21 20 15 / 12%);
 
+  /* Demonstration artwork palette. */
+  --preset-window-header: #ededea;
+  --preset-window-header-yellow: #fff4c9;
+  --preset-window-header-mint: #ddf4f3;
+  --preset-album-background: #f1e8f5;
+  --preset-window-purple: #48235a;
+  --preset-track-background: #dadad7;
+  --preset-interview-background: #e8eef9;
+  --preset-warmth-background: #f1efed;
+  --preset-pool-yellow: #f5df49;
+  --preset-pool-background: #deded9;
+  --preset-window-ink: #222;
+  --preset-window-paper: #fff;
+  --preset-track-progress: #777;
+  --preset-window-line: #ddd;
+  --preset-kevin-tag-shadow: #382c4e55;
+  --preset-confetti-shadow: #392e4c44;
+  --preset-bingo-paper: #fff7e8;
+  --preset-bingo-border: #946e87;
+  --preset-bingo-grid-border: #a597b1;
+  --preset-org-background: #4f4267;
+  --preset-org-border: #392e4c;
+  --preset-org-heading: #fff2cf;
+  --preset-org-node-shadow: #766789;
+  --preset-audit-paper: #fbf3d8;
+  --preset-audit-border: #a98b67;
+  --preset-audit-seal: #437c59;
+  --preset-audit-seal-text: #fff5dd;
+  --preset-coffee-ink: #302941;
+  --preset-coffee-light: #796583;
+  --preset-coffee-dark: #56445f;
+  --preset-coffee-highlight: #a591aa;
+  --preset-coffee-display: #b5e9b4;
+  --preset-coffee-display-text: #324b40;
+  --preset-coffee-bay-shadow: #71607c;
+  --preset-coffee-steam: #c1aeba;
+  --preset-kevin-tag: #fae49e;
+  --preset-oracle-outline: #241d34;
+  --preset-oracle-light: #81719d;
+  --preset-oracle-mid-light: #64547f;
+  --preset-oracle-mid-dark: #453955;
+  --preset-oracle-dark: #30263d;
+  --preset-oracle-glint: #c4c6e9;
+  --preset-oracle-glint-shadow: #a0a8da;
+  --preset-oracle-label: #f5ebf2;
+  --preset-oracle-label-border: #3a2b49;
+  --preset-oracle-label-shadow: #ceb9d4;
+  --preset-oracle-foot-border: #4d3d5a;
+  --preset-oracle-foot: #b0a0c4;
+  --preset-egg-string: #645371;
+  --preset-egg-border: #8a758b;
+  --preset-egg-light: #fff8db;
+  --preset-egg-shadow: #e9c8bf;
+  --preset-egg-mark: #aa766f;
+  --preset-cannon-border: #552e50;
+  --preset-cannon-light: #f6b4bf;
+  --preset-cannon-mid: #d46285;
+  --preset-cannon-dark: #a74064;
+  --preset-cannon-base: #53425f;
+  --preset-swag-border: #45355f;
+  --preset-swag-box-light: #8370b9;
+  --preset-swag-box-dark: #7160a5;
+  --preset-swag-lid-light: #a38ed6;
+  --preset-swag-lid-dark: #9480ca;
+  --preset-note-paper: #f7df97;
+  --preset-note-border: #b3955b;
+
   --sidebar: var(--background);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
@@ -214,7 +281,7 @@ button[data-slot='button']:focus-visible {
     display: none;
   }
   .rejection-credit {
-    animation: none;
+    display: none;
   }
   .camera-scene {
     transition: none !important;
