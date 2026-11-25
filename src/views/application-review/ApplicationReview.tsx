@@ -4,10 +4,15 @@ import { VacancyPanel } from './VacancyPanel';
 
 export function ApplicationReview() {
   return (
-    <div className="grid flex-1 grid-cols-[280px_minmax(0,1fr)_300px] gap-10 px-[88px] pb-12 pt-5">
-      <VacancyPanel />
-      <CandidateCard />
-      <ReasonChoices />
+    <div className="flex flex-1 items-center justify-center py-5">
+      <div className="w-[560px] border-2 border-foreground bg-card shadow-[4px_4px_0_var(--foreground)]">
+        <div className="border-b border-border px-4 py-1 font-mono text-xs text-muted-foreground">
+          Talent.OS / Application review
+        </div>
+        <VacancyPanel />
+        <CandidateCard />
+        <ReasonChoices />
+      </div>
     </div>
   );
 }

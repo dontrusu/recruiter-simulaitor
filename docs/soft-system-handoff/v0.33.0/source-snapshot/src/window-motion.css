@@ -1,0 +1,12 @@
+.window-transfer {
+  position: fixed;
+  z-index: var(--layer-floating);
+  pointer-events: none;
+  transform-origin: top left;
+  overflow: hidden;
+  border: calc(2 * var(--border-thin)) solid var(--soft-ink);
+  background: var(--soft-chrome);
+  color: var(--soft-ink);
+  padding: var(--space-sm);
+  font: var(--weight-bold) var(--text-small) / 1.2 var(--font-utility);
+}

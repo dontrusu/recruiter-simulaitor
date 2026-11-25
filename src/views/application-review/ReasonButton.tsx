@@ -11,7 +11,7 @@ export function ReasonButton({ reason, onClick }: ReasonButtonProps) {
       data-testid={`reason-${reason.kind}`}
       variant={reason.kind === 'precise' ? 'default' : 'outline'}
       onClick={onClick}
-      className={`h-auto min-h-[58px] w-full justify-between gap-4 whitespace-normal rounded-full border px-5 py-3 text-left font-sans text-base font-normal ${
+      className={`h-auto min-h-[58px] w-full justify-between gap-2 whitespace-normal rounded-none border px-2 py-2 text-left font-sans text-sm font-normal ${
         reason.kind === 'precise'
           ? 'border-foreground bg-foreground text-background hover:bg-foreground/90'
           : 'border-border bg-card text-foreground'
@@ -19,7 +19,7 @@ export function ReasonButton({ reason, onClick }: ReasonButtonProps) {
     >
       <span className="leading-tight">{reason.text}</span>
       <strong
-        className={`shrink-0 font-mono text-sm ${reason.kind === 'precise' ? 'text-brand' : 'text-brand-text'}`}
+        className={`shrink-0 font-mono text-sm ${reason.kind === 'precise' ? 'text-background' : 'text-brand-text'}`}
       >
         +{reasonReward(reason.kind)}
       </strong>

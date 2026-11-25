@@ -48,11 +48,8 @@ export function CandidateCard() {
   const index = useWorkspaceStore((state) => state.run.applicationIndex);
   const application = applications[index] ?? applications[0];
   return (
-    <article
-      aria-label="Current application"
-      className="self-center border border-border bg-card p-8 shadow-[0_20px_40px_var(--paper-shadow)]"
-    >
-      <div className="flex items-center justify-between border-b border-border pb-5">
+    <article aria-label="Current application" className="bg-card px-4 py-3">
+      <div className="flex items-center justify-between pb-3">
         <p className="font-mono text-label uppercase tracking-[0.1em] text-muted-foreground">
           {vacancy.title} · Application #{application.number}
         </p>
@@ -61,10 +58,10 @@ export function CandidateCard() {
         </span>
       </div>
 
-      <div className="flex items-center gap-6 py-6">
+      <div className="flex items-center gap-4 pb-3">
         <CandidatePortrait name={application.name} />
         <div>
-          <h2 className="font-serif text-[42px] leading-[0.98] tracking-[-0.05em]">
+          <h2 className="font-sans text-[36px] font-bold leading-none tracking-[-0.03em]">
             {application.name}
           </h2>
           <p className="mt-3 font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground">
@@ -73,7 +70,7 @@ export function CandidateCard() {
         </div>
       </div>
 
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-5 border-y border-border py-6">
+      <dl className="grid grid-cols-2 gap-x-8 gap-y-2 border-y border-border py-3">
         <div>
           <dt className="ui-label">React</dt>
           <dd className="mt-1 text-xl">{formatExperience(application.reactMonths)}</dd>
@@ -92,7 +89,7 @@ export function CandidateCard() {
         </div>
       </dl>
 
-      <div className="pt-5">
+      <div className="pt-3">
         <p className="ui-label">From the cover letter</p>
         <blockquote className="mt-3 border-l-2 border-brand pl-4 font-serif text-[21px] italic leading-snug">
           “{application.coverLetter}”

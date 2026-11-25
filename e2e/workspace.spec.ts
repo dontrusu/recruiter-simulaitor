@@ -89,7 +89,7 @@ for (const viewport of [
   });
 }
 
-test('loads the Sans, Serif, and Mono font roles locally', async ({ page }) => {
+test('uses the local Sans and Mono fonts and the editorial serif role', async ({ page }) => {
   const externalFontRequests: string[] = [];
   page.on('request', (request) => {
     if (/fonts\.(googleapis|gstatic)\.com/.test(request.url())) {
@@ -108,7 +108,7 @@ test('loads the Sans, Serif, and Mono font roles locally', async ({ page }) => {
   });
   const fontsLoaded = await page.evaluate(async () => {
     await document.fonts.ready;
-    return ['IBM Plex Sans Variable', 'IBM Plex Serif', 'IBM Plex Mono'].map((family) =>
+    return ['IBM Plex Sans Variable', 'IBM Plex Mono'].map((family) =>
       Array.from(document.fonts).some(
         (face) => face.family.replaceAll('"', '') === family && face.status === 'loaded',
       ),
@@ -116,9 +116,9 @@ test('loads the Sans, Serif, and Mono font roles locally', async ({ page }) => {
   });
 
   expect(fontRoles.sans).toContain('IBM Plex Sans');
-  expect(fontRoles.serif).toContain('IBM Plex Serif');
+  expect(fontRoles.serif).toContain('Georgia');
   expect(fontRoles.mono).toContain('IBM Plex Mono');
-  expect(fontsLoaded).toEqual([true, true, true]);
+  expect(fontsLoaded).toEqual([true, true]);
   expect(externalFontRequests).toEqual([]);
 });
 

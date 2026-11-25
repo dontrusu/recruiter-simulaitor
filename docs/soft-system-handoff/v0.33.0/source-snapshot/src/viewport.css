@@ -1,0 +1,918 @@
+/* A bounded review canvas. Small browser panes fit this composition as a whole;
+   desktop sizes use their actual dimensions and retain native text sizing. */
+body {
+  overflow: hidden;
+}
+.canvas-viewport {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  background: var(--color-canvas);
+}
+.viewport-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(var(--view-scale));
+  transform-origin: center;
+}
+.prototype .viewport-canvas .workspace {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  padding: var(--space-sm) var(--space-lg) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+}
+.prototype .viewport-canvas .masthead {
+  flex: none;
+  height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-lg);
+  padding: 0 0 var(--space-xs);
+}
+.prototype .viewport-canvas .brand {
+  align-self: start;
+  padding-top: var(--space-xs);
+}
+.prototype .viewport-canvas .wordmark {
+  font-size: var(--text-h2);
+  line-height: var(--line-heading);
+}
+.prototype .viewport-canvas .brand-caption {
+  font-size: var(--text-micro);
+  max-width: none;
+  margin-top: var(--space-xs);
+}
+.prototype .viewport-canvas .shop {
+  position: relative;
+  grid-column: auto;
+  grid-row: auto;
+  justify-self: center;
+  width: auto;
+  margin: 0;
+}
+.prototype .viewport-canvas .shop-heading {
+  justify-content: flex-end;
+  margin: 0 0 var(--space-xs);
+  gap: var(--space-sm);
+}
+.prototype .viewport-canvas .shop-heading > .eyebrow {
+  display: none;
+}
+.prototype .viewport-canvas .shop-heading .ds-button {
+  min-height: 24px;
+  padding: 0 var(--space-sm);
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .upgrade-row {
+  display: grid;
+  grid-template-columns: repeat(5, 132px);
+  gap: var(--space-sm);
+  overflow: visible;
+  padding: 0;
+}
+.prototype .viewport-canvas .upgrade-tile.ds-button {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  column-gap: var(--space-sm);
+  row-gap: 0;
+  align-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-control);
+  font-size: var(--text-micro);
+  line-height: 1.2;
+  text-align: left;
+}
+.prototype .viewport-canvas .upgrade-mark {
+  grid-row: 1 / span 2;
+  width: 20px;
+  height: 20px;
+  align-self: center;
+}
+.prototype .viewport-canvas .upgrade-tile > span {
+  display: block;
+  min-height: 0;
+}
+.prototype .viewport-canvas .upgrade-tile small {
+  grid-column: 2;
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .scoreboard {
+  grid-column: 3;
+  grid-row: 1;
+}
+.prototype .viewport-canvas .credit-total strong {
+  font-size: var(--text-h2);
+}
+.prototype .viewport-canvas .score-details {
+  margin-top: var(--space-xs);
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.prototype .viewport-canvas .workspace-heading {
+  position: absolute;
+  top: 68px;
+  left: var(--space-lg);
+  padding: 0;
+  margin: 0;
+}
+.prototype .viewport-canvas .workspace-heading > div {
+  display: none;
+}
+.prototype .viewport-canvas .workspace-status {
+  font-size: var(--text-micro);
+  max-width: none;
+  gap: var(--space-xs);
+}
+.prototype .viewport-canvas .composition-a {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  padding: 0;
+  margin: var(--space-sm) 0 0;
+}
+.prototype .viewport-canvas .composition-a .desk-margin,
+.prototype .viewport-canvas .composition-a .side-note {
+  display: none;
+}
+.prototype .viewport-canvas .review-window {
+  grid-column: 1;
+  grid-row: 1;
+  position: absolute;
+  top: max(
+    0px,
+    min(
+      calc((100% - var(--card-height, 400px) + 16px) / 2),
+      calc(100% - var(--card-height, 400px) - var(--funnel-room))
+    )
+  );
+  left: calc((100% - var(--review-width)) / 2);
+  width: var(--review-width);
+  transform: none;
+}
+.prototype.stage-start .viewport-canvas .review-window {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+}
+.prototype .viewport-canvas .window-bar {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-micro);
+  min-height: 24px;
+}
+.prototype .viewport-canvas .vacancy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-xs) var(--space-md);
+}
+.prototype .viewport-canvas .vacancy h2 {
+  font-size: var(--text-lead);
+  margin: var(--space-xs) 0;
+}
+.prototype .viewport-canvas .vacancy .muted {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .role-break,
+.prototype .viewport-canvas .vacancy-note,
+.prototype .viewport-canvas .requirements > .eyebrow {
+  display: none;
+}
+.prototype .viewport-canvas .requirements {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.prototype .viewport-canvas .requirements ul {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.25;
+}
+.prototype .viewport-canvas .requirements li {
+  padding: 0;
+  border: 0;
+}
+.prototype .viewport-canvas .candidate-top {
+  min-height: 24px;
+  padding: var(--space-xs) var(--space-md) 0;
+}
+.prototype .viewport-canvas .candidate-top .ds-badge {
+  padding: 0 var(--space-sm);
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .person {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-xs) var(--space-md);
+  align-items: center;
+}
+.prototype .viewport-canvas .portrait {
+  width: 64px;
+}
+.prototype .viewport-canvas .person-details {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: var(--space-sm);
+  align-items: center;
+}
+.prototype .viewport-canvas .person h1 {
+  font-size: var(--text-h2);
+  line-height: var(--line-heading);
+  margin: 0;
+  max-width: none;
+}
+.prototype .viewport-canvas .location {
+  font-size: var(--text-micro);
+  margin: 0;
+}
+.prototype .viewport-canvas .location span {
+  padding-inline: var(--space-xs);
+}
+.prototype .viewport-canvas .facts {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-sm) 0 0;
+}
+.prototype .viewport-canvas .facts > div {
+  display: block;
+}
+.prototype .viewport-canvas .facts dt {
+  margin: 0;
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .facts dd {
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .letter {
+  margin: var(--space-xs) var(--space-md) var(--space-sm);
+  padding-left: var(--space-md);
+}
+.prototype .viewport-canvas blockquote {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-lead);
+  line-height: 1.2;
+}
+.prototype .viewport-canvas .decisions {
+  padding: var(--space-sm) var(--space-md);
+}
+.prototype .viewport-canvas .reason-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+.prototype .viewport-canvas .reason:first-child {
+  grid-column: auto;
+}
+.prototype .viewport-canvas .reason.ds-button {
+  min-height: var(--size-control);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .application-bottom {
+  display: none;
+}
+.prototype .viewport-canvas .upgrade-windows {
+  position: absolute;
+  inset: 0;
+  display: block;
+  margin: 0;
+}
+/* Side windows tuck slightly over the application, as in the original workspace. */
+.prototype .viewport-canvas .composition-a {
+  --review-width: min(560px, calc(var(--canvas-width) * 0.5));
+  --column-room: calc((100% - var(--review-width)) / 2);
+  --funnel-room: 112px;
+  --slot-gap: var(--space-md);
+  --slot-edge: var(--space-sm);
+  --cascade-step: var(--space-md);
+  --cascade-room: calc(2 * var(--cascade-step));
+  --slot-overlap: var(--space-lg);
+  --slot-bottom: calc(100% - var(--slot-edge));
+  --first-slot: 2%;
+  --left-middle: 38%;
+  --left-bottom: 69%;
+  --right-upper: 23%;
+  --right-middle: 53%;
+  --right-bottom: 75%;
+}
+.prototype .viewport-canvas .slot-position {
+  --slot-width: clamp(280px, calc(var(--canvas-width) * 0.25), 360px);
+  --stagger: 0px;
+  --slot-top: var(--first-slot);
+  --next-slot: var(--slot-bottom);
+  --stack-shift: calc(var(--stack-index, 0) * var(--cascade-step));
+  position: absolute;
+  top: var(--slot-top);
+  bottom: auto;
+  width: var(--slot-width);
+  margin: 0;
+  transform: none;
+}
+.prototype .viewport-canvas .slot-position[data-slot^="L"],
+.prototype .viewport-canvas .slot-position[data-slot^="R"] {
+  --column-inset: calc(-1 * var(--space-sm) - var(--stagger));
+  width: min(
+    var(--slot-width),
+    calc(
+      var(--column-room) - var(--column-inset) - var(--cascade-room) -
+        var(--slot-edge)
+    )
+  );
+}
+.prototype .viewport-canvas .slot-position[data-slot^="L"] {
+  left: auto;
+  right: calc(100% - var(--column-room) + var(--column-inset));
+}
+.prototype .viewport-canvas .slot-position[data-slot^="R"] {
+  left: calc(100% - var(--column-room) + var(--column-inset));
+  right: auto;
+}
+.prototype .viewport-canvas .slot-position[data-slot="L1"] {
+  --next-slot: calc(var(--left-middle) + var(--slot-overlap));
+}
+.prototype .viewport-canvas .slot-position[data-slot="L2"] {
+  --stagger: 6px;
+  --slot-top: var(--left-middle);
+  --next-slot: calc(var(--left-bottom) + var(--slot-overlap));
+}
+.prototype .viewport-canvas .slot-position[data-slot="L3"] {
+  --stagger: 12px;
+  --slot-top: var(--left-bottom);
+}
+.prototype .viewport-canvas .slot-position[data-slot="R1"] {
+  --next-slot: calc(var(--right-upper) + var(--slot-overlap));
+}
+.prototype .viewport-canvas .slot-position[data-slot="R2"] {
+  --stagger: 6px;
+  --slot-top: var(--right-upper);
+  --next-slot: calc(var(--right-middle) + var(--slot-overlap));
+}
+.prototype .viewport-canvas .slot-position[data-slot="R3"] {
+  --stagger: 12px;
+  --slot-top: var(--right-middle);
+  --next-slot: calc(var(--right-bottom) + var(--slot-overlap));
+}
+.prototype .viewport-canvas .slot-position[data-slot="R4"] {
+  --stagger: 18px;
+  --slot-top: var(--right-bottom);
+}
+.prototype .viewport-canvas .slot-position[data-slot="B1"] {
+  --slot-top: calc(var(--card-bottom, 480px) + var(--slot-gap));
+  left: 50%;
+  right: auto;
+  width: 340px;
+  transform: translateX(-50%);
+}
+
+.prototype.variant-a .viewport-canvas .person {
+  --portrait-width: clamp(
+    80px,
+    calc((var(--canvas-height) - 800px) * 0.24 + 80px),
+    112px
+  );
+  grid-template-columns: var(--portrait-width) minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-sm) var(--space-lg);
+}
+.prototype.variant-a .viewport-canvas .portrait {
+  width: var(--portrait-width);
+}
+.prototype.variant-a .viewport-canvas .person {
+  padding-block: clamp(
+    8px,
+    calc((var(--canvas-height) - 800px) * 0.16 + 8px),
+    24px
+  );
+}
+.prototype.variant-a .viewport-canvas .person-details {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-xs);
+}
+.prototype.variant-a .viewport-canvas .facts {
+  grid-column: 1;
+}
+.prototype.variant-a .viewport-canvas .person h1 {
+  font-size: clamp(
+    32px,
+    calc((var(--canvas-height) - 800px) * 0.04 + 32px),
+    36px
+  );
+}
+.prototype.variant-a .viewport-canvas .facts dd {
+  font-size: var(--text-body);
+}
+.prototype.variant-a .viewport-canvas blockquote {
+  font-size: var(--text-h3);
+}
+.prototype .viewport-canvas .vendor-window {
+  translate: var(--stack-shift) var(--stack-shift);
+}
+.prototype .viewport-canvas .vendor-window[data-slot^="L"] {
+  translate: calc(-1 * var(--stack-shift)) var(--stack-shift);
+}
+.prototype .viewport-canvas .vendor-window[data-slot^="L"]:not([hidden]),
+.prototype .viewport-canvas .vendor-window[data-slot^="R"]:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--next-slot) - var(--slot-top) - var(--stack-shift));
+}
+.prototype .viewport-canvas .vendor-window .vendor-header {
+  flex-shrink: 0;
+}
+.prototype .viewport-canvas .vendor-window .vendor-body {
+  min-height: 0;
+  overflow: auto;
+}
+.prototype .viewport-canvas .vendor-window .vendor-body:focus-visible {
+  outline: var(--border-focus) solid var(--color-focus);
+  outline-offset: calc(-1 * var(--border-focus));
+}
+.prototype .viewport-canvas .vendor-window::before {
+  display: none;
+}
+.prototype .viewport-canvas .vendor-header {
+  padding: 0 var(--space-sm);
+  min-height: 32px;
+}
+.prototype .viewport-canvas .vendor-header h2 {
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .vendor-header .ds-button {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+}
+.prototype .viewport-canvas .vendor-body {
+  padding: var(--space-sm);
+  font-size: var(--text-small);
+  line-height: 1.3;
+}
+.prototype .viewport-canvas .vendor-body p {
+  margin-bottom: var(--space-sm);
+}
+.prototype .viewport-canvas .vendor-caption {
+  display: none;
+}
+.prototype .viewport-canvas .album-art {
+  width: 56px;
+  height: 64px;
+  font-size: var(--text-lead);
+  padding: var(--space-xs);
+}
+.prototype .viewport-canvas .track {
+  gap: var(--space-sm);
+}
+.prototype .viewport-canvas .track p {
+  margin-top: var(--space-xs);
+}
+.prototype .viewport-canvas .track-progress {
+  margin-top: var(--space-sm);
+}
+.prototype .viewport-canvas .track-time {
+  margin-top: var(--space-xs);
+}
+.prototype .viewport-canvas .breathing-ring {
+  width: 48px;
+  height: 48px;
+}
+.prototype .viewport-canvas .interview-faces {
+  margin-bottom: var(--space-xs);
+}
+.prototype .viewport-canvas .interview-faces span {
+  padding: var(--space-xs) var(--space-sm);
+}
+.prototype .viewport-canvas .interview-faces b {
+  font-size: var(--text-lead);
+}
+.prototype .viewport-canvas .vendor-compassion .vendor-body {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: var(--space-sm);
+}
+.prototype .viewport-canvas .warmth-label {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .vendor-compassion input {
+  min-height: 32px;
+  margin: 0;
+}
+.prototype .viewport-canvas .vendor-compassion .rejection-letter {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .vendor-compassion .rejection-letter p:first-child {
+  display: none;
+}
+.prototype .viewport-canvas .vendor-compassion .rejection-letter p {
+  margin: 0;
+}
+.prototype .viewport-canvas .vendor-compassion .vendor-caption {
+  display: none;
+}
+.prototype .viewport-canvas .channel-message {
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.prototype .viewport-canvas .message-author {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .message-author span {
+  display: none;
+}
+.prototype .viewport-canvas .reactions {
+  gap: var(--space-md);
+}
+.prototype .viewport-canvas .vendor-social .vendor-body > p {
+  margin-top: var(--space-sm);
+}
+.prototype .viewport-canvas .vendor-funnel .vendor-body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.prototype .viewport-canvas .vendor-funnel svg {
+  width: 48px;
+  height: 48px;
+}
+.prototype .viewport-canvas .vendor-funnel p {
+  display: none;
+}
+.prototype .viewport-canvas .second-cursor {
+  display: flex;
+  top: 42%;
+  right: 23%;
+}
+.prototype .viewport-canvas .talent-pool {
+  flex: none;
+  height: 44px;
+  min-height: 0;
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  gap: var(--space-lg);
+  flex-wrap: nowrap;
+}
+.prototype .viewport-canvas .talent-pool h2 {
+  font-size: var(--text-lead);
+  margin: 0;
+}
+.prototype .viewport-canvas .talent-pool p {
+  font-size: var(--text-micro);
+  line-height: 1.2;
+}
+.prototype .viewport-canvas .pool-people {
+  min-width: 0;
+}
+.prototype .viewport-canvas .pool-people svg {
+  width: 40px;
+  height: 36px;
+  min-width: 32px;
+}
+.prototype .viewport-canvas .pool-note {
+  display: block;
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .desktop-taskbar {
+  flex: none;
+  height: 52px;
+  min-height: 0;
+  margin-top: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  gap: var(--space-sm);
+  flex-wrap: nowrap;
+}
+.prototype .viewport-canvas .taskbar-windows {
+  order: initial;
+  flex-basis: auto;
+  padding: var(--space-xs);
+}
+.prototype .viewport-canvas .taskbar-window.ds-button {
+  min-height: 36px;
+  min-width: 96px;
+  font-size: var(--text-micro);
+  gap: 0;
+  padding: var(--space-xs) var(--space-sm);
+}
+.prototype .viewport-canvas .taskbar-state {
+  font-size: var(--text-micro);
+  line-height: 1.1;
+}
+.prototype .viewport-canvas .taskbar-brand {
+  font-size: var(--text-micro);
+  padding: 0 var(--space-xs);
+}
+.prototype .viewport-canvas .desktop-tray {
+  flex-shrink: 0;
+  margin: 0;
+  gap: var(--space-xs);
+}
+.prototype .viewport-canvas .desktop-tray .ds-button {
+  min-height: 36px;
+  padding: var(--space-xs);
+}
+.prototype .viewport-canvas .desktop-tray time {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .tray-sound {
+  display: none;
+}
+.prototype .viewport-canvas .window-feedback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.prototype .viewport-canvas .workspace-footer {
+  flex: none;
+  height: 44px;
+  min-height: 0;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding-right: 140px;
+}
+.prototype .viewport-canvas .workspace-footer p {
+  font-size: var(--text-micro);
+  margin: 0;
+}
+.prototype .viewport-canvas .bottom-line {
+  display: none;
+}
+.prototype .viewport-canvas .slot-guides {
+  position: absolute;
+  inset: 0;
+  display: block;
+  margin: 0;
+}
+.prototype .viewport-canvas .slot-guide {
+  min-height: 0 !important;
+  height: 140px;
+  padding: 0;
+  border: 0;
+  outline: var(--border-thin) dashed var(--color-info);
+}
+.prototype .viewport-canvas .slot-guide[data-slot="B1"] {
+  height: 96px;
+}
+.prototype .viewport-canvas .slot-label {
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  right: auto;
+  display: block;
+  white-space: nowrap;
+  padding: var(--space-xs);
+  background: var(--color-info-soft);
+}
+.prototype .viewport-canvas .slot-guide[data-slot^="R"] .slot-label {
+  left: auto;
+  right: 0;
+}
+.prototype .viewport-canvas .decisions::after {
+  top: 100%;
+}
+/* Alternate layout remains available in the compact review panel. */
+.prototype .viewport-canvas .composition-b {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 200px minmax(0, 1fr) 260px;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0 0;
+}
+.prototype .viewport-canvas .composition-b .vacancy {
+  display: block;
+}
+.prototype .viewport-canvas .composition-b .requirements {
+  margin-top: var(--space-lg);
+}
+.prototype .viewport-canvas .composition-b .role-column {
+  min-height: 0;
+}
+.prototype .viewport-canvas .composition-b .candidate {
+  display: flex;
+  flex-direction: column;
+}
+.prototype .viewport-canvas .composition-b .person {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.prototype .viewport-canvas .composition-b .portrait-wrap {
+  display: flex;
+  align-items: center;
+}
+.prototype .viewport-canvas .composition-b .portrait-caption {
+  display: block;
+  font-size: var(--text-body);
+}
+.prototype .viewport-canvas .composition-b .letter {
+  margin-top: auto;
+  margin-bottom: var(--space-xl);
+}
+.prototype .viewport-canvas .composition-b .decisions {
+  display: flex;
+  flex-direction: column;
+}
+.prototype .viewport-canvas .composition-b .decision-heading h2 {
+  font-size: var(--text-h3);
+  margin-top: var(--space-lg);
+}
+.prototype .viewport-canvas .composition-b .decision-heading p {
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .composition-b .reason-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.prototype .viewport-canvas .composition-b .decision-note {
+  margin-top: var(--space-xl);
+}
+.review-launcher {
+  position: fixed;
+  bottom: var(--space-sm);
+  right: var(--space-md);
+  z-index: var(--layer-floating);
+}
+.review-launcher > .ds-button {
+  box-shadow: var(--shadow-floating);
+}
+.ds-popover:has(.review-console) {
+  width: min(370px, calc(100vw - var(--space-2xl)));
+  max-height: calc(100dvh - var(--space-4xl));
+  overflow-y: auto;
+}
+.review-console .review-bar,
+.review-console .stage-controls {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  padding: var(--space-md) 0;
+  gap: var(--space-sm);
+  border-color: var(--color-divider);
+}
+.review-console .review-bar > span,
+.review-console .stage-controls > .eyebrow,
+.review-console .stage-explanation {
+  display: none;
+}
+.review-console .review-bar > div,
+.review-console .stage-controls > div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: var(--space-xs);
+}
+.review-console .review-bar .ds-button,
+.review-console .stage-controls .ds-button {
+  flex: 1;
+  font-size: var(--text-small);
+}
+.review-console .stack-review {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--space-lg) 0;
+  margin: 0;
+  border: 0;
+  border-bottom: var(--border-thin) solid var(--color-divider);
+  gap: var(--space-sm);
+}
+.review-console .stack-review > div:first-child,
+.review-console .stack-review .ds-field {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.review-console .stack-count {
+  padding-bottom: 0;
+}
+.review-console > .ds-button {
+  margin-top: var(--space-md);
+  width: 100%;
+}
+
+.prototype .viewport-canvas .vendor-funnel:not([hidden]) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.prototype .viewport-canvas .vendor-funnel .vendor-header {
+  min-height: 64px;
+  border-bottom: 0;
+  border-right: var(--border-thin) solid var(--color-text);
+}
+.prototype .viewport-canvas .vendor-funnel .vendor-body {
+  gap: var(--space-sm);
+  padding: var(--space-xs);
+}
+.prototype .viewport-canvas .vendor-funnel svg {
+  width: 32px;
+  height: 32px;
+}
+.prototype .viewport-canvas .vendor-funnel .vendor-body strong {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .vendor-funnel .vendor-body .eyebrow {
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .slot-guide[data-slot="B1"] {
+  height: 66px;
+}
+
+/* Restore the reference's vertical reading flow, rather than a wide summary row. */
+.prototype.variant-a .viewport-canvas .facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: var(--space-md);
+}
+.prototype.variant-a .viewport-canvas .facts > div:last-child {
+  grid-column: 1 / -1;
+}
+.prototype.variant-a .viewport-canvas .letter {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+.prototype.variant-a .viewport-canvas .reason-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+.prototype.variant-a .viewport-canvas .reason.ds-button {
+  min-height: var(--size-control);
+}
+
+.prototype .viewport-canvas .vendor-header {
+  min-height: var(--size-control);
+  padding-inline: var(--space-md);
+}
+.prototype .viewport-canvas .vendor-header h2,
+.prototype .viewport-canvas .vendor-body {
+  font-size: var(--text-body);
+}
+.prototype .viewport-canvas .vendor-body {
+  padding: var(--space-md);
+  line-height: var(--line-body);
+}
+.prototype .viewport-canvas .vendor-caption {
+  display: block;
+  margin-top: var(--space-sm);
+  font-size: var(--text-micro);
+}
+.prototype .viewport-canvas .album-art {
+  width: 80px;
+  height: 88px;
+  font-size: var(--text-h3);
+  padding: var(--space-sm);
+}
+.prototype .viewport-canvas .breathing-ring {
+  width: 64px;
+  height: 64px;
+}
+.prototype .viewport-canvas .interview-faces span {
+  padding: var(--space-sm) var(--space-md);
+}
+.prototype .viewport-canvas .interview-faces b {
+  font-size: var(--text-h3);
+}
+.prototype .viewport-canvas .vendor-compassion .vendor-body {
+  grid-template-columns: minmax(0, 1fr);
+}
+.prototype .viewport-canvas .vendor-compassion .rejection-letter {
+  grid-column: 1;
+  grid-row: auto;
+  padding: var(--space-sm);
+  font-size: var(--text-small);
+}
+.prototype .viewport-canvas .vendor-compassion .rejection-letter p:first-child {
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+.prototype .viewport-canvas .slot-guide {
+  height: calc(var(--next-slot) - var(--slot-top));
+}
+.prototype .viewport-canvas .slot-guide[data-slot="B1"] {
+  height: 66px;
+}

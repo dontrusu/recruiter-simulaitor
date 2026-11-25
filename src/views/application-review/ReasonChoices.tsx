@@ -20,21 +20,24 @@ export function ReasonChoices() {
   }
 
   return (
-    <section aria-labelledby="reason-heading" className="pt-6">
+    <section
+      aria-labelledby="reason-heading"
+      className="border-t border-border bg-background px-4 py-3"
+    >
       <h2
         id="reason-heading"
         className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
       >
         Choose a reason
       </h2>
-      <ol aria-label="Reason choices" className="mt-5 space-y-4">
+      <ol aria-label="Reason choices" className="mt-2 grid grid-cols-3 gap-2">
         {application.reasons.map((reason, slot) => (
           <li key={slot}>
             <ReasonButton reason={reason} onClick={() => chooseReason(reason)} />
           </li>
         ))}
       </ol>
-      <p className="mt-7 font-serif text-[17px] italic leading-snug text-muted-foreground">
+      <p className="mt-2 font-serif text-sm italic leading-snug text-muted-foreground">
         Precise pays more. Generic is faster.
         <br />
         Nobody’s checking.
@@ -43,7 +46,7 @@ export function ReasonChoices() {
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className="mt-5 min-h-12 font-mono text-xs leading-relaxed text-muted-foreground"
+        className="font-mono text-xs leading-relaxed text-muted-foreground"
       >
         {status}
       </p>

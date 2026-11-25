@@ -41,9 +41,9 @@ export function MonitorScreen() {
         height: SCREEN_COMPOSITION_HEIGHT,
       }}
     >
-      <header className="mx-[88px] flex h-[112px] shrink-0 items-center justify-between border-b border-border">
+      <header className="mx-4 flex h-[96px] shrink-0 items-center justify-between border-b-2 border-foreground px-3">
         <div className="flex items-baseline gap-5">
-          <span className="font-serif text-[34px] italic tracking-[-0.05em]">Talent.OS</span>
+          <span className="font-sans text-[34px] font-bold tracking-[-0.05em]">Talent.OS</span>
           <p className="font-mono text-label uppercase tracking-[0.16em] text-muted-foreground">
             Hiring desk · Build 1.0
           </p>
