@@ -29,7 +29,7 @@ describe('Workspace', () => {
     render(<Workspace />);
 
     expect(screen.getByRole('main', { name: 'Talent.OS Screen' })).toBeInTheDocument();
-    expect(screen.getByRole('complementary', { name: 'Shop' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Shop' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /camera/i })).not.toBeInTheDocument();
   });
 

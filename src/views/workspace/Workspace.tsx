@@ -10,7 +10,6 @@ import {
 } from '@/core/engine/camera';
 import { Room } from '@/views/room/Room';
 import { MonitorScreen } from '@/views/monitor/MonitorScreen';
-import { Shop } from '@/views/shop/Shop';
 import { DevPanel } from './DevPanel';
 
 const CAMERA_TRANSITION = 'transform 1500ms ease-in-out, clip-path 1500ms ease-in-out';
@@ -44,8 +43,8 @@ export function Workspace() {
     return () => observer.disconnect();
   }, [setViewport]);
 
-  const { width, height } = stageSize(viewportW, viewportH, true);
-  const scale = scaleForCamera(cameraState, viewportW, viewportH, true);
+  const { width, height } = stageSize(viewportW, viewportH, false);
+  const scale = scaleForCamera(cameraState, viewportW, viewportH, false);
 
   return (
     <div className="flex h-dvh w-screen overflow-hidden bg-background">
@@ -73,7 +72,6 @@ export function Workspace() {
           </div>
         </div>
       </div>
-      <Shop />
       {isDev && <DevPanel />}
     </div>
   );

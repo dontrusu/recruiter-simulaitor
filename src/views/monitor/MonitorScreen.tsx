@@ -3,6 +3,8 @@ import { SCREEN_COMPOSITION_HEIGHT, SCREEN_COMPOSITION_WIDTH } from '@/core/engi
 import { useWorkspaceStore } from '@/core/store/workspace';
 
 import { ApplicationReview } from '@/views/application-review/ApplicationReview';
+import { Shop } from '@/views/shop/Shop';
+import { Taskbar } from './Taskbar';
 
 function Counter({
   label,
@@ -41,14 +43,15 @@ export function MonitorScreen() {
         height: SCREEN_COMPOSITION_HEIGHT,
       }}
     >
-      <header className="mx-4 flex h-[96px] shrink-0 items-center justify-between border-b-2 border-foreground px-3">
+      <header className="mx-4 grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,660px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
         <div className="flex items-baseline gap-5">
           <span className="font-sans text-[34px] font-bold tracking-[-0.05em]">Talent.OS</span>
           <p className="font-mono text-label uppercase tracking-[0.16em] text-muted-foreground">
             Hiring desk · Build 1.0
           </p>
         </div>
-        <dl className="flex items-center gap-8">
+        <Shop />
+        <dl className="flex items-center justify-end gap-8">
           <Counter label="Rejected" value={String(rejected)} />
           <Counter label="Credits" value={String(credits).padStart(4, '0')} branded />
         </dl>
@@ -59,6 +62,7 @@ export function MonitorScreen() {
       <p className="mb-9 text-center font-mono text-[10px] tracking-[0.05em] text-muted-foreground">
         We’ll keep your CV on file for future opportunities.
       </p>
+      <Taskbar />
     </main>
   );
 }

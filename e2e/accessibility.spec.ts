@@ -10,7 +10,7 @@ for (const camera of ['Screen', 'Room']) {
     }, testInfo) => {
       await page.goto(camera === 'Room' ? '/?dev=1' : '/');
       await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
-      await expect(page.getByRole('complementary', { name: 'Shop' })).toBeVisible();
+      await expect(page.getByRole('region', { name: 'Shop' })).toBeVisible();
 
       if (camera === 'Room') {
         await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
