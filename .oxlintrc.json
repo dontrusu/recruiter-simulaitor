@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["docs/soft-system-handoff/**"],
   "plugins": ["eslint", "typescript", "oxc", "react", "vitest"],
   "env": {
     "browser": true,
