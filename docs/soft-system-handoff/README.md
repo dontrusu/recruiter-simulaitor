@@ -9,6 +9,8 @@ required to run the game.
 `handoff-start-v0.1.0/preview.html` and its 1440×900 and 390×844 screenshots
 are the separately approved reference for the neutral starting canvas, the complete
 inert Shop row and empty Taskbar. Its example candidate and actions are not game rules.
+The Shop cards use the interactive v0.33.0 width (114 px) and minimum height
+(48 px), as requested on 26 November 2026, in place of the larger preview cards.
 Both exports are standalone and are not runtime dependencies of the game.
 
 ## Foundation slice comparison
@@ -47,8 +49,7 @@ Taskbar occupy corresponding parts of the Screen. All ten Room objects appear at
 the handoff locations; they are inert demonstration art. The game uses its own
 Candidate facts, portrait, counters, header and full Shop, and its development
 controls sit outside the canvas. Its Room uses the full viewport instead of the
-reference's toolbar. The demonstration Taskbar uses simplified window buttons
-and omits the reference's fictional tray activity; window content is static,
+reference's toolbar. The demonstration Taskbar shows static fictional tray indicators; window content is static,
 including the warmth indicator. The review card is scaled and repositioned in
 the preset, and typography and window details differ from the prototype. These
 are observed differences for review, not new Upgrade mechanics or approval of

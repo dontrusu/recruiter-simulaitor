@@ -34,7 +34,7 @@ test('uses the local Sans and Mono fonts and the editorial serif role', async ({
   const fontRoles = await page.locator('[data-screen-composition]').evaluate((screen) => {
     const sans = getComputedStyle(screen).fontFamily;
     const serif = getComputedStyle(screen.querySelector('blockquote')!).fontFamily;
-    const mono = getComputedStyle(screen.querySelector('header p')!).fontFamily;
+    const mono = getComputedStyle(screen.querySelector('article dt')!).fontFamily;
 
     return { sans, serif, mono };
   });
@@ -42,7 +42,10 @@ test('uses the local Sans and Mono fonts and the editorial serif role', async ({
     await document.fonts.ready;
     return ['IBM Plex Sans Variable', 'IBM Plex Mono'].map((family) =>
       Array.from(document.fonts).some(
-        (face) => face.family.replaceAll('"', '') === family && face.status === 'loaded',
+        (face) =>
+          face.family.replaceAll('"', '') === family &&
+          face.status === 'loaded' &&
+          (family !== 'IBM Plex Mono' || face.weight === '400'),
       ),
     );
   });
@@ -62,7 +65,7 @@ test('switching to Room preserves the run', async ({ page }) => {
   const rejected = page.getByTestId('counter-rejected');
 
   await page.getByRole('button', { name: 'Reject', exact: true }).click();
-  await expect(credits).toHaveText('0001');
+  await expect(credits).toHaveText('1');
   await expect(rejected).toHaveText('1');
   const applicationText = await application.innerText();
   const vacancyText = await vacancy.innerText();
@@ -71,7 +74,7 @@ test('switching to Room preserves the run', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Camera: Room', exact: true })).toBeVisible();
   await expect(application).toHaveText(applicationText, { useInnerText: true });
   await expect(vacancy).toHaveText(vacancyText, { useInnerText: true });
-  await expect(credits).toHaveText('0001');
+  await expect(credits).toHaveText('1');
   await expect(rejected).toHaveText('1');
 });
 
@@ -86,7 +89,7 @@ test('a Rejection in Room updates the same run shown in Screen', async ({ page }
 
   await page.getByRole('button', { name: 'Camera: Room', exact: true }).click();
   await expect(application).toHaveText(nextApplication, { useInnerText: true });
-  await expect(page.getByTestId('counter-credits')).toHaveText('0001');
+  await expect(page.getByTestId('counter-credits')).toHaveText('1');
   await expect(page.getByTestId('counter-rejected')).toHaveText('1');
 });
 

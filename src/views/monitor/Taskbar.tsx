@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useWorkspaceStore } from '@/core/store/workspace';
 import { windowsForPreset } from './PresetWindows';
 import { UpgradeIcon } from '@/views/shop/UpgradeIcon';
+import { Eye, Mail } from 'lucide-react';
 
 export function Taskbar() {
   const [clock, setClock] = useState(() => new Date());
@@ -29,15 +30,31 @@ export function Taskbar() {
             type="button"
             aria-pressed={front === window.name}
             onClick={() => activate(window.name)}
-            className="shrink-0 border border-foreground px-2 text-xs"
+            className="h-[42px] shrink-0 border border-foreground px-2 text-xs"
           >
             <span className="inline-flex items-center gap-1">
               <UpgradeIcon name={window.upgrade} />
-              {window.name} <small>{window.slot}</small>
+              <span className="flex flex-col items-center leading-tight">
+                {window.name}
+                <small>{window.slot}</small>
+              </span>
             </span>
           </button>
         ))}
       </div>
+      {preset !== 'start' && (
+        <div
+          aria-hidden="true"
+          className="flex shrink-0 gap-1 border-l border-border pl-2 font-mono text-xs"
+        >
+          <span className="flex items-center gap-1 border border-foreground px-1 py-1">
+            <Eye size={14} /> 96%
+          </span>
+          <span className="flex items-center gap-1 border border-foreground px-1 py-1">
+            <Mail size={14} /> 1
+          </span>
+        </div>
+      )}
       <time
         aria-label="Local time"
         dateTime={clock.toISOString()}

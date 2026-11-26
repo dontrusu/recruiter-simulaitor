@@ -22,6 +22,8 @@ export function Workspace() {
   // transform they describe — an effect would apply the transition one commit late,
   // after the room has already jumped.
   const [motion, setMotion] = useState(false);
+  const [colors, setColors] = useState(false);
+  const [wallpaper, setWallpaper] = useState(false);
   const [seen, setSeen] = useState({ camera: cameraState, width: viewportW, height: viewportH });
 
   if (seen.width !== viewportW || seen.height !== viewportH) {
@@ -69,12 +71,24 @@ export function Workspace() {
             }}
           >
             <Room screenWidth={screenWidth} screenHeight={screenHeight}>
-              <MonitorScreen width={screenWidth} height={screenHeight} />
+              <MonitorScreen
+                width={screenWidth}
+                height={screenHeight}
+                colors={isDev && colors}
+                wallpaper={isDev && wallpaper}
+              />
             </Room>
           </div>
         </div>
       </div>
-      {isDev && <DevPanel />}
+      {isDev && (
+        <DevPanel
+          colors={colors}
+          wallpaper={wallpaper}
+          onColorsChange={setColors}
+          onWallpaperChange={setWallpaper}
+        />
+      )}
     </div>
   );
 }

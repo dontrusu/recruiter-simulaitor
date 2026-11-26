@@ -1,16 +1,16 @@
 import { upgradeNames } from '@/content/shop';
 import { UpgradeIcon } from './UpgradeIcon';
 
-export function Shop() {
+export function Shop({ colors = false }: { colors?: boolean }) {
   return (
-    <section aria-label="Shop" className="min-w-0 w-full max-w-[660px]">
+    <section aria-label="Shop" className="min-w-0 w-full max-w-[600px]">
       <ul
         aria-label="Upgrade catalog"
         tabIndex={0}
         onKeyDown={(event) => {
           if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
             event.preventDefault();
-            event.currentTarget.scrollBy({ left: event.key === 'ArrowRight' ? 140 : -140 });
+            event.currentTarget.scrollBy({ left: event.key === 'ArrowRight' ? 122 : -122 });
           } else if (event.key === 'End' || event.key === 'Home') {
             event.preventDefault();
             event.currentTarget.scrollLeft =
@@ -22,9 +22,9 @@ export function Shop() {
         {upgradeNames.map((name) => (
           <li
             key={name}
-            className="flex min-h-14 w-[132px] shrink-0 items-center gap-2 border border-border bg-background px-2 py-1 text-[10px] leading-tight"
+            className="flex min-h-12 w-[114px] shrink-0 items-center gap-2 border border-border bg-background px-2 py-1 text-xs leading-[1.2]"
           >
-            <UpgradeIcon name={name} />
+            <UpgradeIcon name={name} line={!colors} />
             <span>{name}</span>
           </li>
         ))}

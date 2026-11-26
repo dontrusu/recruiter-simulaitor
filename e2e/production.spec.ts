@@ -14,6 +14,7 @@ test('production hides the camera control by default', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Макет' })).toHaveCount(0);
   await expect(page.getByLabel('Composition preset')).toHaveCount(0);
 });
 
@@ -61,6 +62,7 @@ test('production cannot expose development controls through URL parameters', asy
   await page.goto('/?dev=1&view=room&stage=chaos&preset=chaos');
 
   await expect(page.getByRole('button', { name: /Camera:/ })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Макет' })).toHaveCount(0);
   await expect(page.getByLabel('Composition preset')).toHaveCount(0);
   await expect(page.getByRole('complementary', { name: 'Calm Corner' })).toHaveCount(0);
   const screen = page.getByRole('main', { name: 'Talent.OS Screen' });

@@ -7,11 +7,11 @@ export function ReasonChoices() {
   return (
     <section aria-label="Decision" className="border-t border-border bg-background px-4 py-3">
       <p className="ui-label mb-2">Your decision</p>
-      <div className="flex gap-1">
+      <div className="grid grid-cols-2 gap-1">
         <button
           type="button"
           onClick={reject}
-          className="flex-1 bg-destructive px-6 py-3 text-left font-bold text-white"
+          className="h-11 bg-destructive px-3 text-left text-sm font-medium text-white"
         >
           Reject{' '}
           <span
@@ -22,7 +22,7 @@ export function ReasonChoices() {
           </span>
         </button>
         <div
-          className="relative flex-1"
+          className="relative"
           onMouseEnter={() => setShowExplanation(true)}
           onMouseLeave={() => setShowExplanation(false)}
         >
@@ -32,7 +32,7 @@ export function ReasonChoices() {
             aria-describedby="interview-explanation"
             onFocus={() => setShowExplanation(true)}
             onBlur={() => setShowExplanation(false)}
-            className="w-full bg-[#7d9f8a] px-6 py-3 text-white"
+            className="h-11 w-full bg-[#7d9f8a] px-3 text-sm font-medium text-white"
           >
             Invite to interview
           </button>

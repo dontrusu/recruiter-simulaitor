@@ -13,6 +13,15 @@ const windows = [
   { name: 'Funnel', slot: 'B1', upgrade: 'The Funnel' },
 ] as const;
 
+const windowTitles: Partial<Record<(typeof windows)[number]['name'], string>> = {
+  'Lo-Fi': 'Lo-Fi Beats to Reject To',
+  'AI Interviewer': 'Your AI Interviewer',
+  'Compassion Engine': 'Compassion Engine™',
+  'Humbled & Honored': 'Humbled & Honored™',
+  Inbox: 'Re: Your Application',
+  Funnel: 'The Funnel',
+};
+
 export function windowsForPreset(preset: ReturnType<typeof useWorkspaceStore.getState>['preset']) {
   return preset === 'start' ? [] : preset === 'mid' ? windows.slice(0, 2) : windows;
 }
@@ -163,7 +172,7 @@ export function PresetWindows() {
         >
           <header>
             <UpgradeIcon name={window.upgrade} />
-            {window.name}
+            {windowTitles[window.name] ?? window.name}
           </header>
           <div className="preset-body">
             <Content name={window.name} />

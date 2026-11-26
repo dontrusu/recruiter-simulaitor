@@ -15,6 +15,19 @@ test('the complete Shop can be browsed by keyboard without purchase controls', a
   await expect(row.getByText('Re: Your Application')).toBeInViewport();
 });
 
+test('Shop cards fit the handoff width without clipping their content', async ({ page }) => {
+  await page.goto('/');
+  const cards = page.getByRole('list', { name: 'Upgrade catalog' }).getByRole('listitem');
+  const geometry = await cards.evaluateAll((items) =>
+    items.map((item) => ({
+      width: item instanceof HTMLElement ? item.offsetWidth : 0,
+      fits: item.scrollHeight <= item.clientHeight,
+    })),
+  );
+  expect(geometry).toHaveLength(26);
+  expect(geometry.every(({ width, fits }) => width === 114 && fits)).toBe(true);
+});
+
 test('the starting Taskbar shows local time and has no open windows', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-25T12:34:59Z') });
   await page.clock.pauseAt(new Date('2026-11-25T12:34:59Z'));

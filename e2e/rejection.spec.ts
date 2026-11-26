@@ -13,7 +13,7 @@ test('Reject advances and repeats Applications while preserving counters and foc
     await expect(page.getByTestId('counter-rejected')).toHaveText(String(count));
     await expect(reject).toBeFocused();
   }
-  await expect(page.getByTestId('counter-credits')).toHaveText('0003');
+  await expect(page.getByTestId('counter-credits')).toHaveText('3');
   await expect(application.getByRole('heading')).toHaveText(first);
   await expect(page.getByRole('status')).toHaveCount(0);
 });
@@ -27,7 +27,7 @@ test('rapid actions all count and replace the previous feedback', async ({ page 
   await page.keyboard.press('Enter');
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('counter-rejected')).toHaveText('4');
-  await expect(page.getByTestId('counter-credits')).toHaveText('0004');
+  await expect(page.getByTestId('counter-credits')).toHaveText('4');
   await expect(page.getByText('Rejection sent')).toHaveCount(1);
 });
 
@@ -52,6 +52,6 @@ test('reduced motion omits rejection stamp and movement', async ({ page }) => {
   await page.getByRole('button', { name: 'Reject', exact: true }).click();
   await expect(page.getByText('Rejection sent')).toBeHidden();
   await expect(page.getByTestId('counter-rejected')).toHaveText('1');
-  await expect(page.getByTestId('counter-credits')).toHaveText('0001');
+  await expect(page.getByTestId('counter-credits')).toHaveText('1');
   await expect(page.getByText('+1', { exact: true })).toBeHidden();
 });

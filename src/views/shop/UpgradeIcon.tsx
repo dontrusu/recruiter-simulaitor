@@ -41,9 +41,8 @@ const linePaths: Record<string, string> = {
     'M12 3a9 9 0 1 0 0 18h2a2 2 0 0 0 0-4h-1a2 2 0 0 1 0-4h3a5 5 0 0 0 0-10zM7 10h.01M10 6h.01M15 6h.01',
 };
 
-export function UpgradeIcon({ name }: { name: string }) {
-  const path = linePaths[name];
-  if (path)
+export function UpgradeIcon({ name, line = false }: { name: string; line?: boolean }) {
+  if (line)
     return (
       <svg
         className="size-5 shrink-0"
@@ -53,7 +52,7 @@ export function UpgradeIcon({ name }: { name: string }) {
         strokeWidth="1.5"
         aria-hidden="true"
       >
-        <path d={path} />
+        <path d={linePaths[name] ?? linePaths['Open Role']} />
       </svg>
     );
   const sprite = sprites[name];

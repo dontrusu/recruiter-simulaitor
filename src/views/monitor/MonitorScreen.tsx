@@ -15,11 +15,9 @@ function Counter({
   branded?: boolean;
 }) {
   return (
-    <div className="flex items-baseline gap-3">
-      <dt className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-        {label}
-      </dt>
-      <dd className={`relative font-mono text-2xl font-bold ${branded ? 'text-brand-text' : ''}`}>
+    <div className={`flex items-baseline gap-1 ${branded ? 'flex-row-reverse' : ''}`}>
+      <dt className="text-xs text-foreground">{label}</dt>
+      <dd className={`relative font-sans font-bold ${branded ? 'text-[32px]' : 'text-xs'}`}>
         <span data-testid={`counter-${label.toLowerCase()}`}>{value}</span>
         {branded && Number(value) > 0 && (
           <span key={value} aria-hidden="true" className="rejection-credit">
@@ -31,39 +29,51 @@ function Counter({
   );
 }
 
-export function MonitorScreen({ width, height }: { width: number; height: number }) {
+export function MonitorScreen({
+  width,
+  height,
+  colors = false,
+  wallpaper = false,
+}: {
+  width: number;
+  height: number;
+  colors?: boolean;
+  wallpaper?: boolean;
+}) {
   const credits = useWorkspaceStore((state) => state.run.credits);
   const rejected = useWorkspaceStore((state) => state.run.rejected);
   return (
     <main
       aria-label="Talent.OS Screen"
       data-screen-composition
-      className="absolute left-0 top-0 flex flex-col overflow-hidden bg-background font-sans text-foreground"
+      className={`absolute left-0 top-0 flex flex-col overflow-hidden border-2 border-foreground bg-background font-sans text-foreground ${colors ? 'screen-colors' : ''}`}
       style={{
         width,
         height,
       }}
     >
-      <header className="mx-4 grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,660px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
-        <div className="flex items-baseline gap-5">
-          <span className="font-sans text-[34px] font-bold tracking-[-0.05em]">Talent.OS</span>
-          <p className="font-mono text-label uppercase tracking-[0.16em] text-muted-foreground">
-            Hiring desk · Build 1.0
+      <header className="mx-4 grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,600px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
+        <div>
+          <span className="font-sans text-[32px] font-bold leading-[1.08] tracking-[-0.06em]">
+            Talent.OS
+          </span>
+          <p className="mt-1 text-xs">Recruitment, as usual.</p>
+          <p className="text-xs">
+            <span aria-hidden="true" className="mr-1 inline-block h-2 w-2 bg-green-800" />1 open
+            role · No upgrades installed
           </p>
         </div>
-        <Shop />
-        <dl className="flex items-center justify-end gap-8">
-          <Counter label="Rejected" value={String(rejected)} />
-          <Counter label="Credits" value={String(credits).padStart(4, '0')} branded />
+        <Shop colors={colors} />
+        <dl className="flex flex-col items-end leading-tight">
+          <Counter label="Credits" value={String(credits)} branded />
+          <Counter label="rejected" value={String(rejected)} />
         </dl>
       </header>
 
-      <ApplicationReview />
+      <ApplicationReview wallpaper={wallpaper} />
       <PresetWindows />
 
-      <p className="mb-9 text-center font-mono text-[10px] tracking-[0.05em] text-muted-foreground">
-        We’ll keep your CV on file for future opportunities.
-      </p>
+      <div aria-hidden="true" className="h-[51px] shrink-0" />
       <Taskbar />
     </main>
   );
