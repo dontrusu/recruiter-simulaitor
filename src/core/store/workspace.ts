@@ -1,11 +1,16 @@
 import { create } from 'zustand';
 import { applications } from '@/content/screen-content';
-import { rejectApplication, type ReasonKind, type RunState } from '@/core/engine/rejection';
+import { rejectApplication, type RunState } from '@/core/engine/rejection';
 import type { CameraState } from '../engine/camera';
 
 type WorkspaceStore = {
   run: RunState;
-  reject: (kind: ReasonKind) => void;
+  savedRun: RunState | null;
+  preset: 'start' | 'mid' | 'chaos';
+  setPreset: (preset: 'start' | 'mid' | 'chaos') => void;
+  frontWindow: string;
+  activateWindow: (name: string) => void;
+  reject: () => void;
   viewportW: number;
   viewportH: number;
   /** Dev-only camera override. Replaced later by a value derived from owning Culture Fit Oracle. */
@@ -25,8 +30,21 @@ const initialViewport = () =>
  */
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
   run: { credits: 0, rejected: 0, applicationIndex: 0 },
-  reject: (kind) =>
-    set((state) => ({ run: rejectApplication(state.run, kind, applications.length) })),
+  savedRun: null,
+  preset: 'start',
+  frontWindow: 'Funnel',
+  activateWindow: (frontWindow) => set({ frontWindow }),
+  setPreset: (preset) =>
+    set((state) => {
+      if (preset === state.preset) return state;
+      if (preset === 'start') return { preset, run: state.savedRun ?? state.run, savedRun: null };
+      return {
+        preset,
+        savedRun: state.savedRun ?? state.run,
+        run: state.savedRun ? state.run : { credits: 0, rejected: 0, applicationIndex: 0 },
+      };
+    }),
+  reject: () => set((state) => ({ run: rejectApplication(state.run, applications.length) })),
   viewportW: initialViewport().width,
   viewportH: initialViewport().height,
   devCameraState: 'Screen',

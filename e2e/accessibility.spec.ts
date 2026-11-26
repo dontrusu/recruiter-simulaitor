@@ -3,14 +3,29 @@ import { expect, test } from '@playwright/test';
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
+test('full chaos preset passes WCAG scans', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.metadata.production === true, 'Presets are development-only');
+  await page.goto('/?dev=1');
+  await page.getByRole('button', { name: 'Макет' }).click();
+  await page.getByLabel('Composition preset').selectOption('chaos');
+  await page.getByRole('button', { name: 'Макет' }).click();
+  await page.evaluate(() => document.fonts.ready);
+  const results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+  expect(results.violations).toEqual([]);
+});
+
 for (const camera of ['Screen', 'Room']) {
   for (const rejected of [false, true]) {
     test(`${camera} ${rejected ? 'after Rejection' : 'on a fresh run'} passes WCAG scans`, async ({
       page,
     }, testInfo) => {
+      test.skip(
+        camera === 'Room' && testInfo.project.metadata.production === true,
+        'Room camera is development-only',
+      );
       await page.goto(camera === 'Room' ? '/?dev=1' : '/');
       await expect(page.getByRole('article', { name: 'Current application' })).toBeVisible();
-      await expect(page.getByRole('complementary', { name: 'Shop' })).toBeVisible();
+      await expect(page.getByRole('region', { name: 'Shop' })).toBeVisible();
 
       if (camera === 'Room') {
         await page.getByRole('button', { name: 'Camera: Screen', exact: true }).click();
@@ -22,13 +37,11 @@ for (const camera of ['Screen', 'Room']) {
         await Promise.all(document.getAnimations().map((animation) => animation.finished));
       });
       if (rejected) {
-        await page
-          .getByRole('list', { name: 'Reason choices' })
-          .getByRole('button')
-          .first()
-          .click();
+        await page.getByRole('button', { name: 'Reject', exact: true }).click();
         await expect(page.getByTestId('counter-rejected')).toHaveText('1');
-        await expect(page.getByRole('status')).not.toBeEmpty();
+        await page.evaluate(async () => {
+          await Promise.all(document.getAnimations().map((animation) => animation.finished));
+        });
       }
 
       await expect(page.getByRole('region', { name: 'Vacancy' })).toBeVisible();

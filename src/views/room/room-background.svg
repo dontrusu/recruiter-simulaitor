@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <g id="background">
+    <defs>
+      <radialGradient id="background-wall" gradientUnits="userSpaceOnUse" cx="768" cy="342" r="1000" gradientTransform="translate(0 86) scale(1 .75)">
+        <stop offset=".1" stop-color="#f4eaf2" />
+        <stop offset=".6" stop-color="#e3d9e9" />
+        <stop offset="1" stop-color="#aea1bd" />
+      </radialGradient>
+      <radialGradient id="background-wallGlow">
+        <stop stop-color="#ffedc2" stop-opacity=".68" />
+        <stop offset="1" stop-color="#ffedc2" stop-opacity="0" />
+      </radialGradient>
+      <pattern id="background-panels" width="202" height="700" patternUnits="userSpaceOnUse">
+        <rect x="198" width="2" height="700" fill="#a89db4" />
+        <rect x="200" width="2" height="700" fill="#fff7fa" />
+      </pattern>
+      <linearGradient id="background-desk" x2="0" y2="1">
+        <stop stop-color="#d4a482" />
+        <stop offset=".55" stop-color="#b78163" />
+        <stop offset="1" stop-color="#98624d" />
+      </linearGradient>
+      <radialGradient id="background-deskBlue">
+        <stop stop-color="#8db6eb" stop-opacity=".74" />
+        <stop offset=".53" stop-color="#bfc7e7" stop-opacity=".38" />
+        <stop offset=".9" stop-color="#bfc7e7" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="background-deskPink">
+        <stop stop-color="#d5b8d0" stop-opacity=".4" />
+        <stop offset=".85" stop-color="#d5b8d0" stop-opacity="0" />
+      </radialGradient>
+      <pattern id="background-woodVertical" width="8" height="8" patternUnits="userSpaceOnUse">
+        <rect width="2" height="8" fill="#573d39" opacity=".15" />
+      </pattern>
+      <pattern id="background-woodHorizontal" width="46" height="46" patternUnits="userSpaceOnUse" patternTransform="translate(0 720)">
+        <rect y="0" width="46" height="2" fill="#694843" opacity=".33" />
+        <rect y="2" width="46" height="1" fill="#f3b78b" opacity=".4" />
+      </pattern>
+      <g id="background-bulb">
+        <circle cy="20" r="26" fill="#ffdf9d" opacity=".18" />
+        <path d="M-5 7H5V12H8V23H5V27H-5V23H-8V12H-5Z" stroke="#b58a58" fill="#ffe3a1" />
+        <rect x="-4" width="8" height="9" fill="#6e5f78" />
+      </g>
+    </defs>
+    <rect width="1600" height="900" fill="url(#background-wall)" />
+    <ellipse cx="224" cy="153" rx="260" ry="245" fill="url(#background-wallGlow)" />
+    <ellipse cx="624" cy="63" rx="315" ry="240" fill="url(#background-wallGlow)" />
+    <ellipse cx="1024" cy="135" rx="285" ry="235" fill="url(#background-wallGlow)" />
+    <ellipse cx="1392" cy="63" rx="260" ry="210" fill="url(#background-wallGlow)" />
+    <rect width="1600" height="700" fill="url(#background-panels)" opacity=".27" />
+    <g opacity=".27">
+      <rect y="602" width="1600" height="98" fill="#b4a8c2" />
+      <path d="M0 603.5H1600M0 698.5H1600" stroke="#a696b1" stroke-width="3" />
+    </g>
+    <rect y="700" width="1600" height="200" fill="url(#background-desk)" />
+    <ellipse cx="800" cy="690" rx="540" ry="181" fill="url(#background-deskBlue)" />
+    <ellipse cx="784" cy="886" rx="375" ry="135" fill="url(#background-deskPink)" />
+    <rect y="700" width="1600" height="200" fill="url(#background-woodHorizontal)" />
+    <rect y="700" width="1600" height="200" fill="url(#background-woodVertical)" />
+    <path d="M0 702H1600" stroke="#e4ad88" stroke-width="4" />
+    <path d="M0 893H1600" stroke="#805641" stroke-width="14" />
+    <path d="M421 693C451 786 372 848 237 821S145 774 121 747M1184 696C1158 779 1188 838 1324 817S1412 781 1420 749M802 765c24 43 53 67 207 78" fill="none" stroke="#504054" stroke-width="4" opacity=".78" />
+    <path d="M0 48Q180 142 400 78T800 66T1200 85T1600 35" fill="none" stroke="#6a5978" stroke-width="2.5" />
+    <use href="#background-bulb" x="110" y="91" />
+    <use href="#background-bulb" x="210" y="102" />
+    <use href="#background-bulb" x="320" y="98" />
+    <use href="#background-bulb" x="445" y="66" />
+    <use href="#background-bulb" x="550" y="46" />
+    <use href="#background-bulb" x="650" y="43" />
+    <use href="#background-bulb" x="755" y="56" />
+    <use href="#background-bulb" x="855" y="82" />
+    <use href="#background-bulb" x="960" y="101" />
+    <use href="#background-bulb" x="1065" y="101" />
+    <use href="#background-bulb" x="1170" y="91" />
+    <use href="#background-bulb" x="1275" y="61" />
+    <use href="#background-bulb" x="1380" y="40" />
+    <use href="#background-bulb" x="1485" y="35" />
+  </g>
+  <g id="desk-items">
+    <defs>
+      <linearGradient id="desk-items-keyboard" x2="0" y2="1">
+        <stop stop-color="#d2d9ee" />
+        <stop offset=".38" stop-color="#d2d9ee" />
+        <stop offset=".38" stop-color="#b8abc9" />
+      </linearGradient>
+      <linearGradient id="desk-items-mouse">
+        <stop stop-color="#ddd2e7" />
+        <stop offset=".46" stop-color="#ddd2e7" />
+        <stop offset=".46" stop-color="#7e7391" />
+        <stop offset=".54" stop-color="#7e7391" />
+        <stop offset=".54" stop-color="#c5b9d5" />
+      </linearGradient>
+      <pattern id="desk-items-keys" width="21" height="11" patternUnits="userSpaceOnUse" patternTransform="translate(538 832)">
+        <rect width="21" height="9" fill="#dfd7ef" />
+        <path d="M0 0H21V2H0Z" fill="#af9fc2" />
+        <path d="M17 0H19V9H17Z" fill="#9b8cb1" />
+        <path d="M19 0H21V9H19Z" fill="#635575" />
+      </pattern>
+      <pattern id="desk-items-paper" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect width="6" height="5" fill="#ede5e2" />
+        <path d="M0 5H6V6H0Z" fill="#b6a5ac" />
+      </pattern>
+      <filter id="desk-items-shadow" x="-40%" y="-100%" width="180%" height="300%">
+        <feGaussianBlur stdDeviation="4" />
+      </filter>
+    </defs>
+    <g id="desk-items-keyboard-art">
+      <rect x="529" y="833" width="548" height="53" rx="3" fill="#4b302f" opacity=".44" filter="url(#desk-items-shadow)" />
+      <rect x="526" y="829" width="548" height="53" rx="3" fill="#5d506e" />
+      <rect x="527.5" y="824.5" width="545" height="50" rx="2" fill="url(#desk-items-keyboard)" stroke="#5d506e" stroke-width="3" />
+      <path d="M531 870V827H1069" fill="none" stroke="#e0eaff" stroke-width="2" />
+      <rect x="538" y="832" width="524" height="36" fill="url(#desk-items-keys)" />
+      <rect x="708" y="862" width="148" height="8" fill="#eee4f0" stroke="#8d7f9c" />
+    </g>
+    <g id="desk-items-mouse-art">
+      <rect x="1132" y="829" width="46" height="56" rx="10" fill="#30233e" opacity=".4" filter="url(#desk-items-shadow)" />
+      <rect x="1133.5" y="823.5" width="43" height="53" rx="9" fill="url(#desk-items-mouse)" stroke="#5d506e" stroke-width="3" />
+      <path d="M1136 868H1174V872Q1174 875 1171 875H1139Q1136 875 1136 872Z" fill="#b3a5c3" />
+    </g>
+    <g id="desk-items-papers-art">
+      <rect x="1211" y="778" width="119" height="22" fill="#30233e" opacity=".38" filter="url(#desk-items-shadow)" />
+      <rect x="1208" y="774" width="117" height="20" fill="url(#desk-items-paper)" stroke="#8b737e" stroke-width="2" />
+      <g id="desk-items-cup" transform="translate(1241 729) scale(3.764705882)" shape-rendering="crispEdges">
+        <rect x="5" y="0" width="1" height="1" fill="#9a8d8f" />
+        <rect x="10" y="0" width="1" height="1" fill="#9a8d8f" />
+        <rect x="4" y="1" width="1" height="1" fill="#9a8d8f" />
+        <rect x="9" y="1" width="1" height="1" fill="#9a8d8f" />
+        <rect x="5" y="2" width="1" height="1" fill="#9a8d8f" />
+        <rect x="10" y="2" width="1" height="1" fill="#9a8d8f" />
+        <rect x="6" y="3" width="1" height="1" fill="#9a8d8f" />
+        <rect x="11" y="3" width="1" height="1" fill="#9a8d8f" />
+        <rect x="2" y="5" width="1" height="1" fill="#252840" />
+        <rect x="3" y="5" width="1" height="1" fill="#252840" />
+        <rect x="4" y="5" width="1" height="1" fill="#252840" />
+        <rect x="5" y="5" width="1" height="1" fill="#252840" />
+        <rect x="6" y="5" width="1" height="1" fill="#252840" />
+        <rect x="7" y="5" width="1" height="1" fill="#252840" />
+        <rect x="8" y="5" width="1" height="1" fill="#252840" />
+        <rect x="9" y="5" width="1" height="1" fill="#252840" />
+        <rect x="10" y="5" width="1" height="1" fill="#252840" />
+        <rect x="11" y="5" width="1" height="1" fill="#252840" />
+        <rect x="2" y="6" width="1" height="1" fill="#252840" />
+        <rect x="3" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="4" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="5" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="6" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="7" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="8" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="9" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="10" y="6" width="1" height="1" fill="#784e45" />
+        <rect x="11" y="6" width="1" height="1" fill="#252840" />
+        <rect x="13" y="6" width="1" height="1" fill="#252840" />
+        <rect x="14" y="6" width="1" height="1" fill="#252840" />
+        <rect x="2" y="7" width="1" height="1" fill="#252840" />
+        <rect x="3" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="4" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="5" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="6" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="7" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="8" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="9" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="10" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="11" y="7" width="1" height="1" fill="#252840" />
+        <rect x="12" y="7" width="1" height="1" fill="#252840" />
+        <rect x="13" y="7" width="1" height="1" fill="#fff9e3" />
+        <rect x="14" y="7" width="1" height="1" fill="#252840" />
+        <rect x="2" y="8" width="1" height="1" fill="#252840" />
+        <rect x="3" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="4" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="5" y="8" width="1" height="1" fill="#252840" />
+        <rect x="6" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="7" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="8" y="8" width="1" height="1" fill="#252840" />
+        <rect x="9" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="10" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="11" y="8" width="1" height="1" fill="#252840" />
+        <rect x="13" y="8" width="1" height="1" fill="#fff9e3" />
+        <rect x="14" y="8" width="1" height="1" fill="#252840" />
+        <rect x="2" y="9" width="1" height="1" fill="#252840" />
+        <rect x="3" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="4" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="5" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="6" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="7" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="8" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="9" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="10" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="11" y="9" width="1" height="1" fill="#252840" />
+        <rect x="12" y="9" width="1" height="1" fill="#252840" />
+        <rect x="13" y="9" width="1" height="1" fill="#fff9e3" />
+        <rect x="14" y="9" width="1" height="1" fill="#252840" />
+        <rect x="2" y="10" width="1" height="1" fill="#252840" />
+        <rect x="3" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="4" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="5" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="6" y="10" width="1" height="1" fill="#252840" />
+        <rect x="7" y="10" width="1" height="1" fill="#252840" />
+        <rect x="8" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="9" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="10" y="10" width="1" height="1" fill="#fff9e3" />
+        <rect x="11" y="10" width="1" height="1" fill="#252840" />
+        <rect x="12" y="10" width="1" height="1" fill="#252840" />
+        <rect x="13" y="10" width="1" height="1" fill="#252840" />
+        <rect x="3" y="11" width="1" height="1" fill="#252840" />
+        <rect x="4" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="5" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="6" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="7" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="8" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="9" y="11" width="1" height="1" fill="#fff9e3" />
+        <rect x="10" y="11" width="1" height="1" fill="#252840" />
+        <rect x="4" y="12" width="1" height="1" fill="#252840" />
+        <rect x="5" y="12" width="1" height="1" fill="#252840" />
+        <rect x="6" y="12" width="1" height="1" fill="#252840" />
+        <rect x="7" y="12" width="1" height="1" fill="#252840" />
+        <rect x="8" y="12" width="1" height="1" fill="#252840" />
+        <rect x="9" y="12" width="1" height="1" fill="#252840" />
+        <rect x="2" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="3" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="4" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="5" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="6" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="7" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="8" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="9" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="10" y="13" width="1" height="1" fill="#9a8d8f" />
+        <rect x="11" y="13" width="1" height="1" fill="#9a8d8f" />
+      </g>
+    </g>
+  </g>
+</svg>

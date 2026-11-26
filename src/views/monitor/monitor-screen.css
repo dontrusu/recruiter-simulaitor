@@ -1,0 +1,29 @@
+/* Developer-only Soft System preview; these roles are scoped to the Screen. */
+[data-color-mode='color'] {
+  --background: #f1f2ff;
+  --foreground: #272b44;
+  --border: #272b44;
+  --preview-chrome: #b6bff5;
+}
+
+[data-color-mode='color'] > header,
+[data-color-mode='color'] > nav,
+[data-color-mode='color'] .review-window-bar {
+  background: var(--preview-chrome);
+}
+
+[data-color-mode='color'] .preset-R1 > header {
+  background: #d0e8ba;
+}
+
+[data-color-mode='color'] .preset-R2 > header,
+[data-color-mode='color'] .preset-R4 > header {
+  background: #f3d5e7;
+}
+
+[data-color-mode='color'] .preset-windows {
+  --preset-window-ink: #272b44;
+  --preset-window-header: #b6bff5;
+  --preset-window-header-mint: #bfe8f1;
+  --preset-pool-background: #bfe8f1;
+}

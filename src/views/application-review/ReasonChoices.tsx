@@ -1,52 +1,50 @@
 import { useState } from 'react';
-import { applications, type Reason } from '@/content/screen-content';
-import { reasonReward } from '@/core/engine/rejection';
 import { useWorkspaceStore } from '@/core/store/workspace';
-import { ReasonButton } from './ReasonButton';
 
 export function ReasonChoices() {
-  const index = useWorkspaceStore((state) => state.run.applicationIndex);
   const reject = useWorkspaceStore((state) => state.reject);
-  const application = applications[index] ?? applications[0];
-  const [status, setStatus] = useState('');
-
-  function chooseReason(reason: Reason) {
-    reject(reason.kind);
-    const nextIndex = useWorkspaceStore.getState().run.applicationIndex;
-    const next = applications[nextIndex] ?? applications[0];
-    setStatus(
-      `Rejection recorded. +${reasonReward(reason.kind)} EC. Next Candidate: ${next.name}.`,
-    );
-  }
-
+  const [showExplanation, setShowExplanation] = useState(false);
   return (
-    <section aria-labelledby="reason-heading" className="pt-6">
-      <h2
-        id="reason-heading"
-        className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
-      >
-        Choose a reason
-      </h2>
-      <ol aria-label="Reason choices" className="mt-5 space-y-4">
-        {application.reasons.map((reason, slot) => (
-          <li key={slot}>
-            <ReasonButton reason={reason} onClick={() => chooseReason(reason)} />
-          </li>
-        ))}
-      </ol>
-      <p className="mt-7 font-serif text-[17px] italic leading-snug text-muted-foreground">
-        Precise pays more. Generic is faster.
-        <br />
-        Nobody’s checking.
-      </p>
-      <p
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="mt-5 min-h-12 font-mono text-xs leading-relaxed text-muted-foreground"
-      >
-        {status}
-      </p>
+    <section aria-label="Decision" className="border-t border-border bg-background px-4 py-3">
+      <p className="ui-label mb-2">Your decision</p>
+      <div className="grid grid-cols-2 gap-1">
+        <button
+          type="button"
+          onClick={reject}
+          className="h-11 bg-destructive px-3 text-left text-sm font-medium text-white"
+        >
+          Reject{' '}
+          <span
+            aria-hidden="true"
+            className="float-right bg-amber-100 px-1 font-mono text-xs font-normal text-black"
+          >
+            +1 Credit
+          </span>
+        </button>
+        <div
+          className="relative"
+          onMouseEnter={() => setShowExplanation(true)}
+          onMouseLeave={() => setShowExplanation(false)}
+        >
+          <button
+            type="button"
+            aria-disabled="true"
+            aria-describedby="interview-explanation"
+            onFocus={() => setShowExplanation(true)}
+            onBlur={() => setShowExplanation(false)}
+            className="h-11 w-full bg-[#7d9f8a] px-3 text-sm font-medium text-white"
+          >
+            Invite to interview
+          </button>
+          <span
+            id="interview-explanation"
+            role="tooltip"
+            className={`absolute bottom-full left-0 z-10 w-64 border border-border bg-card p-2 text-sm ${showExplanation ? '' : 'sr-only'}`}
+          >
+            The candidate does not meet the role requirements.
+          </span>
+        </div>
+      </div>
     </section>
   );
 }

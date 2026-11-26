@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './e2e',
+  metadata: { production: true },
   outputDir: 'test-results-production',
   testMatch: ['production.spec.ts', 'accessibility.spec.ts'],
   reporter: [['list'], ['html', { outputFolder: 'playwright-report/production', open: 'never' }]],

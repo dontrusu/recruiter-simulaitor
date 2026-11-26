@@ -1,5 +1,4 @@
-import { applications, vacancy } from '@/content/screen-content';
-
+import { applications } from '@/content/screen-content';
 import { useWorkspaceStore } from '@/core/store/workspace';
 
 function formatExperience(months: number) {
@@ -8,93 +7,95 @@ function formatExperience(months: number) {
   return remainder ? `${years} yrs ${remainder} mo` : `${years} yrs`;
 }
 
-function CandidatePortrait({ name }: { name: string }) {
+function CandidatePortrait({ name, index }: { name: string; index: number }) {
   return (
     <svg
       role="img"
       aria-label={`Illustrated portrait of ${name}`}
-      viewBox="0 0 160 180"
-      className="h-[166px] w-[148px] shrink-0"
+      viewBox="0 0 180 200"
+      className="w-[116px] shrink-0 border border-foreground"
     >
-      <rect width="160" height="180" fill="var(--portrait-background)" />
-      <path d="M16 180c4-37 27-58 64-58s60 21 64 58H16Z" fill="var(--portrait-shirt)" />
+      <path fill="#dff4f2" d="M0 0h180v200H0z" />
+      {index === 1 && (
+        <path fill="#20211f" d="M42 132V62C36 5 141 1 143 61v72l-16-13V57L94 42 54 69v54z" />
+      )}
+      <path fill="#20211f" d="M19 200c3-45 32-63 70-63s69 18 73 63" />
+      <path fill="#e8bf14" d="M73 116h37v42c-12 15-25 15-37 0z" />
+      <path fill="#f7df35" d="M50 65c0-52 83-51 83 0v36c0 32-23 49-41 49-20 0-42-17-42-49z" />
       <path
-        d="M53 109c8 10 18 15 27 15s19-5 27-15l8 24-35 22-35-22 8-24Z"
-        fill="var(--portrait-neck)"
+        fill="#20211f"
+        d={
+          index === 1
+            ? 'M42 116V62C36 5 141 1 143 61v72l-16-13V57L94 42 54 69v54z'
+            : index === 2
+              ? 'M45 80V55C44 12 133 8 140 57l-7 29-10-29-24 7-17-14-23 20-2 21z'
+              : 'M45 80V54l13-9-7-17 26 6L89 18l15 13 24-3-3 16 16 11-8 31-10-29-24 7-17-14-23 20-2 21z'
+        }
       />
-      <ellipse cx="80" cy="73" rx="36" ry="43" fill="var(--portrait-skin)" />
-      <path
-        d="M44 70c-4-31 13-50 37-50 27 0 39 18 36 49-9-5-16-15-19-24-14 14-32 21-54 21Z"
-        fill="var(--portrait-hair)"
-      />
-      <path
-        d="M58 78h12m20 0h12"
-        stroke="var(--portrait-ink)"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      <path
-        d="M73 99c5 4 10 4 15 0"
-        fill="none"
-        stroke="var(--portrait-ink)"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <g fill="none" stroke="#20211f" strokeWidth="3">
+        <path d="M63 82h25v20H63zM101 82h25v20h-25zM88 88h13M69 122c13 7 27 7 39-1M94 97l-3 13h8" />
+      </g>
+      <path fill="none" stroke="#4c205d" strokeWidth="8" d="M43 92V67c0-61 98-61 98 0v24" />
+      <rect fill="#4c205d" x="34" y="79" width="17" height="35" rx="8" />
+      <rect fill="#4c205d" x="133" y="79" width="17" height="35" rx="8" />
     </svg>
   );
 }
 
-export function CandidateCard() {
-  const index = useWorkspaceStore((state) => state.run.applicationIndex);
+export function CandidateCard({ indexOverride }: { indexOverride?: number }) {
+  const currentIndex = useWorkspaceStore((state) => state.run.applicationIndex);
+  const index = indexOverride ?? currentIndex;
   const application = applications[index] ?? applications[0];
   return (
-    <article
-      aria-label="Current application"
-      className="self-center border border-border bg-card p-8 shadow-[0_20px_40px_var(--paper-shadow)]"
-    >
-      <div className="flex items-center justify-between border-b border-border pb-5">
-        <p className="font-mono text-label uppercase tracking-[0.1em] text-muted-foreground">
-          {vacancy.title} · Application #{application.number}
+    <article aria-label="Current application" className="bg-card px-4 py-3">
+      <div className="flex items-center justify-between pb-2 font-mono text-xs uppercase tracking-[0.065em] text-muted-foreground">
+        <p>
+          Application #{application.number} · {application.status}
         </p>
-        <span className="rounded-full bg-secondary px-3 py-1 font-mono text-label font-bold uppercase tracking-[0.1em]">
-          {application.status}
-        </span>
+        <span className="border border-border px-2">In review</span>
       </div>
-
-      <div className="flex items-center gap-6 py-6">
-        <CandidatePortrait name={application.name} />
-        <div>
-          <h2 className="font-serif text-[42px] leading-[0.98] tracking-[-0.05em]">
+      <div className="flex items-start gap-4">
+        <CandidatePortrait name={application.name} index={index} />
+        <div className="min-w-0 flex-1">
+          <h2 className="font-sans text-[40px] font-bold leading-[1.05] tracking-[-0.035em]">
             {application.name}
           </h2>
-          <p className="mt-3 font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground">
-            {application.location}
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{application.location}</p>
+          <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-base">
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">React</dt>
+              <dd className="font-semibold">{formatExperience(application.reactMonths)}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">TypeScript</dt>
+              <dd className="font-semibold">{formatExperience(application.typescriptMonths)}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">Testing</dt>
+              <dd className="font-semibold">{application.testing}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">Accessibility</dt>
+              <dd className="font-semibold">{application.accessibility}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">Teams led</dt>
+              <dd className="font-semibold">{application.teamsLed}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase text-muted-foreground">Last role</dt>
+              <dd className="font-semibold">{application.lastRole}</dd>
+            </div>
+            <div className="col-span-2">
+              <dt className="font-mono text-xs uppercase text-muted-foreground">Fast learner</dt>
+              <dd className="font-semibold">{application.learning}</dd>
+            </div>
+          </dl>
         </div>
       </div>
-
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-5 border-y border-border py-6">
-        <div>
-          <dt className="ui-label">React</dt>
-          <dd className="mt-1 text-xl">{formatExperience(application.reactMonths)}</dd>
-        </div>
-        <div>
-          <dt className="ui-label">TypeScript</dt>
-          <dd className="mt-1 text-xl">{formatExperience(application.typescriptMonths)}</dd>
-        </div>
-        <div>
-          <dt className="ui-label">Teams led</dt>
-          <dd className="mt-1 text-xl">{application.teamsLed}</dd>
-        </div>
-        <div>
-          <dt className="ui-label">Last role</dt>
-          <dd className="mt-1 text-xl">{application.lastRole}</dd>
-        </div>
-      </dl>
-
-      <div className="pt-5">
+      <div className="mt-4 border-l-2 border-brand pl-4">
         <p className="ui-label">From the cover letter</p>
-        <blockquote className="mt-3 border-l-2 border-brand pl-4 font-serif text-[21px] italic leading-snug">
+        <blockquote className="mt-1 font-serif text-xl italic leading-[1.2] text-brand-text">
           “{application.coverLetter}”
         </blockquote>
       </div>

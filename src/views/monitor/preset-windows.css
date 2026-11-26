@@ -1,0 +1,235 @@
+.preset-windows {
+  --preset-window-header: #ededea;
+  --preset-window-header-yellow: #fff4c9;
+  --preset-window-header-mint: #ddf4f3;
+  --preset-album-background: #f1e8f5;
+  --preset-window-purple: #48235a;
+  --preset-track-background: #dadad7;
+  --preset-interview-background: #e8eef9;
+  --preset-warmth-background: #f1efed;
+  --preset-pool-yellow: #f5df49;
+  --preset-pool-background: #deded9;
+  --preset-window-ink: #222;
+  --preset-window-paper: #fff;
+  --preset-track-progress: #777;
+  --preset-window-line: #ddd;
+  position: absolute;
+  inset: 96px 16px 52px;
+  z-index: 10;
+  pointer-events: none;
+  --side-width: clamp(280px, (100% + 32px) * 0.25, 360px);
+  --side-inset: calc((100% - 560px) / 2 - var(--side-width) + 8px);
+}
+.preset-review {
+  transform: translateY(-80px);
+}
+.preset-window {
+  position: absolute;
+  width: var(--side-width);
+  border: 2px solid var(--preset-window-ink);
+  background: var(--preset-window-paper);
+  box-shadow: 3px 3px var(--preset-window-ink);
+  pointer-events: auto;
+  font-size: 14px;
+}
+.preset-window header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--preset-window-ink);
+  background: var(--preset-window-header);
+  font-weight: 600;
+}
+.preset-L1 header,
+.preset-B1 header {
+  background: var(--preset-window-header-yellow);
+}
+.preset-L2 .preset-body {
+  background: var(--preset-window-header-mint);
+}
+.preset-body {
+  padding: 12px;
+}
+.preset-body p {
+  margin: 6px 0;
+}
+.preset-body small {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+}
+.preset-L1 {
+  left: var(--side-inset);
+  top: 24px;
+}
+.preset-L2 {
+  left: calc(var(--side-inset) + 6px);
+  top: 290px;
+}
+.preset-L3 {
+  left: calc(var(--side-inset) + 12px);
+  top: 518px;
+}
+.preset-R1 {
+  right: var(--side-inset);
+  top: 24px;
+}
+.preset-R2 {
+  right: calc(var(--side-inset) + 6px);
+  top: 180px;
+}
+.preset-R3 {
+  right: calc(var(--side-inset) + 12px);
+  top: 400px;
+}
+.preset-R4 {
+  right: calc(var(--side-inset) + 18px);
+  top: 564px;
+}
+.preset-B1 {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 340px;
+  display: flex;
+}
+.preset-B1 header {
+  width: 50%;
+}
+.preset-B1 .preset-body {
+  flex: 1;
+  padding: 6px;
+}
+.track,
+.calm-content,
+.funnel-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.album-art {
+  width: 80px;
+  height: 88px;
+  padding: 8px;
+  background: var(--preset-album-background);
+  color: var(--preset-window-purple);
+  font:
+    22px/1 Georgia,
+    serif;
+}
+.album-art em {
+  font-size: 10px;
+}
+.track-progress,
+.warmth-bar {
+  height: 4px;
+  background: var(--preset-track-background);
+  margin-top: 8px;
+}
+.track-progress span {
+  display: block;
+  width: 51%;
+  height: 100%;
+  background: var(--preset-track-progress);
+}
+.track-time {
+  display: flex;
+  justify-content: space-between;
+  font: 10px monospace;
+}
+.breathing-ring {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 10px;
+}
+.interview-faces {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.interview-faces span {
+  padding: 8px;
+  background: var(--preset-interview-background);
+}
+.interview-faces b {
+  display: block;
+  font-size: 24px;
+}
+.channel-message {
+  background: var(--preset-warmth-background);
+  padding: 10px;
+  color: var(--preset-window-purple);
+}
+.warmth-label {
+  display: flex;
+  justify-content: space-between;
+}
+.warmth-bar {
+  margin: 16px 0;
+  background: linear-gradient(
+    to right,
+    var(--preset-window-purple) 68%,
+    var(--preset-window-line) 68%
+  );
+}
+.rejection-letter {
+  border: 1px solid var(--preset-window-line);
+  padding: 8px;
+}
+.funnel-content svg {
+  width: 35px;
+  fill: var(--preset-pool-yellow);
+  stroke: var(--preset-window-ink);
+}
+.preset-B1 {
+  bottom: 75px;
+  height: 70px;
+  overflow: hidden;
+}
+.preset-pool {
+  position: absolute;
+  left: -16px;
+  right: -16px;
+  bottom: 0;
+  height: 42px;
+  border: 2px solid var(--preset-window-ink);
+  background: var(--preset-pool-background);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px;
+}
+.preset-pool strong,
+.preset-pool small {
+  display: block;
+  line-height: 1;
+}
+.preset-pool small {
+  font-size: 9px;
+}
+.preset-pool em {
+  font:
+    italic 12px Georgia,
+    serif;
+}
+.preset-pool-people {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+.preset-pool-people svg {
+  width: 35px;
+  height: 31px;
+  fill: var(--preset-pool-yellow);
+  stroke: var(--preset-window-purple);
+  stroke-width: 3;
+}
+.preset-pool-people svg path:last-child {
+  fill: var(--preset-window-purple);
+}

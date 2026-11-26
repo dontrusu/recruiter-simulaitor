@@ -1,57 +1,34 @@
-import { SHOP_WIDTH } from '@/core/engine/camera';
+import { upgradeNames } from '@/content/shop';
+import { UpgradeIcon } from './UpgradeIcon';
 
-const upgrades = [
-  {
-    name: 'Smart Reject',
-    abbreviation: 'SR',
-    decoration: 'text-brand/10',
-    description: 'Find the reason you reach for most. Let the dashboard call it a strategy.',
-  },
-  {
-    name: 'Talent Pool',
-    abbreviation: 'TP',
-    decoration: 'text-foreground/5',
-    description: 'Keep familiar faces close, without making any promises about what comes next.',
-  },
-];
-
-export function Shop() {
+export function Shop({ colors = false }: { colors?: boolean }) {
   return (
-    <aside
-      className="shop-column h-full flex-none overflow-y-auto border-l border-border bg-secondary/60 px-6 py-10"
-      style={{ width: SHOP_WIDTH }}
-      aria-label="Shop"
-    >
-      <h2 className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-        Shop
-      </h2>
-      <div className="mt-7 space-y-5">
-        {upgrades.map((upgrade) => (
-          <article
-            key={upgrade.name}
-            className="relative min-h-[250px] overflow-hidden border border-border bg-card p-6 shadow-[0_8px_24px_var(--paper-shadow)]"
+    <section aria-label="Shop" className="min-w-0 w-full max-w-[600px]">
+      <ul
+        aria-label="Upgrade catalog"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            event.preventDefault();
+            event.currentTarget.scrollBy({ left: event.key === 'ArrowRight' ? 122 : -122 });
+          } else if (event.key === 'End' || event.key === 'Home') {
+            event.preventDefault();
+            event.currentTarget.scrollLeft =
+              event.key === 'End' ? event.currentTarget.scrollWidth : 0;
+          }
+        }}
+        className="flex gap-2 overflow-x-auto pb-1 focus-visible:outline-3 focus-visible:outline-brand"
+      >
+        {upgradeNames.map((name) => (
+          <li
+            key={name}
+            className="flex min-h-12 w-[114px] shrink-0 items-center gap-2 border border-border bg-background px-2 py-1 text-xs leading-[1.2]"
           >
-            <p className="ui-label">Upgrade preview</p>
-            <h3 className="mt-6 font-serif text-[32px] leading-none tracking-[-0.05em]">
-              {upgrade.name}
-            </h3>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              {upgrade.description}
-            </p>
-            {/* Decorative lettering is an illustration, not Shop content. */}
-            <svg
-              aria-hidden="true"
-              width="200"
-              height="100"
-              className={`absolute -right-2 -bottom-5 font-serif text-[100px] ${upgrade.decoration}`}
-            >
-              <text x="200" y="80" textAnchor="end" fill="currentColor">
-                {upgrade.abbreviation}
-              </text>
-            </svg>
-          </article>
+            <UpgradeIcon name={name} line={!colors} />
+            <span>{name}</span>
+          </li>
         ))}
-      </div>
-    </aside>
+      </ul>
+    </section>
   );
 }
