@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <g id="monitor">
+    <defs>
+      <linearGradient id="monitor-stand">
+        <stop stop-color="#746e8c" />
+        <stop offset=".14" stop-color="#746e8c" />
+        <stop offset=".14" stop-color="#aaa4bf" />
+        <stop offset=".34" stop-color="#aaa4bf" />
+        <stop offset=".34" stop-color="#d0cada" />
+        <stop offset=".67" stop-color="#d0cada" />
+        <stop offset=".67" stop-color="#aaa5bd" />
+        <stop offset=".85" stop-color="#aaa5bd" />
+        <stop offset=".85" stop-color="#7e7794" />
+      </linearGradient>
+      <linearGradient id="monitor-base" x2="0" y2="1">
+        <stop stop-color="#d8d7ed" />
+        <stop offset=".42" stop-color="#d8d7ed" />
+        <stop offset=".42" stop-color="#b3a9c7" />
+        <stop offset=".69" stop-color="#b3a9c7" />
+        <stop offset=".69" stop-color="#8d7e9e" />
+      </linearGradient>
+      <linearGradient id="monitor-bezel" x2="0" y2="1">
+        <stop stop-color="#645877" />
+        <stop offset=".02" stop-color="#453b5c" />
+        <stop offset=".55" stop-color="#453b5c" />
+        <stop offset=".55" stop-color="#382e4d" />
+        <stop offset=".96" stop-color="#382e4d" />
+        <stop offset=".96" stop-color="#2b223e" />
+      </linearGradient>
+      <filter id="monitor-shadow" x="-30%" y="-30%" width="160%" height="180%">
+        <feGaussianBlur stdDeviation="14" />
+      </filter>
+      <filter id="monitor-ledGlow" x="-300%" y="-300%" width="700%" height="700%">
+        <feGaussianBlur stdDeviation="3" />
+      </filter>
+      <pattern id="monitor-vents" width="6" height="3" patternUnits="userSpaceOnUse">
+        <rect width="3" height="3" fill="#211a31" />
+      </pattern>
+    </defs>
+    <ellipse cx="802" cy="790" rx="150" ry="13" fill="#2a1a1a" opacity=".25" filter="url(#monitor-shadow)" />
+    <rect x="741.5" y="710" width="117" height="68" fill="url(#monitor-stand)" stroke="#6e6384" stroke-width="3" />
+    <rect x="743" y="710" width="114" height="14" fill="#463953" opacity=".31" />
+    <ellipse cx="800" cy="783" rx="150" ry="11" fill="url(#monitor-base)" />
+    <path d="M650 783 A150 11 0 0 0 950 783" fill="none" stroke="#756b8a" stroke-width="2" />
+    <rect x="380" y="180" width="840" height="540" rx="10" fill="#8c9cdb" opacity=".22" filter="url(#monitor-shadow)" />
+    <rect x="387" y="200" width="840" height="540" rx="10" fill="#30233e" opacity=".38" filter="url(#monitor-shadow)" />
+    <rect x="382" y="184" width="840" height="540" rx="10" fill="#322840" opacity=".33" />
+    <rect x="381.5" y="181.5" width="837" height="537" rx="8.5" fill="url(#monitor-bezel)" stroke="#211e33" stroke-width="3" />
+    <path d="M384 710V190Q384 184 390 184H1210" fill="none" stroke="#9583a1" stroke-width="3" />
+    <path d="M1215 187V710Q1215 715 1210 715H385" fill="none" stroke="#211a31" stroke-width="4" />
+    <path d="M394 194H1206L1203 197H397Z" fill="#241e35" />
+    <path d="M394 706H1206L1203 703H397Z" fill="#827497" />
+    <path d="M394 194L397 197V703L394 706Z" fill="#2d253f" />
+    <path d="M1206 194L1203 197V703L1206 706Z" fill="#786a91" />
+    <rect x="774" y="712" width="52" height="3" fill="url(#monitor-vents)" />
+    <text x="405" y="714" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing=".9" fill="#dcd5e9">Talent.OS</text>
+    <rect x="1184" y="708" width="7" height="5" fill="#a2e6a9" filter="url(#monitor-ledGlow)" />
+    <rect x="1184" y="708" width="7" height="5" fill="#a2e6a9" />
+  </g>
+</svg>

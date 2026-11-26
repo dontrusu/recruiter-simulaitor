@@ -49,13 +49,13 @@ export function MonitorScreen({
       aria-label="Talent.OS Screen"
       data-screen-composition
       data-color-mode={colors ? 'color' : 'neutral'}
-      className="absolute left-0 top-0 flex flex-col overflow-hidden border-2 border-foreground bg-background font-sans text-foreground"
+      className="absolute left-0 top-0 flex flex-col overflow-hidden border-2 border-foreground bg-background pt-2 font-sans text-foreground"
       style={{
         width,
         height,
       }}
     >
-      <header className="mx-4 grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,600px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
+      <header className="grid h-[96px] shrink-0 grid-cols-[minmax(150px,1fr)_minmax(0,600px)_minmax(115px,1fr)] items-center gap-4 border-b-2 border-foreground px-3">
         <div>
           <span className="font-sans text-[32px] font-bold leading-[1.08] tracking-[-0.06em]">
             Talent.OS

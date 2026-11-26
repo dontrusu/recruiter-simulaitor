@@ -16,7 +16,7 @@ export function Taskbar() {
   return (
     <nav
       aria-label="Taskbar"
-      className="absolute right-4 bottom-12 left-4 flex h-[52px] items-center gap-4 border-2 border-foreground bg-background px-3 text-foreground"
+      className="absolute right-0 bottom-0 left-0 flex h-[52px] items-center gap-4 border-2 border-foreground bg-background px-3 text-foreground"
     >
       <span className="text-xs font-semibold">Talent.OS</span>
       <div

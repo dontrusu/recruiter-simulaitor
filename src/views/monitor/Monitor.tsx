@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { SCREEN_RECT } from '@/core/engine/camera';
+import monitorFrame from './monitor-frame.svg';
 
-/** Physical monitor and the live Screen in its 800×500 aperture. */
+/** Places the live Screen inside the monitor aperture. */
 export function Monitor({
   children,
   width,
@@ -13,12 +14,11 @@ export function Monitor({
 }) {
   return (
     <>
-      <div className="room-stand" aria-hidden="true" />
-      <div className="room-base" aria-hidden="true" />
-      <div className="room-monitor" aria-hidden="true">
-        <span className="monitor-name">Talent.OS</span>
-        <span className="monitor-power" />
-      </div>
+      <img
+        src={monitorFrame}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        alt=""
+      />
       <div
         className="absolute z-2 overflow-hidden bg-background"
         style={{
