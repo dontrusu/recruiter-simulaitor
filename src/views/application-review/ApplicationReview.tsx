@@ -3,6 +3,7 @@ import { CandidateCard } from './CandidateCard';
 import { ReasonChoices } from './ReasonChoices';
 import { VacancyPanel } from './VacancyPanel';
 import { Meadow } from './Meadow';
+import './rejection-feedback.css';
 
 export function ApplicationReview({ wallpaper = false }: { wallpaper?: boolean }) {
   const rejected = useWorkspaceStore((state) => state.run.rejected);

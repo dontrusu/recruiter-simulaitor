@@ -1,0 +1,20 @@
+.rejection-credit {
+  position: absolute;
+  right: 100%;
+  top: 0;
+  font-size: 12px;
+  animation: credit-accent 420ms ease both;
+}
+@keyframes credit-accent {
+  from {
+    transform: translateY(-8px) scale(1.45);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rejection-credit {
+    display: none;
+  }
+}

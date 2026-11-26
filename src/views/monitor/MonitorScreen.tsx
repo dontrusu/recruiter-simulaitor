@@ -4,6 +4,8 @@ import { ApplicationReview } from '@/views/application-review/ApplicationReview'
 import { Shop } from '@/views/shop/Shop';
 import { Taskbar } from './Taskbar';
 import { PresetWindows } from './PresetWindows';
+import './monitor-screen.css';
+import './rejection-credit.css';
 
 function Counter({
   label,
@@ -46,7 +48,8 @@ export function MonitorScreen({
     <main
       aria-label="Talent.OS Screen"
       data-screen-composition
-      className={`absolute left-0 top-0 flex flex-col overflow-hidden border-2 border-foreground bg-background font-sans text-foreground ${colors ? 'screen-colors' : ''}`}
+      data-color-mode={colors ? 'color' : 'neutral'}
+      className="absolute left-0 top-0 flex flex-col overflow-hidden border-2 border-foreground bg-background font-sans text-foreground"
       style={{
         width,
         height,

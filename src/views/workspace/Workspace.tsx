@@ -55,7 +55,7 @@ export function Workspace() {
           style={{ background: cameraState === 'Room' ? '#c6bdd1' : undefined }}
         >
           <div
-            className="camera-scene absolute top-0 left-0"
+            className="absolute top-0 left-0 motion-reduce:!transition-none"
             style={{
               width: ROOM_WIDTH,
               height: ROOM_HEIGHT,

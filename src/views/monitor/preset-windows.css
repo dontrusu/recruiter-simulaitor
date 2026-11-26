@@ -1,4 +1,18 @@
 .preset-windows {
+  --preset-window-header: #ededea;
+  --preset-window-header-yellow: #fff4c9;
+  --preset-window-header-mint: #ddf4f3;
+  --preset-album-background: #f1e8f5;
+  --preset-window-purple: #48235a;
+  --preset-track-background: #dadad7;
+  --preset-interview-background: #e8eef9;
+  --preset-warmth-background: #f1efed;
+  --preset-pool-yellow: #f5df49;
+  --preset-pool-background: #deded9;
+  --preset-window-ink: #222;
+  --preset-window-paper: #fff;
+  --preset-track-progress: #777;
+  --preset-window-line: #ddd;
   position: absolute;
   inset: 96px 16px 100px;
   z-index: 10;
